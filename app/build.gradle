@@ -24,4 +24,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile files('libs/butterknife-6.1.0.jar')
     compile files('libs/jxl.jar')
+    compile files('libs/Msc.jar')
+    compile files('libs/Sunflower.jar')
 }
