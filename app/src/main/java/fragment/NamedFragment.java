@@ -7,9 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.unique.countsystem.R;
+public class NamedFragment extends Fragment {
 
-
-public class InputFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -19,7 +18,8 @@ public class InputFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_input, container, false);
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_named, container, false);
     }
 
 }
