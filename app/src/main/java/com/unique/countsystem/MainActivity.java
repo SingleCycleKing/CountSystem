@@ -1,12 +1,13 @@
 package com.unique.countsystem;
 
 import android.content.res.Configuration;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,9 +17,7 @@ import android.widget.ListView;
 import adapter.MenuAdapter;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.InjectViews;
 import utils.BaseUtils;
-import view.CustomViewPager;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -73,22 +72,35 @@ public class MainActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
+        final String[] fragments = getResources().getStringArray(R.array.fragment);
+        getSupportFragmentManager().beginTransaction().replace(R.id.content, Fragment.instantiate(MainActivity.this, fragments[0])).commit();
+
         menuList.setAdapter(new MenuAdapter(this));
         menuList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.content, Fragment.instantiate(MainActivity.this, fragments[0])).commit();
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
                         break;
                     case 1:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.content, Fragment.instantiate(MainActivity.this, fragments[1])).commit();
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
                         break;
                     case 2:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.content, Fragment.instantiate(MainActivity.this, fragments[2])).commit();
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
                         break;
                     case 3:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.content, Fragment.instantiate(MainActivity.this, fragments[3])).commit();
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
                         break;
                 }
             }
         });
+
+
     }
 
 
