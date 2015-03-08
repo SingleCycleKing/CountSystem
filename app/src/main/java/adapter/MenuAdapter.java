@@ -11,6 +11,7 @@ import com.unique.countsystem.R;
 
 /**
  * Created by Unique Studio on 15/3/6.
+ * adapter
  */
 public class MenuAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
