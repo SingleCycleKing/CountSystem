@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.unique.countsystem.R;
 
+import butterknife.InjectView;
+
 /**
  * Created by Unique Studio on 15/3/6.
  * adapter
@@ -43,7 +45,6 @@ public class MenuAdapter extends BaseAdapter {
         if (null == convertView) {
             convertView = mInflater.inflate(R.layout.menu_item, null);
             viewHolder = new ViewHolder();
-            viewHolder.title = (TextView) convertView.findViewById(R.id.menu_title);
             convertView.setTag(viewHolder);
         } else viewHolder = (ViewHolder) convertView.getTag();
         viewHolder.title.setText(menus[position]);
@@ -51,6 +52,7 @@ public class MenuAdapter extends BaseAdapter {
     }
 
     private class ViewHolder {
+        @InjectView(R.id.menu_title)
         TextView title;
     }
 }

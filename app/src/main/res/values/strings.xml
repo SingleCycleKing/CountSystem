@@ -6,6 +6,7 @@
         <item>导入导出</item>
         <item>点名</item>
         <item>总览</item>
+        <item>关于</item>
         <item>设置</item>
     </string-array>
     <string name="title_activity_base">BaseActivity</string>
@@ -15,6 +16,7 @@
     <item>fragment.InputFragment</item>
     <item>fragment.NamedFragment</item>
     <item>fragment.OverviewFragment</item>
+    <item>fragment.AboutFragment</item>
 </string-array>
 
 <!-- TODO: Remove or change this placeholder text -->
