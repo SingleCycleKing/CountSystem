@@ -1,12 +1,67 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="com.unique.countsystem.fragment.NamedFragment">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/window_default_padding"
+    tools:context="com.unique.countsystem.fragment.NamedFragment">
 
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-    <view.CustomViewPager
-        android:id="@+id/named_view_pager"
+
+    <TextView
+        android:id="@+id/named_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3月20日"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/named_week"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="第三周"
+        android:textSize="20sp" />
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/course"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:id="@+id/named_course"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/named_student_number"
+            android:textSize="20sp" />
+
+        <com.unique.countsystem.view.ColorfulPicker
+            android:id="@+id/named_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@color/gray" />
+
+        <TextView
+            android:id="@+id/named_start"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/circle_background"
+            android:gravity="center"
+            android:text="@string/click"
+            android:textSize="30sp" />
+    </LinearLayout>
+</RelativeLayout>

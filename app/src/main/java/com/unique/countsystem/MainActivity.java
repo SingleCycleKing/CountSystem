@@ -15,8 +15,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.unique.countsystem.adapter.MenuAdapter;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+
 import com.unique.countsystem.utils.BaseUtils;
 
 
@@ -33,8 +35,8 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.inject(this);
 
+        ButterKnife.inject(this);
         BaseUtils.setToolbar(mToolbar, this);
 
         mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {

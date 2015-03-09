@@ -2,4 +2,6 @@
 <resources>
     <color name="white">#fff</color>
     <color name="theme_green">#32be6c</color>
+    <color name="divider">#ffebebeb</color>
+    <color name="gray">#ffd7d7d7</color>
 </resources>
