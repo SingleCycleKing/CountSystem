@@ -12,16 +12,21 @@
     <string name="title_activity_base">BaseActivity</string>
     <string name="drawer_open">open</string>
     <string name="drawer_close">close</string>
-<string-array name="fragment">
-    <item>fragment.InputFragment</item>
-    <item>fragment.NamedFragment</item>
-    <item>fragment.OverviewFragment</item>
-    <item>fragment.AboutFragment</item>
-</string-array>
+    <string-array name="fragment">
+        <item>fragment.InputFragment</item>
+        <item>fragment.NamedFragment</item>
+        <item>fragment.OverviewFragment</item>
+        <item>fragment.AboutFragment</item>
+    </string-array>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_setting">SettingActivity</string>
     <string name="setting_input_button">导入</string>
     <string name="setting_out_button">导出</string>
+    <string name="fragment_overview_text">总览表</string>
+    <string name="fragment_chart_text">统计图</string>
+    <string name="fragment_summary_text">总表</string>
+
+
 </resources>
