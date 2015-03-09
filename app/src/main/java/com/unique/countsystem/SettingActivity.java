@@ -12,5 +12,4 @@ public class SettingActivity extends ActionBarActivity {
         setContentView(R.layout.activity_setting);
     }
 
-
 }
