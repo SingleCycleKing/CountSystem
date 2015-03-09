@@ -14,10 +14,10 @@ import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
-import adapter.MenuAdapter;
+import com.unique.countsystem.adapter.MenuAdapter;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import utils.BaseUtils;
+import com.unique.countsystem.utils.BaseUtils;
 
 
 public class MainActivity extends ActionBarActivity {

@@ -1,4 +1,4 @@
-package adapter;
+package com.unique.countsystem.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
