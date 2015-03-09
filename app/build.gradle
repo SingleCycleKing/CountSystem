@@ -23,5 +23,14 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:21.0.3'
+<<<<<<< HEAD
     compile 'de.greenrobot:greendao:1.3.1'
+=======
+    compile 'com.android.support:cardview-v7:21.0.3'
+    compile 'com.android.support:recyclerview-v7:21.0.3'
+    compile files('libs/butterknife-6.1.0.jar')
+    compile files('libs/jxl.jar')
+    compile files('libs/Msc.jar')
+    compile files('libs/Sunflower.jar')
+>>>>>>> 55b65899548a9caa348e87bc9d61b2eecb4ca04d
 }

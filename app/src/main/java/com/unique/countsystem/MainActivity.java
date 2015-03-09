@@ -1,5 +1,6 @@
 package com.unique.countsystem;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,7 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import com.unique.countsystem.adapter.MenuAdapter;
@@ -21,8 +21,6 @@ import com.unique.countsystem.utils.BaseUtils;
 
 
 public class MainActivity extends ActionBarActivity {
-    @InjectView(R.id.content)
-    FrameLayout content;
     @InjectView(R.id.my_toolbar)
     Toolbar mToolbar;
     @InjectView(R.id.left_drawer)
@@ -79,6 +77,7 @@ public class MainActivity extends ActionBarActivity {
         menuList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mToolbar.setTitle(getResources().getStringArray(R.array.menu)[position]);
                 switch (position) {
                     case 0:
                         getSupportFragmentManager().beginTransaction().replace(R.id.content, Fragment.instantiate(MainActivity.this, fragments[0])).commit();
@@ -94,6 +93,10 @@ public class MainActivity extends ActionBarActivity {
                         break;
                     case 3:
                         getSupportFragmentManager().beginTransaction().replace(R.id.content, Fragment.instantiate(MainActivity.this, fragments[3])).commit();
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
+                        break;
+                    case 4:
+                        startActivity(new Intent(MainActivity.this, SettingActivity.class));
                         mDrawerLayout.closeDrawer(GravityCompat.START);
                         break;
                 }
