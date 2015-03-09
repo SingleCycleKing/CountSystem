@@ -7,11 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.unique.countsystem.R;
+import com.unique.countsystem.view.CustomViewPager;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import utils.DebugLog;
-import view.CustomViewPager;
 
 public class NamedFragment extends Fragment {
     @InjectView(R.id.named_view_pager)

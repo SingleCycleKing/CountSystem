@@ -27,9 +27,6 @@ public class OverviewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-<<<<<<< HEAD:app/src/main/java/com/unique/countsystem/fragment/OverviewFragment.java
-        return inflater.inflate(R.layout.fragment_overview, container, false);
-=======
         // Inflate the layout for this fragment
         View overView = inflater.inflate(R.layout.fragment_overview,container,false) ;
         init(overView) ;
@@ -60,7 +57,6 @@ public class OverviewFragment extends Fragment {
 //        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL));//这里用线性宫格显示 类似于瀑布流
 //       mRecyclerView.setAdapter(new NormalRecyclerViewAdapter(getActivity()));
 
->>>>>>> 55b65899548a9caa348e87bc9d61b2eecb4ca04d:app/src/main/java/fragment/OverviewFragment.java
     }
 
 
