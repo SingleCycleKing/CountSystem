@@ -1,4 +1,4 @@
-package adapter;
+package com.unique.countsystem.adapter;
 
 
 import android.content.Context;
@@ -56,7 +56,7 @@ public class OverViewAdapter extends RecyclerView.Adapter<OverViewAdapter.TextVi
     }
 
     public static class TextViewHolder extends RecyclerView.ViewHolder {
-        @InjectView(R.id.zc_info_text)
+        @InjectView(R.id.info_text)
         TextView mTextView;
 
         TextViewHolder(View view) {

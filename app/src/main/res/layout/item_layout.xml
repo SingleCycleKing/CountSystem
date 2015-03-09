@@ -15,7 +15,7 @@
         card_view:cardCornerRadius="4dp">
 
         <TextView
-            android:id="@+id/zc_info_text"
+            android:id="@+id/info_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

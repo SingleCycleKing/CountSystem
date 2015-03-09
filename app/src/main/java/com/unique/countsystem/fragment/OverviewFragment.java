@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import com.unique.countsystem.R;
 
-import adapter.OverViewAdapter;
+import com.unique.countsystem.adapter.OverViewAdapter;
 import butterknife.ButterKnife;
 
 public class OverviewFragment extends Fragment {
@@ -38,7 +38,7 @@ public class OverviewFragment extends Fragment {
 
     private void init(View overView) {
 
-        mRecyclerView = (RecyclerView)overView.findViewById(R.id.zc_recycler_view) ;
+        mRecyclerView = (RecyclerView)overView.findViewById(R.id.recycler_view) ;
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
