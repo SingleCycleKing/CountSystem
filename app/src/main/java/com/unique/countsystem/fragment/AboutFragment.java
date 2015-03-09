@@ -29,3 +29,7 @@ public class AboutFragment extends Fragment {
 
 
 }
+
+
+//Error:Execution failed for task ':app:processDebugResources'.
+  //      > com.android.ide.common.process.ProcessException: org.gradle.process.internal.ExecException: Process 'command '/home/chen/sdk/build-tools/21.1.2/aapt'' finished with non-zero exit value 1

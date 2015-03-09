@@ -51,7 +51,7 @@ public class MenuAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private class ViewHolder {
+        class ViewHolder {
         @InjectView(R.id.menu_title)
         TextView title;
     }

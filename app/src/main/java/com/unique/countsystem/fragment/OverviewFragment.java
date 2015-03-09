@@ -28,7 +28,7 @@ public class OverviewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fragment_overview, container, false);
+ //       return inflater.inflate(R.layout.fragment_overview, container, false);
         // Inflate the layout for this fragment
         View overView = inflater.inflate(R.layout.fragment_overview,container,false) ;
         init(overView) ;
