@@ -73,9 +73,9 @@ public class studentDao extends AbstractDao<student, Long> {
         }
         stmt.bindLong(3, entity.getStudentId());
  
-        Integer _class = entity.get_class();
+        String _class = entity.get_class();
         if (_class != null) {
-            stmt.bindLong(4, _class);
+            stmt.bindString(4, _class);
         }
     }
 
@@ -98,7 +98,7 @@ public class studentDao extends AbstractDao<student, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // name
             cursor.getInt(offset + 2), // studentId
-            cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3) // _class
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // _class
         );
         return entity;
     }
@@ -109,7 +109,7 @@ public class studentDao extends AbstractDao<student, Long> {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setStudentId(cursor.getInt(offset + 2));
-        entity.set_class(cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3));
+        entity.set_class(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
      }
     
     /** @inheritdoc */

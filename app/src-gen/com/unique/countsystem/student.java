@@ -13,7 +13,7 @@ public class student {
     private Long id;
     private String name;
     private int studentId;
-    private Integer _class;
+    private String _class;
 
     /** Used to resolve relations */
     private transient DaoSession daoSession;
@@ -30,7 +30,7 @@ public class student {
         this.id = id;
     }
 
-    public student(Long id, String name, int studentId, Integer _class) {
+    public student(Long id, String name, int studentId, String _class) {
         this.id = id;
         this.name = name;
         this.studentId = studentId;
@@ -67,11 +67,11 @@ public class student {
         this.studentId = studentId;
     }
 
-    public Integer get_class() {
+    public String get_class() {
         return _class;
     }
 
-    public void set_class(Integer _class) {
+    public void set_class(String _class) {
         this._class = _class;
     }
 
