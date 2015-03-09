@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.unique.countsystem.R;
 
+import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
@@ -44,15 +45,19 @@ public class MenuAdapter extends BaseAdapter {
         ViewHolder viewHolder;
         if (null == convertView) {
             convertView = mInflater.inflate(R.layout.menu_item, null);
-            viewHolder = new ViewHolder();
+            viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else viewHolder = (ViewHolder) convertView.getTag();
         viewHolder.title.setText(menus[position]);
         return convertView;
     }
 
-        class ViewHolder {
+    static class ViewHolder {
         @InjectView(R.id.menu_title)
         TextView title;
+
+        public ViewHolder(View view) {
+            ButterKnife.inject(this, view);
+        }
     }
 }

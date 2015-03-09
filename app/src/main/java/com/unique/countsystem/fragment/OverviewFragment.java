@@ -12,13 +12,18 @@ import android.view.ViewGroup;
 import com.unique.countsystem.R;
 
 import com.unique.countsystem.adapter.OverViewAdapter;
+
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 public class OverviewFragment extends Fragment {
 
-    private RecyclerView mRecyclerView;
+    @InjectView(R.id.recycler_view)
+    RecyclerView mRecyclerView;
+
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
     public OverviewFragment() {
         // Required empty public constructor
     }
@@ -28,16 +33,14 @@ public class OverviewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
- //       return inflater.inflate(R.layout.fragment_overview, container, false);
+        //       return inflater.inflate(R.layout.fragment_overview, container, false);
         // Inflate the layout for this fragment
-        View overView = inflater.inflate(R.layout.fragment_overview,container,false) ;
-        init(overView) ;
-        return overView ;
+        View overView = inflater.inflate(R.layout.fragment_overview, container, false);
+        init(overView);
+        return overView;
     }
 
     private void init(View overView) {
-
-        mRecyclerView = (RecyclerView)overView.findViewById(R.id.recycler_view) ;
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -54,7 +57,7 @@ public class OverviewFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
 
 
- //       mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));//这里用线性显示 类似于listview
+        //       mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));//这里用线性显示 类似于listview
 //        mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));//这里用线性宫格显示 类似于grid view
 //        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL));//这里用线性宫格显示 类似于瀑布流
 //       mRecyclerView.setAdapter(new NormalRecyclerViewAdapter(getActivity()));
