@@ -56,6 +56,13 @@ public class OverViewAdapter extends RecyclerView.Adapter<OverViewAdapter.TextVi
 
 
     @Override
+    public int getItemViewType(int position) {
+
+        return super.getItemViewType(position);
+
+    }
+
+    @Override
     public int getItemCount() {
         return myDataset == null ? 0 : myDataset.length;
     }
