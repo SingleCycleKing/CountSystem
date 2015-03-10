@@ -1,4 +1,4 @@
-package com.unique.countsystem.view;
+package com.unique.countsystem;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -7,19 +7,19 @@ import android.view.MenuItem;
 
 import com.unique.countsystem.R;
 
-public class ChartActivity extends ActionBarActivity {
+public class SummaryActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chart);
+        setContentView(R.layout.activity_summary);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_chart, menu);
+        getMenuInflater().inflate(R.menu.menu_summary, menu);
         return true;
     }
 

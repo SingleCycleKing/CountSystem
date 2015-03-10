@@ -32,11 +32,11 @@
             android:label="@string/title_activity_named" >
         </activity>
         <activity
-            android:name=".view.ChartActivity"
+            android:name=".ChartActivity"
             android:label="@string/title_activity_chart" >
         </activity>
         <activity
-            android:name=".view.SummaryActivity"
+            android:name=".SummaryActivity"
             android:label="@string/title_activity_summary" >
         </activity>
     </application>
