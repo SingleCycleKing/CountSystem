@@ -1,7 +1,6 @@
 package com.unique.countsystem.database;
 
 import android.content.Context;
-import android.database.Cursor;
 
 import com.unique.countsystem.DaoMaster;
 import com.unique.countsystem.DaoSession;
@@ -10,14 +9,10 @@ import com.unique.countsystem.record;
 import com.unique.countsystem.recordDao;
 import com.unique.countsystem.student;
 import com.unique.countsystem.studentDao;
-import com.unique.countsystem.utils.DAYUtils;
+import com.unique.countsystem.utils.DayUtils;
 
-import java.util.IllegalFormatException;
 import java.util.List;
 import java.util.regex.Pattern;
-
-import de.greenrobot.dao.query.QueryBuilder;
-import de.greenrobot.dao.query.WhereCondition;
 
 /**
  * DatabaseHelper
@@ -183,7 +178,7 @@ public class DbHelper {
      * @exception java.lang.IllegalArgumentException if day is incorrect.
      */
     public List<record> getAbsenceRecordsByDay(String day){
-        int date = DAYUtils.fromString(day);
+        int date = DayUtils.fromString(day);
         return recordDao.queryBuilder().where(com.unique.countsystem.recordDao.Properties.Date.eq(date)).list();
     }
 
@@ -216,12 +211,12 @@ public class DbHelper {
     /**
      * Create model of absence record
      *
-     * @param date {@link com.unique.countsystem.utils.DAYUtils}
+     * @param date {@link com.unique.countsystem.utils.DayUtils}
      * @param type {@link absenceType}
      * @return record instance
      */
     public static record createAbsenceRecordModel(String date, absenceType type) throws IllegalArgumentException{
-        return new record(null,DAYUtils.fromString(date), type.toInteger());
+        return new record(null, DayUtils.fromString(date), type.toInteger());
     }
 
 

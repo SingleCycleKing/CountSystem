@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
  * PROJECT_NAME: CountSystem
  * DATE: 2015/3/9
  */
-public class DAYUtils {
+public class DayUtils {
     /**
      * parse DAY from String to Integer
      * @param time pattern should be "20130405"
