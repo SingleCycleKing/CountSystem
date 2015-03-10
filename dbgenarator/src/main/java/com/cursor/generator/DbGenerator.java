@@ -1,5 +1,6 @@
 package com.cursor.generator;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import de.greenrobot.daogenerator.DaoGenerator;

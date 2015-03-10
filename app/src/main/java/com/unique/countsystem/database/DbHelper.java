@@ -224,7 +224,6 @@ public class DbHelper {
         return new record(null,DAYUtils.fromString(date), type.toInteger());
     }
 
-    //总人数 点名次数 某个学生有几次没到
 
     /**
      * @return sum count of students
@@ -240,6 +239,16 @@ public class DbHelper {
         check_class(_class);
         String DISTINCT_DATE_FROM_RECORD = "SELECT DISTINCT " + com.unique.countsystem.recordDao.Properties.Date + " FROM " + com.unique.countsystem.recordDao.TABLENAME;
         return getDaoSession(appContext).getDatabase().rawQuery(DISTINCT_DATE_FROM_RECORD, null).getColumnCount();
+    }
+
+    /**
+     * use studentId
+     * @param studentId U201317485
+     * @return int
+     */
+    public int getSumAbsenceTimesOfAStudent(String studentId){
+        int studentIdInt = parseStudentIdFromString(studentId);
+        return recordDao._queryStudent_AbsenceRecords(studentIdInt).size();
     }
 
     // PRIVATE METHODS =================================================
