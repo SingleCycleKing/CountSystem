@@ -2,7 +2,6 @@ package com.unique.countsystem.database;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import jxl.Sheet;
 import jxl.Workbook;
@@ -40,11 +39,36 @@ public class ExcelHandler {
      * @throws BiffException 文件损坏或格式错误
      */
     public void ReadExcel(File file) throws IOException, BiffException {
-        if (file==null||!file.isFile()){
-            return;
+        if (file==null||!file.exists()||!file.isFile()){
+            throw new IllegalArgumentException("ReadExcel error: 文件可能损坏");
         }
         Workbook workbook = Workbook.getWorkbook(file);
         Sheet sheet = workbook.getSheet(0);
+        int rowsNumber = sheet.getRows();
+        int nullColums=0;
+        for(int j =0; j <=rowsNumber; j++){
+
+        }
+    }
+
+    private int getRightRows(Sheet sheet){
+        if (sheet == null){
+            return 0;
+        }
+        int rsCols = sheet.getColumns();
+        int rsRows = sheet.getRows();
+        int nullCellNum;
+        for(int i=1;i<rsRows;i++){
+            nullCellNum = 0;
+            for (int j = 0; j < rsCols; j++) {
+                String val = sheet.getCell(j, i).getContents();
+            }
+        }
+        return 1;
+    }
+
+
+    public void WriteExcel(File file) throws IOException, BiffException {
 
     }
 

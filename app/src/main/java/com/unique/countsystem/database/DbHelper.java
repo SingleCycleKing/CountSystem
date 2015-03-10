@@ -55,6 +55,7 @@ public class DbHelper {
      */
     public static void preInitHelper(Context context){
         getDaoSession(context);
+        sInstance.appContext =context;
     }
 
     //Singleton method
@@ -247,6 +248,13 @@ public class DbHelper {
     }
 
     // PRIVATE METHODS =================================================
+
+    /**
+     * forbid the new DbHelper()
+     */
+    private DbHelper(){
+
+    }
 
     private static int parseStudentIdFromString(String studentId) throws IllegalArgumentException{
         studentId = studentId.trim();
