@@ -9,9 +9,6 @@ import android.view.ViewGroup;
 
 import com.unique.countsystem.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class FinishedFragment extends Fragment {
 
 
