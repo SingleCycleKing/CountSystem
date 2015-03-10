@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/CountSystem.iml" filepath="$PROJECT_DIR$/CountSystem.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/dbgenarator/dbgenarator.iml" filepath="$PROJECT_DIR$/dbgenarator/dbgenarator.iml" />
-      <module fileurl="file://$PROJECT_DIR$/dbgenarator/dbgenarator.iml" filepath="$PROJECT_DIR$/dbgenarator/dbgenarator.iml" />
     </modules>
   </component>
 </project>

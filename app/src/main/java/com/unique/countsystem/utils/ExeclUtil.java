@@ -12,9 +12,7 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 
-/**
- * Created by Unique Studio on 15/3/6.
- */
+
 public class ExeclUtil {
     public static ArrayList readExecl(String path, int column, int row) {
         ArrayList<String> mStrings = new ArrayList<>();

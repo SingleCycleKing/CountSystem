@@ -34,4 +34,7 @@
     <string name="action_settings">Settings</string>
     <string name="drawer_open">open</string>
     <string name="drawer_close">close</string>
+    <string name="ask_for_leave">请假</string>
+    <string name="absence">逃课</string>
+    <string name="arrived">已到</string>
 </resources>
