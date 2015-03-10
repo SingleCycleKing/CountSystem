@@ -19,7 +19,9 @@ import com.unique.countsystem.adapter.MenuAdapter;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
+import com.unique.countsystem.database.DbHelper;
 import com.unique.countsystem.utils.BaseUtils;
+import com.unique.countsystem.utils.DebugLog;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -38,7 +40,6 @@ public class MainActivity extends ActionBarActivity {
 
         ButterKnife.inject(this);
         BaseUtils.setToolbar(mToolbar, this);
-
         mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -47,6 +48,7 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
+//        DbHelper.preInitHelper(this);
         init();
     }
 
