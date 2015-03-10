@@ -1,0 +1,96 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/window_default_padding"
+    tools:context="com.unique.countsystem.fragment.RollCallFragment">
+
+    <TextView
+        android:id="@+id/roll_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="雷丹雄"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/roll_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/roll_name"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:text="学号：U201317485"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/roll_absence_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/roll_id"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:text="已缺课次数:10次"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/roll_leave_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/roll_absence_number"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:text="已请假次数:10次"
+        android:textSize="20sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/roll_leave_number"
+        android:layout_margin="20dp">
+
+
+        <SeekBar
+            android:id="@+id/sliding_bar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/seek_bar_background"
+            android:progressDrawable="@android:color/transparent"
+            android:thumb="@drawable/progressbar"
+            android:thumbOffset="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:text="@string/ask_for_leave"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="@string/absence"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/roll_arrived"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sliding_bar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:background="@color/gray"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            android:text="@string/arrived"
+            android:textSize="20sp" />
+    </RelativeLayout>
+</RelativeLayout>

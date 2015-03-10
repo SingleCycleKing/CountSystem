@@ -31,8 +31,8 @@ public class ColorfulPicker extends FrameLayout {
         mNumberPicker.setValue(10);
     }
 
-    public void getNumber() {
-        mNumberPicker.getValue();
+    public int getNumber() {
+        return mNumberPicker.getValue();
     }
 
     public void setNumber(int value) {
