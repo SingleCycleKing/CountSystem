@@ -26,7 +26,7 @@ public class RollCallFragment extends Fragment {
     private int position = 0;
 
     @OnClick(R.id.roll_arrived)
-    private void arrive() {
+    public void arrive() {
         while (position < 10) {
             setData();
             position++;

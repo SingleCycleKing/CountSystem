@@ -36,6 +36,8 @@ public class OverviewFragment extends Fragment {
         //       return inflater.inflate(R.layout.fragment_overview, container, false);
         // Inflate the layout for this fragment
         View overView = inflater.inflate(R.layout.fragment_overview, container, false);
+        //in fragment use this ,in activity use ButterKnife.inject(activity.this)；
+        ButterKnife.inject(this,overView);
         init(overView);
         return overView;
     }
@@ -44,9 +46,10 @@ public class OverviewFragment extends Fragment {
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
+
         mRecyclerView.setHasFixedSize(true);
 
-        ButterKnife.inject(getActivity());
+
 
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(getActivity());
