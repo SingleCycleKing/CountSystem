@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string-array name="menu">
@@ -7,7 +8,6 @@
         <item>关于</item>
         <item>设置</item>
     </string-array>
-   
     <string-array name="fragment">
         <item>com.unique.countsystem.fragment.InputFragment</item>
         <item>com.unique.countsystem.fragment.NamedFragment</item>
@@ -25,10 +25,8 @@
     <string name="fragment_overview_text">总览表</string>
     <string name="fragment_chart_text">统计图</string>
     <string name="fragment_summary_text">总表</string>
-
     <string name="title_activity_setting">设置</string>
     <string name="title_activity_named">点名</string>
-
     <string name="app_name">CountSystem</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -37,4 +35,7 @@
     <string name="ask_for_leave">请假</string>
     <string name="truancy">逃课</string>
     <string name="arrived">已到</string>
+    <string name="title_activity_chart">ChartActivity</string>
+    <string name="title_activity_summary">SummaryActivity</string>
+
 </resources>

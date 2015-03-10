@@ -14,7 +14,7 @@ public class OnRecyclerItemClickListener implements RecyclerView.OnItemTouchList
         mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onSingleTapUp(MotionEvent e) {
-                return super.onSingleTapUp(e);
+                return true;
             }
         });
     }

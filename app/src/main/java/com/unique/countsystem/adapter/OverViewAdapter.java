@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.unique.countsystem.R;
-import com.unique.countsystem.fragment.ChartFragment;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -79,23 +78,9 @@ public class OverViewAdapter extends RecyclerView.Adapter<OverViewAdapter.TextVi
                 @Override
                 public void onClick(View v) {
                     position = getPosition();
-                    switch (position) {
-                        case 0:
-
-                            break;
-                        case 1:
-
-                            break;
-                        default:
-
-                            break;
-                    }
                     Log.d("TextViewHolder", "onClick--> position = " + getPosition());
                 }
             });
         }
     }
 }
-//Fragment videoFragment = new VideoPlayerFragment();
-//FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-//transaction.add(R.id.video_fragment, videoFragment).commit();

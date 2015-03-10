@@ -1,11 +1,14 @@
 package com.unique.countsystem.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,7 +17,10 @@ import android.view.ViewGroup;
 import com.unique.countsystem.R;
 
 import com.unique.countsystem.adapter.OverViewAdapter;
+import com.unique.countsystem.utils.DebugLog;
 import com.unique.countsystem.utils.OnRecyclerItemClickListener;
+import com.unique.countsystem.view.ChartActivity;
+import com.unique.countsystem.view.SummaryActivity;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -52,7 +58,27 @@ public class OverviewFragment extends Fragment {
         mRecyclerView.addOnItemTouchListener(new OnRecyclerItemClickListener(getActivity(), new OnRecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-            //TODO do what you should do
+                DebugLog.e("fuck");
+                //TODO do what you should do
+
+
+                switch (position) {
+                    case 0:
+
+                        Intent intentChart = new Intent(getActivity(), ChartActivity.class) ;
+                        startActivity(intentChart);
+                        //getActivity().overridePendingTransition(R.drawable.go_out,R.drawable.go_in);
+                        break;
+                    case 1:
+                        Intent intentSummary = new Intent(getActivity(), SummaryActivity.class) ;
+                        startActivity(intentSummary);
+                        //getActivity().overridePendingTransition(R.drawable.go_in, R.drawable.go_out);
+                        break;
+                    default:
+
+                        break;
+                }
+
             }
         }));
     }
@@ -63,7 +89,6 @@ public class OverviewFragment extends Fragment {
         // in content do not change the layout size of the RecyclerView
 
         mRecyclerView.setHasFixedSize(true);
-
 
 
         // use a linear layout manager
