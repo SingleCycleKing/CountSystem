@@ -2,35 +2,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context="com.unique.countsystem.ChartActivity">
 
-    <LinearLayout
-        android:id="@+id/fragment_overview_ll"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/fragment_overview_image_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/fragment_overview_ll"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:paddingLeft="10dp"/>
-        <TextView
-            android:id="@+id/fragment_overview_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="18sp"
-            android:text="@string/fragment_chart_text"
-            />
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/chart_image_view"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:background="@drawable/go_return"/>
+
+            <TextView
+                android:id="@+id/fragment_chart_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="25sp"
+                android:text="@string/fragment_chart_text" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/chart_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+
     </LinearLayout>
 
 </LinearLayout>

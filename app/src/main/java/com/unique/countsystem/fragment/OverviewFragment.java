@@ -51,7 +51,8 @@ public class OverviewFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        mRecyclerView.addOnItemTouchListener(new OnRecyclerItemClickListener(getActivity(), new OnRecyclerItemClickListener.OnItemClickListener() {
+        mRecyclerView.addOnItemTouchListener(new OnRecyclerItemClickListener(getActivity(),
+                new OnRecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
 

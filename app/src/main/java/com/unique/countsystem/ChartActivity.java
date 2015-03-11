@@ -4,15 +4,35 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.unique.countsystem.R;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 public class ChartActivity extends ActionBarActivity {
 
+    @InjectView(R.id.chart_image_view)
+    ImageView chartImageView ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart);
+        ButterKnife.inject(this) ;
+        init();
+    }
+
+    private void init() {
+
+        chartImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish() ;
+            }
+        });
+
     }
 
 
