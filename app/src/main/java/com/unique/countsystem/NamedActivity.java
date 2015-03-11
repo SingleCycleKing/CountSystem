@@ -27,6 +27,7 @@ public class NamedActivity extends ActionBarActivity {
 
     private ArrayList<Class<?>> classes;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +35,7 @@ public class NamedActivity extends ActionBarActivity {
 
         ButterKnife.inject(this);
         BaseUtils.setToolbar(mToolbar, this);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         classes = new ArrayList<>();
         classes.add(RollCallFragment.class);
@@ -41,6 +43,26 @@ public class NamedActivity extends ActionBarActivity {
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.isAlterable(false);
 
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(BaseUtils.HAS_FINISHED_CALLING_ROLL);
+        registerReceiver(namedReceiver, intentFilter);
+    }
+
+    @Override
+    public Intent getSupportParentActivityIntent() {
+        finish();
+        return super.getSupportParentActivityIntent();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(namedReceiver);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(BaseUtils.HAS_FINISHED_CALLING_ROLL);
         registerReceiver(namedReceiver, intentFilter);

@@ -55,6 +55,7 @@
             android:background="@color/gray" />
 
         <TextView
+            android:textColor="@color/white"
             android:id="@+id/named_start"
             android:layout_width="75dp"
             android:layout_height="75dp"
