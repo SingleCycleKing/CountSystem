@@ -5,16 +5,13 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-
-import com.unique.countsystem.R;
 import com.unique.countsystem.adapter.SummaryAdapter;
-import com.unique.countsystem.fragment.OverviewFragment;
+import com.unique.countsystem.utils.BaseUtils;
 import com.unique.countsystem.utils.OnRecyclerItemClickListener;
-
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -22,15 +19,15 @@ public class SummaryActivity extends ActionBarActivity {
 
     @InjectView(R.id.summary_recycler_view)
     RecyclerView summaryRecyclerView;
-    @InjectView(R.id.summary_image_view)
-    ImageView summaryImageView;
-
+    @InjectView(R.id.my_toolbar)
+    Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary);
         ButterKnife.inject(this);
+        BaseUtils.setToolbar(mToolbar ,this) ;
         init();
     }
 
@@ -60,22 +57,17 @@ public class SummaryActivity extends ActionBarActivity {
 
     private void init() {
 
-        summaryImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent intent = new Intent(SummaryActivity.this, MainActivity.class);
-//                intent.putExtra("id",1) ;
-//                startActivity(intent);
-                finish();
-            }
-        });
-
-
         summaryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         summaryRecyclerView.setAdapter(new SummaryAdapter(this));
 
     }
 
+
+    @Override
+    public Intent getSupportParentActivityIntent() {
+        finish();
+        return super.getSupportParentActivityIntent();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

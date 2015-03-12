@@ -4,33 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.unique.countsystem.SummaryActivity">
-    <RelativeLayout
-        android:id="@+id/fragment_summary_ll"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        >
 
-        <ImageView
-            android:id="@+id/summary_image_view"
-            android:layout_width="?attr/actionBarSize"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:paddingRight="10dp"
-            android:paddingLeft="10dp"
-            android:background="@drawable/go_return"/>
-        <TextView
-            android:id="@+id/summary_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:textSize="25sp"
-            android:text="@string/fragment_summary_text"
-            />
-    </RelativeLayout>
+    <include layout="@layout/toolbar"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/summary_recycler_view"

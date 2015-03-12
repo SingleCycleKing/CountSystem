@@ -34,9 +34,9 @@
     <string name="ask_for_leave">请假</string>
     <string name="truancy">缺勤</string>
     <string name="arrived">到课</string>
-    <string name="title_activity_chart">ChartActivity</string>
-    <string name="title_activity_summary">SummaryActivity</string>
+    <string name="title_activity_chart">图表</string>
+    <string name="title_activity_summary">历史记录</string>
     <string name="name">姓名</string>
-    <string name="title_activity_absence">AbsenceActivity</string>
+    <string name="title_activity_absence">缺勤记录</string>
 
 </resources>
