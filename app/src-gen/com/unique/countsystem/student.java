@@ -8,29 +8,29 @@ import de.greenrobot.dao.DaoException;
 /**
  * Entity mapped to table STUDENT.
  */
-public class student {
+public class Student {
 
     private Long id;
     private String name;
-    private int studentId;
+    private String studentId;
     private String _class;
 
     /** Used to resolve relations */
     private transient DaoSession daoSession;
 
     /** Used for active entity operations. */
-    private transient studentDao myDao;
+    private transient StudentDao myDao;
 
-    private List<record> AbsenceRecords;
+    private List<Record> AbsenceRecords;
 
-    public student() {
+    public Student() {
     }
 
-    public student(Long id) {
+    public Student(Long id) {
         this.id = id;
     }
 
-    public student(Long id, String name, int studentId, String _class) {
+    public Student(Long id, String name, String studentId, String _class) {
         this.id = id;
         this.name = name;
         this.studentId = studentId;
@@ -59,11 +59,11 @@ public class student {
         this.name = name;
     }
 
-    public int getStudentId() {
+    public String getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(int studentId) {
+    public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
 
@@ -76,13 +76,13 @@ public class student {
     }
 
     /** To-many relationship, resolved on first access (and after reset). Changes to to-many relations are not persisted, make changes to the target entity. */
-    public List<record> getAbsenceRecords() {
+    public List<Record> getAbsenceRecords() {
         if (AbsenceRecords == null) {
             if (daoSession == null) {
                 throw new DaoException("Entity is detached from DAO context");
             }
-            recordDao targetDao = daoSession.getRecordDao();
-            List<record> AbsenceRecordsNew = targetDao._queryStudent_AbsenceRecords(studentId);
+            RecordDao targetDao = daoSession.getRecordDao();
+            List<Record> AbsenceRecordsNew = targetDao._queryStudent_AbsenceRecords(id);
             synchronized (this) {
                 if(AbsenceRecords == null) {
                     AbsenceRecords = AbsenceRecordsNew;

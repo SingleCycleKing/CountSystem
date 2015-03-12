@@ -8,6 +8,7 @@ import de.greenrobot.daogenerator.Entity;
 import de.greenrobot.daogenerator.Property;
 import de.greenrobot.daogenerator.Schema;
 import de.greenrobot.daogenerator.ToMany;
+import de.greenrobot.daogenerator.ToOne;
 
 /**
  * Generator for creating model and helper of database
@@ -25,18 +26,21 @@ public class DbGenerator {
     }
 
     private static void createStudentAndAbsence(Schema schema){
-        Entity student = schema.addEntity("student");
+        Entity student = schema.addEntity("Student");
         student.addIdProperty().autoincrement().primaryKey();
         student.addStringProperty("name");
-        Property studentId= student.addIntProperty("studentId").notNull().getProperty();
-        student.addIntProperty("_class");
+        student.addStringProperty("studentId");
+        student.addStringProperty("_class");
 
-        Entity absenceRecord = schema.addEntity("record");
+        Entity absenceRecord = schema.addEntity("Record");
         absenceRecord.addIdProperty().autoincrement().primaryKey();
-        absenceRecord.addIntProperty("date");
+        absenceRecord.addIntProperty("date").getProperty();
         absenceRecord.addIntProperty("absenceType");
+        Property sssId = absenceRecord.addLongProperty("sssId").notNull().getProperty();
 
-        ToMany recordToStudent = student.addToMany(absenceRecord, studentId);
+        absenceRecord.addToOne(student, sssId);
+
+        ToMany recordToStudent = student.addToMany(absenceRecord, sssId);
         recordToStudent.setName("AbsenceRecords");
         recordToStudent.orderDesc();
     }

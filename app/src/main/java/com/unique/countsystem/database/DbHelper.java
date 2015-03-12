@@ -1,14 +1,15 @@
 package com.unique.countsystem.database;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 
 import com.unique.countsystem.DaoMaster;
 import com.unique.countsystem.DaoSession;
+import com.unique.countsystem.Record;
+import com.unique.countsystem.RecordDao;
+import com.unique.countsystem.Student;
+import com.unique.countsystem.StudentDao;
 import com.unique.countsystem.database.model.absenceType;
-import com.unique.countsystem.record;
-import com.unique.countsystem.recordDao;
-import com.unique.countsystem.student;
-import com.unique.countsystem.studentDao;
 import com.unique.countsystem.utils.DayUtils;
 
 import java.util.List;
@@ -36,8 +37,8 @@ public class DbHelper {
     private static DbHelper sInstance;
 
     // data access objects
-    private recordDao recordDao;
-    private studentDao studentDao;
+    private RecordDao mRecordDao;
+    private StudentDao mStudentDao;
 
     /**
      * Context of applications
@@ -67,8 +68,8 @@ public class DbHelper {
                     if (sInstance.appContext == null){
                         throw new IllegalArgumentException("Must call preInitHelper() before");
                     }
-                    sInstance.recordDao = daoSession.getRecordDao();
-                    sInstance.studentDao = daoSession.getStudentDao();
+                    sInstance.mRecordDao = daoSession.getRecordDao();
+                    sInstance.mStudentDao = daoSession.getStudentDao();
                 }
             }
         }
@@ -79,70 +80,53 @@ public class DbHelper {
      * Insert or update students list in database
      * @param students models
      */
-    public void insertStudentsList(List<student> students){
+    public void insertStudentsList(List<Student> students){
         if (students == null||students.isEmpty()){
             return;
         }
-        studentDao.insertOrReplaceInTx(students);
+        mStudentDao.insertOrReplaceInTx(students);
     }
 
     /**
      * Insert or update single student model in database
      * @param aStudent single student
      */
-    public void insertOrReplaceStudent(student aStudent){
-        studentDao.insertOrReplace(aStudent);
+    public void insertOrReplaceStudent(Student aStudent){
+        mStudentDao.insertOrReplace(aStudent);
     }
 
     /**
      * Delete a single student
      * @param aStudent student
      */
-    public void deleteStudent(student aStudent){
-        studentDao.delete(aStudent);
+    public void deleteStudent(Student aStudent){
+        mStudentDao.delete(aStudent);
     }
 
     /**
      * Delete many students
      * @param students students should be deleted
      */
-    public void deleteStudent(student... students){
-        studentDao.deleteInTx(students);
+    public void deleteStudent(Student... students){
+        mStudentDao.deleteInTx(students);
     }
 
-    /**
-     * Insert or replace an absence record.
-     * @param aRecord absence record
-     */
-    public void insertOrReplaceAbsenceRecord(record aRecord){
-        recordDao.insertOrReplace(aRecord);
-    }
-
-    /**
-     * Insert or replace absence records list;
-     * @param records absence record list
-     */
-    public void insertOrReplaceAbsenceRecord(List<record> records){
-        if (records==null||records.isEmpty()){
-            return;
-        }
-        recordDao.insertOrReplaceInTx(records);
-    }
 
     /**
      * Delete a single absence record
      * @param aRecord single absence record
      */
-    public void deleteAbsenceRecord(record aRecord){
-        recordDao.delete(aRecord);
+    public void deleteAbsenceRecord(Record aRecord){
+        mRecordDao.delete(aRecord);
+        aRecord.getStudent().resetAbsenceRecords();
     }
 
     /**
      * Delete many records
      * @param records students should be deleted
      */
-    public void deleteStudent(List<record> records){
-        recordDao.deleteInTx(records);
+    public void deleteAbsenceRecord(List<Record> records){
+        mRecordDao.deleteInTx(records);
     }
 
 
@@ -150,8 +134,8 @@ public class DbHelper {
      * Load all student records in database
      * @return list contains all students
      */
-    public List<student> getAllStudents(){
-        return studentDao.loadAll();
+    public List<Student> getAllStudents(){
+        return mStudentDao.loadAll();
     }
 
     /**
@@ -159,17 +143,20 @@ public class DbHelper {
      * @param studentId specific studentId , like "U201317485"
      * @return student model or null if not matching a specific student
      */
-    public student getStudentByStudentId(String studentId) throws IllegalArgumentException{
-        int realStudentId = parseStudentIdFromString(studentId);
-        return studentDao.queryBuilder().where(com.unique.countsystem.studentDao.Properties.StudentId.eq(realStudentId)).unique();
+    @Nullable
+    public Student getStudentByStudentId(String studentId) throws IllegalArgumentException{
+        if (!parseStudentIdFromString(studentId)){
+            throw new IllegalArgumentException("StudentId is illegal");
+        }
+        return mStudentDao.queryBuilder().where(com.unique.countsystem.StudentDao.Properties.StudentId.eq(studentId)).unique();
     }
 
     /**
      * List all absence records
      * @return list of records
      */
-    public List<record> getAllAbsenceRecords(){
-        return recordDao.loadAll();
+    public List<Record> getAllAbsenceRecords(){
+        return mRecordDao.loadAll();
     }
 
     /**
@@ -178,19 +165,33 @@ public class DbHelper {
      * @return The Absence records list on that day
      * @exception java.lang.IllegalArgumentException if day is incorrect.
      */
-    public List<record> getAbsenceRecordsByDay(String day){
+    public List<Record> getAbsenceRecordsByDay(String day){
         int date = DayUtils.fromString(day);
-        return recordDao.queryBuilder().where(com.unique.countsystem.recordDao.Properties.Date.eq(date)).list();
+        return mRecordDao.queryBuilder().where(com.unique.countsystem.RecordDao.Properties.Date.eq(date)).list();
     }
 
     /**
      * List all absence records for a specific student from studentId
-     * @param studentId int studentId, like 201317485 without "U"
-     * @return list
+     * @param studentId String studentId, like "U201317485"
+     * @return list Record. return null when can't find a specific student
+     * @exception java.lang.IllegalArgumentException if studentId is illegal
      */
-    public List<record> getAbsenceRecordsForStudent(int studentId){
-        return recordDao._queryStudent_AbsenceRecords(studentId);
+    @Nullable
+    public List<Record> getAbsenceRecordsForStudent(String studentId) throws IllegalArgumentException{
+        Student student = getStudentByStudentId(studentId);
+        if (student == null){
+            return null;
+        }
+        return student.getAbsenceRecords();
     }
+
+    /**
+     *
+     */
+   public void insertOrReplaceAbsenceRecord(Record record,Student student){
+       mRecordDao.insertOrReplace(record);
+       student.resetAbsenceRecords();
+   }
 
 
     /**
@@ -201,12 +202,14 @@ public class DbHelper {
      * @param _class student's class
      * @return student instance
      */
-    public static student createStudentModel(String name, String studentId, String _class)
+    public static Student createStudentModel(String name, String studentId, String _class)
             throws IllegalArgumentException{
-        int realStudentId = parseStudentIdFromString(studentId);
+        if (parseStudentIdFromString(studentId)){
+            throw new IllegalArgumentException("studentId is illegal");
+        }
         _class = _class.trim();
         check_class(_class);
-        return new student(null, name, realStudentId, _class);
+        return new Student(null, name, studentId, _class);
     }
 
     /**
@@ -214,10 +217,12 @@ public class DbHelper {
      *
      * @param date {@link com.unique.countsystem.utils.DayUtils}
      * @param type {@link absenceType}
+     * @param student Student by getStudent() in database
      * @return record instance
+     * @throws java.lang.IllegalArgumentException DayUtils.fromString(date)
      */
-    public static record createAbsenceRecordModel(String date, absenceType type) throws IllegalArgumentException{
-        return new record(null, DayUtils.fromString(date), type.toInteger());
+    public static Record createAbsenceRecordModel(String date, absenceType type, Student student) throws IllegalArgumentException{
+        return new Record(null, DayUtils.fromString(date), type.toInteger(),student.getId());
     }
 
 
@@ -225,7 +230,7 @@ public class DbHelper {
      * @return sum count of students
      */
     public long getSumCountOfStudents(){
-        return studentDao.count();
+        return mStudentDao.count();
     }
 
     /**
@@ -233,18 +238,21 @@ public class DbHelper {
      */
     public int getSumCountTimes(String _class)throws IllegalArgumentException{
         check_class(_class);
-        String DISTINCT_DATE_FROM_RECORD = "SELECT DISTINCT " + com.unique.countsystem.recordDao.Properties.Date + " FROM " + com.unique.countsystem.recordDao.TABLENAME;
-        return getDaoSession(appContext).getDatabase().rawQuery(DISTINCT_DATE_FROM_RECORD, null).getColumnCount();
+        String DISTINCT_DATE_FROM_RECORD = "SELECT DISTINCT " + com.unique.countsystem.RecordDao.Properties.Date + " FROM " + com.unique.countsystem.RecordDao.TABLENAME;
+        return getDaoSession(appContext).getDatabase().rawQuery(DISTINCT_DATE_FROM_RECORD, null).getCount();
     }
 
     /**
      * use studentId
      * @param studentId U201317485
-     * @return int
+     * @return int 0 if not found
      */
-    public int getSumAbsenceTimesOfAStudent(String studentId){
-        int studentIdInt = parseStudentIdFromString(studentId);
-        return recordDao._queryStudent_AbsenceRecords(studentIdInt).size();
+    public int getSumAbsenceTimesOfAStudent(String studentId)throws IllegalArgumentException{
+        Student student = getStudentByStudentId(studentId);
+        if (null==student){
+            return 0;
+        }
+        return student.getAbsenceRecords().size();
     }
 
     // PRIVATE METHODS =================================================
@@ -256,14 +264,21 @@ public class DbHelper {
 
     }
 
-    private static int parseStudentIdFromString(String studentId) throws IllegalArgumentException{
-        studentId = studentId.trim();
+    private static boolean parseStudentIdFromString(String studentId) {
         Pattern pattern = Pattern.compile("^(U|u)20[0-9]{7}$");
-        if (!pattern.matcher(studentId).matches()){
-            throw new IllegalArgumentException("studentId format error");
+        return pattern.matcher(studentId).matches();
+    }
+
+
+    /**
+     * Insert or replace absence records list;
+     * @param records absence record list
+     */
+    private void insertOrReplaceAbsenceRecord(List<Record> records){
+        if (records==null||records.isEmpty()){
+            return;
         }
-        studentId = studentId.substring(1);
-        return Integer.parseInt(studentId);
+        mRecordDao.insertOrReplaceInTx(records);
     }
 
     /**
