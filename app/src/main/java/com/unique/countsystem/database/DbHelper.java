@@ -3,8 +3,6 @@ package com.unique.countsystem.database;
 import android.content.Context;
 import android.support.annotation.Nullable;
 
-import com.unique.countsystem.DaoMaster;
-import com.unique.countsystem.DaoSession;
 import com.unique.countsystem.Record;
 import com.unique.countsystem.RecordDao;
 import com.unique.countsystem.Student;

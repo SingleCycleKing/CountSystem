@@ -1,14 +1,11 @@
 package com.cursor.generator;
 
-import java.util.ArrayList;
-import java.util.Date;
 
 import de.greenrobot.daogenerator.DaoGenerator;
 import de.greenrobot.daogenerator.Entity;
 import de.greenrobot.daogenerator.Property;
 import de.greenrobot.daogenerator.Schema;
 import de.greenrobot.daogenerator.ToMany;
-import de.greenrobot.daogenerator.ToOne;
 
 /**
  * Generator for creating model and helper of database
