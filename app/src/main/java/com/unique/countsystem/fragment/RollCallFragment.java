@@ -32,17 +32,20 @@ public class RollCallFragment extends Fragment {
 
     @OnClick(R.id.roll_arrived)
     public void arrive() {
-        dataHandler();
+        if (!isFlying)
+            dataHandler();
     }
 
     @OnClick(R.id.roll_leave)
     public void leave() {
-        dataHandler();
+        if (!isFlying)
+            dataHandler();
     }
 
     @OnClick(R.id.roll_truancy)
     public void truancy() {
-        dataHandler();
+        if (!isFlying)
+            dataHandler();
     }
 
     private String[] classes = {"软工三班", "软工三班", "软工三班", "软工三班", "软工三班"};
@@ -52,6 +55,7 @@ public class RollCallFragment extends Fragment {
     private float x;
     private int position = 0;
     private InfoAdapter adapter;
+    private boolean isFlying = false;
 //    private DbHelper dbHelper;
 
 
@@ -94,7 +98,7 @@ public class RollCallFragment extends Fragment {
             fade.addListener(new Animator.AnimatorListener() {
                 @Override
                 public void onAnimationStart(Animator animation) {
-
+                    isFlying = true;
                 }
 
                 @Override
@@ -102,7 +106,29 @@ public class RollCallFragment extends Fragment {
                     mList.clear();
                     setData();
                     adapter.notifyDataSetChanged();
-                    BaseUtils.moveAnim(500, infoLayout, x + 1000, x, BaseUtils.APPEAR_ANIM).start();
+                    ObjectAnimator animator = BaseUtils.moveAnim(500, infoLayout, x + 1000, x, BaseUtils.APPEAR_ANIM);
+                    animator.start();
+                    animation.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            isFlying = false;
+                        }
+
+                        @Override
+                        public void onAnimationCancel(Animator animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animator animation) {
+
+                        }
+                    });
                 }
 
                 @Override

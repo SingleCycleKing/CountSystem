@@ -15,23 +15,27 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.unique.countsystem.adapter.MenuAdapter;
+import com.unique.countsystem.utils.BaseUtils;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-
-import com.unique.countsystem.database.DbHelper;
-import com.unique.countsystem.utils.BaseUtils;
-import com.unique.countsystem.utils.DebugLog;
 
 
 public class MainActivity extends ActionBarActivity {
     @InjectView(R.id.my_toolbar)
     Toolbar mToolbar;
+
     @InjectView(R.id.menu_list)
     ListView menuList;
+
     @InjectView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
+
     private ActionBarDrawerToggle mDrawerToggle;
+
+    private boolean isSelected = false;
+
+    private int mPosition = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +50,46 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void init() {
+        final String[] fragments = getResources().getStringArray(R.array.fragment);
+        getSupportFragmentManager().beginTransaction().replace(R.id.content, Fragment.instantiate(MainActivity.this, fragments[0])).commit();
+
+        menuList.setAdapter(new MenuAdapter(this));
+        menuList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mToolbar.setTitle(getResources().getStringArray(R.array.menu)[position]);
+                switch (position) {
+                    case 0:
+                        mPosition = 0;
+                        isSelected = true;
+                        break;
+                    case 1:
+                        mPosition = 1;
+                        isSelected = true;
+                        break;
+                    case 2:
+                        mPosition = 2;
+                        isSelected = true;
+                        break;
+                    case 3:
+                        mPosition = 3;
+                        isSelected = true;
+                        break;
+                }
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+            }
+        });
+
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-
                 invalidateOptionsMenu();
+                if (isSelected) {
+                    if (3 != mPosition) {
+                        getSupportFragmentManager().beginTransaction().replace(R.id.content, Fragment.instantiate(MainActivity.this, fragments[mPosition])).commit();
+                    } else startActivity(new Intent(MainActivity.this, SettingActivity.class));
+                    isSelected = false;
+                }
             }
 
             public void onDrawerOpened(View view) {
@@ -66,37 +105,6 @@ public class MainActivity extends ActionBarActivity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-
-        final String[] fragments = getResources().getStringArray(R.array.fragment);
-        getSupportFragmentManager().beginTransaction().replace(R.id.content, Fragment.instantiate(MainActivity.this, fragments[0])).commit();
-
-        menuList.setAdapter(new MenuAdapter(this));
-        menuList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mToolbar.setTitle(getResources().getStringArray(R.array.menu)[position]);
-                switch (position) {
-                    case 0:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.content, Fragment.instantiate(MainActivity.this, fragments[0])).commit();
-                        mDrawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-                    case 1:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.content, Fragment.instantiate(MainActivity.this, fragments[1])).commit();
-                        mDrawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-                    case 2:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.content, Fragment.instantiate(MainActivity.this, fragments[2])).commit();
-                        mDrawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-                    case 3:
-                        startActivity(new Intent(MainActivity.this, SettingActivity.class));
-                        mDrawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-                }
-            }
-        });
-
-
     }
 
 
