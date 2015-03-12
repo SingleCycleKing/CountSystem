@@ -11,15 +11,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/fragment_overview_ll"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:orientation="horizontal">
+            android:minHeight="?attr/actionBarSize">
 
             <ImageView
                 android:id="@+id/chart_image_view"
@@ -28,16 +27,16 @@
                 android:layout_gravity="center"
                 android:paddingRight="10dp"
                 android:paddingLeft="10dp"
-                android:background="@drawable/go_return"/>
+                android:background="@drawable/go_return" />
 
             <TextView
                 android:id="@+id/fragment_chart_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_centerInParent="true"
                 android:textSize="25sp"
                 android:text="@string/fragment_chart_text" />
-        </LinearLayout>
+        </RelativeLayout>
 
         <FrameLayout
             android:id="@+id/chart_content"

@@ -39,6 +39,10 @@
             android:name=".SummaryActivity"
             android:label="@string/title_activity_summary" >
         </activity>
+        <activity
+            android:name=".AbsenceActivity"
+            android:label="@string/title_activity_absence" >
+        </activity>
     </application>
 
 </manifest>

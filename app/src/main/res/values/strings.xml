@@ -22,9 +22,10 @@
     <string name="hour">时</string>
     <string name="named_student_number">人数</string>
     <string name="course">班级</string>
-    <string name="fragment_overview_text">总览表</string>
+    <string name="fragment_overview_text">数据统计</string>
     <string name="fragment_chart_text">统计图</string>
     <string name="fragment_summary_text">总表</string>
+    <string name="absence_text">缺勤记录</string>
     <string name="title_activity_setting">设置</string>
     <string name="title_activity_named">点名</string>
     <string name="app_name">CountSystem</string>
@@ -37,5 +38,6 @@
     <string name="arrived">已到</string>
     <string name="title_activity_chart">ChartActivity</string>
     <string name="title_activity_summary">SummaryActivity</string>
+    <string name="title_activity_absence">AbsenceActivity</string>
 
 </resources>

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.unique.countsystem.AbsenceActivity;
 import com.unique.countsystem.R;
 
 import com.unique.countsystem.adapter.OverViewAdapter;
@@ -58,14 +59,21 @@ public class OverviewFragment extends Fragment {
 
                 switch (position) {
                     case 0:
+                        Intent intentSummary = new Intent(getActivity(), SummaryActivity.class);
+                        startActivity(intentSummary);
+
+                        //getActivity().overridePendingTransition(R.drawable.go_out,R.drawable.go_in);
+                        break;
+                    case 1 :
+                        Intent intentAbsence = new Intent(getActivity() , AbsenceActivity.class) ;
+                        startActivity(intentAbsence) ;
+
+                        break;
+                    case 2 :
 
                         Intent intentChart = new Intent(getActivity(), ChartActivity.class);
                         startActivity(intentChart);
-                        //getActivity().overridePendingTransition(R.drawable.go_out,R.drawable.go_in);
-                        break;
-                    case 1:
-                        Intent intentSummary = new Intent(getActivity(), SummaryActivity.class);
-                        startActivity(intentSummary);
+
                         //getActivity().overridePendingTransition(R.drawable.go_in, R.drawable.go_out);
                         break;
                     default:

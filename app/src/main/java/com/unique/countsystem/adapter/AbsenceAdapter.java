@@ -1,9 +1,7 @@
 package com.unique.countsystem.adapter;
 
 
-import android.app.FragmentTransaction;
 import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,16 +20,16 @@ import butterknife.InjectView;
  */
 
 
-public class OverViewAdapter extends RecyclerView.Adapter<OverViewAdapter.TextViewHolder> {
+public class AbsenceAdapter extends RecyclerView.Adapter<AbsenceAdapter.TextViewHolder> {
 
 
     private final LayoutInflater mLayoutInflater;
     private final Context mContext;
-    private String[] myDataset = {
-            "历史记录", "缺勤记录","图表"
+    String[] studentsAbsence = {
+            "王二", "张三", "李四", "赵六", "雷七", "周八", "汪九"
     };
 
-    public OverViewAdapter(Context context) {
+    public AbsenceAdapter(Context context) {
 
         mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
@@ -42,7 +40,7 @@ public class OverViewAdapter extends RecyclerView.Adapter<OverViewAdapter.TextVi
     public TextViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
 
-        View v = mLayoutInflater.inflate(R.layout.item_layout, parent, false);
+        View v = mLayoutInflater.inflate(R.layout.summary_item_layout, parent, false);
         TextViewHolder textViewHolder = new TextViewHolder(v);
         return textViewHolder;
     }
@@ -50,7 +48,7 @@ public class OverViewAdapter extends RecyclerView.Adapter<OverViewAdapter.TextVi
     @Override
     public void onBindViewHolder(TextViewHolder holder, int position) {
 
-        holder.mTextView.setText(myDataset[position]);
+        holder.mTextView.setText(studentsAbsence[position]);
     }
 
 
@@ -63,11 +61,11 @@ public class OverViewAdapter extends RecyclerView.Adapter<OverViewAdapter.TextVi
 
     @Override
     public int getItemCount() {
-        return myDataset == null ? 0 : myDataset.length;
+        return studentsAbsence == null ? 0 : studentsAbsence.length;
     }
 
     public static class TextViewHolder extends RecyclerView.ViewHolder {
-        @InjectView(R.id.info_text)
+        @InjectView(R.id.summary_info_text)
         TextView mTextView;
         int position;
 
