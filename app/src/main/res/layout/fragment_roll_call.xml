@@ -2,56 +2,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#CC195f2f"
-    android:padding="@dimen/window_default_padding"
     tools:context="com.unique.countsystem.fragment.RollCallFragment">
 
     <RelativeLayout
-        android:layout_margin="15dp"
-        android:background="@color/gray"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/name_background"
         android:id="@+id/roll_info_layout"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:padding="@dimen/window_default_padding">
+        android:paddingBottom="20dp">
 
         <TextView
+            android:textColor="@color/white"
             android:id="@+id/roll_name"
+            android:layout_margin="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
             android:textSize="30sp" />
 
-        <TextView
-            android:id="@+id/roll_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ListView
+            android:layerType="software"
+            android:scrollbars="none"
+            android:background="@color/info_background"
             android:layout_below="@id/roll_name"
-            android:layout_marginTop="30dp"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/roll_truancy_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/roll_id"
-            android:layout_marginTop="10dp"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/roll_leave_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/roll_truancy_number"
-            android:layout_marginTop="10dp"
-            android:textSize="20sp" />
+            android:id="@+id/roll_info"
+            android:divider="@drawable/dotted_line"
+            android:dividerHeight="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </RelativeLayout>
 
     <RelativeLayout
+        android:layout_margin="@dimen/window_default_padding"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/roll_info_layout"
-        android:layout_margin="20dp">
+        android:layout_below="@id/roll_info_layout">
 
 
         <TextView
@@ -63,7 +52,6 @@
 
         <TextView
             android:id="@+id/roll_truancy"
-
             android:background="@drawable/roll_truancy_background"
             android:layout_width="@dimen/roll_button_diameter"
             android:layout_height="@dimen/roll_button_diameter"
@@ -76,5 +64,31 @@
             android:layout_width="@dimen/roll_button_diameter"
             android:layout_height="@dimen/roll_button_diameter"
             android:background="@drawable/roll_arrive_background" />
+
+        <TextView
+            android:layout_below="@id/roll_arrived"
+            android:gravity="center"
+            android:text="@string/arrived"
+            android:textColor="@color/gray"
+            android:layout_width="@dimen/roll_button_diameter"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_below="@id/roll_leave"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:text="@string/ask_for_leave"
+            android:textColor="@color/gray"
+            android:layout_width="@dimen/roll_button_diameter"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_below="@id/roll_truancy"
+            android:gravity="center"
+            android:layout_alignParentRight="true"
+            android:text="@string/truancy"
+            android:textColor="@color/gray"
+            android:layout_width="@dimen/roll_button_diameter"
+            android:layout_height="wrap_content" />
     </RelativeLayout>
 </RelativeLayout>

@@ -8,29 +8,25 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.unique.countsystem.R;
-import com.unique.countsystem.student;
+import com.unique.countsystem.adapter.InfoAdapter;
 import com.unique.countsystem.utils.BaseUtils;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class RollCallFragment extends Fragment {
-    @InjectView(R.id.roll_id)
-    TextView id;
     @InjectView(R.id.roll_name)
     TextView name;
-    @InjectView(R.id.roll_truancy_number)
-    TextView truancyNumber;
-    @InjectView(R.id.roll_leave_number)
-    TextView leaveNumber;
+    @InjectView(R.id.roll_info)
+    ListView mListView;
     @InjectView(R.id.roll_info_layout)
     RelativeLayout infoLayout;
 
@@ -52,9 +48,10 @@ public class RollCallFragment extends Fragment {
     private String[] classes = {"软工三班", "软工三班", "软工三班", "软工三班", "软工三班"};
     private String[] names = {"张三", "李四", "王五", "赵六", "雷丹雄"};
     private String[] ids = {"U201317490", "U201317491", "U201317492", "U201317493", "U201317494"};
+    private ArrayList<String> mList;
     private float x;
-    private List<student> students = new ArrayList<>();
     private int position = 0;
+    private InfoAdapter adapter;
 //    private DbHelper dbHelper;
 
 
@@ -66,14 +63,10 @@ public class RollCallFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        mList = new ArrayList<>();
         setData();
-
-//        dbHelper = DbHelper.getInstance();
-//        for (int i = 0; i < 5; i++) {
-//            students.add(DbHelper.createStudentModel(names[i], ids[i], classes[i]));
-//        }
-//        dbHelper.insertStudentsList(students);
-
+        adapter = new InfoAdapter(getActivity(), mList);
+        mListView.setAdapter(adapter);
     }
 
     @Override
@@ -86,9 +79,10 @@ public class RollCallFragment extends Fragment {
 
     private void setData() {
         name.setText(names[position]);
-        id.setText("学号：" + ids[position]);
-        truancyNumber.setText("已逃课次数：0");
-        leaveNumber.setText("已请假次数：0");
+        mList.add("学号：" + ids[position]);
+        mList.add("班级：" + classes[position]);
+        mList.add("已逃课次数：0");
+        mList.add("已请假次数：0");
     }
 
     private void dataHandler() {
@@ -105,7 +99,9 @@ public class RollCallFragment extends Fragment {
 
                 @Override
                 public void onAnimationEnd(Animator animation) {
+                    mList.clear();
                     setData();
+                    adapter.notifyDataSetChanged();
                     BaseUtils.moveAnim(500, infoLayout, x + 1000, x, BaseUtils.APPEAR_ANIM).start();
                 }
 

@@ -5,28 +5,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.unique.countsystem.R;
+import com.unique.countsystem.utils.DebugLog;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
+public class InfoAdapter extends BaseAdapter {
+    private LayoutInflater mLayoutInflater;
+    private List<String> mList;
 
-public class MenuAdapter extends BaseAdapter {
-    private LayoutInflater mInflater;
-    private String[] menus;
-    private int[] images = {R.mipmap.call_roll_icon, R.mipmap.input_icon, R.mipmap.overview_icon, R.mipmap.setting_icon};
-
-    public MenuAdapter(Context context) {
-        mInflater = LayoutInflater.from(context);
-        menus = context.getResources().getStringArray(R.array.menu);
+    public InfoAdapter(Context context, ArrayList<String> mList) {
+        mLayoutInflater = LayoutInflater.from(context);
+        this.mList = mList;
     }
 
     @Override
     public int getCount() {
-        return menus.length;
+        return mList.size();
     }
 
     @Override
@@ -43,21 +44,17 @@ public class MenuAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         if (null == convertView) {
-            convertView = mInflater.inflate(R.layout.menu_item, null);
+            convertView = mLayoutInflater.inflate(R.layout.info_item, null);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else viewHolder = (ViewHolder) convertView.getTag();
-        viewHolder.title.setText(menus[position]);
-        viewHolder.mImageView.setImageResource(images[position]);
+        viewHolder.mTextView.setText(mList.get(position));
         return convertView;
     }
 
     static class ViewHolder {
-        @InjectView(R.id.menu_title)
-        TextView title;
-        @InjectView(R.id.menu_img)
-        ImageView mImageView;
-
+        @InjectView(R.id.info_text)
+        TextView mTextView;
         public ViewHolder(View view) {
             ButterKnife.inject(this, view);
         }

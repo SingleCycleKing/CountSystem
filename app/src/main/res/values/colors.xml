@@ -3,6 +3,9 @@
     <color name="white">#fff</color>
     <color name="theme_green">#089d87</color>
     <color name="divider">#ffebebeb</color>
-    <color name="gray">#ffd7d7d7</color>
+    <color name="gray">#57000000</color>
     <color name="red">#cf5348</color>
+    <color name="black">#ff191919</color>
+    <color name="info_background">#d3aa6e</color>
+
 </resources>

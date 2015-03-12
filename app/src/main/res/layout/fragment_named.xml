@@ -52,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@color/gray" />
+            android:background="#ffc7c7c7" />
 
         <TextView
             android:textColor="@color/white"
