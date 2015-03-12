@@ -1,18 +1,11 @@
 package com.unique.countsystem;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import android.annotation.SuppressLint;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,10 +17,14 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.innerchat.R;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 public class ExDialog extends ListActivity {
-	private final String TAG = ".support.app.ExDialog";
 	private List<Map<String, Object>> mData;
 	@SuppressLint("SdCardPath")
 	private final String SDCARD = "/mnt/sdcard";
@@ -55,27 +52,27 @@ public class ExDialog extends ListActivity {
 	}
 
 	private List<Map<String, Object>> getData() {
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		Map<String, Object> map = null;
+		List<Map<String, Object>> list = new ArrayList<>();
+		Map<String, Object> map;
 		File f = new File(mDir);
 		File[] files = f.listFiles();
 
 		if (!mDir.equals(SDCARD)) {
-			map = new HashMap<String, Object>();
-			map.put("title", getString(R.string.explorer_back_to_parent_path));
+			map = new HashMap<>();
+			map.put("title", "..");
 			map.put("info", f.getParent());
-			map.put("img", R.drawable.ex_folder);
+			map.put("img", R.mipmap.ex_folder);
 			list.add(map);
 		}
 		if (files != null) {
-			for (int i = 0; i < files.length; i++) {
-				map = new HashMap<String, Object>();
-				map.put("title", files[i].getName());
-				map.put("info", files[i].getPath());
-				if (files[i].isDirectory())
-					map.put("img", R.drawable.ex_folder);
+			for (File file : files) {
+				map = new HashMap<>();
+				map.put("title", file.getName());
+				map.put("info", file.getPath());
+				if (file.isDirectory())
+					map.put("img", R.mipmap.ex_folder);
 				else
-					map.put("img", R.drawable.ex_doc);
+					map.put("img", R.mipmap.ex_doc);
 				list.add(map);
 			}
 		}
@@ -84,8 +81,7 @@ public class ExDialog extends ListActivity {
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
-		Log.d(TAG, (String) mData.get(position).get("info"));
-		if ((Integer) mData.get(position).get("img") == R.drawable.ex_folder) {
+		if ((Integer) mData.get(position).get("img") == R.mipmap.ex_folder) {
 			mDir = (String) mData.get(position).get("info");
 			mData = getData();
 			MyAdapter adapter = new MyAdapter(this);
@@ -121,7 +117,7 @@ public class ExDialog extends ListActivity {
 		}
 
 		public View getView(int position, View convertView, ViewGroup parent) {
-			ViewHolder holder = null;
+			ViewHolder holder;
 			if (convertView == null) {
 				holder = new ViewHolder();
 				convertView = mInflater.inflate(R.layout.explorer_list, null);

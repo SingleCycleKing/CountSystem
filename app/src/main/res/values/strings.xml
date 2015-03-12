@@ -37,5 +37,6 @@
     <string name="title_activity_summary">历史记录</string>
     <string name="name">姓名</string>
     <string name="title_activity_absence">缺勤记录</string>
+    <string name="dialog_read">添加表格</string>
 
 </resources>

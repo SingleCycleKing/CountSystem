@@ -43,7 +43,8 @@
             android:label="@string/title_activity_summary" />
         <activity
             android:name=".AbsenceActivity"
-            android:label="@string/title_activity_absence"/>
+            android:label="@string/title_activity_absence" />
+        <activity android:name=".ExDialog" />
     </application>
 
 </manifest>

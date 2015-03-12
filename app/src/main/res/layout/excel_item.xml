@@ -4,16 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RadioButton
+    <CheckBox
+        android:visibility="gone"
         android:layout_centerVertical="true"
-        android:id="@+id/excel_radio"
+        android:id="@+id/excel_checkbox"
         android:layout_width="30dp"
         android:layout_height="30dp" />
 
     <TextView
         android:layout_marginLeft="20dp"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/excel_radio"
+        android:layout_toRightOf="@id/excel_checkbox"
         android:textColor="@color/black"
         android:id="@+id/excel_name"
         android:textSize="20sp"
