@@ -27,7 +27,7 @@ import com.unique.countsystem.utils.DebugLog;
 public class MainActivity extends ActionBarActivity {
     @InjectView(R.id.my_toolbar)
     Toolbar mToolbar;
-    @InjectView(R.id.left_drawer)
+    @InjectView(R.id.menu_list)
     ListView menuList;
     @InjectView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
@@ -40,13 +40,6 @@ public class MainActivity extends ActionBarActivity {
 
         ButterKnife.inject(this);
         BaseUtils.setToolbar(mToolbar, this);
-        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                // TODO Handle the menu item
-                return true;
-            }
-        });
 
 //        DbHelper.preInitHelper(this);
         init();
@@ -96,10 +89,6 @@ public class MainActivity extends ActionBarActivity {
                         mDrawerLayout.closeDrawer(GravityCompat.START);
                         break;
                     case 3:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.content, Fragment.instantiate(MainActivity.this, fragments[3])).commit();
-                        mDrawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-                    case 4:
                         startActivity(new Intent(MainActivity.this, SettingActivity.class));
                         mDrawerLayout.closeDrawer(GravityCompat.START);
                         break;

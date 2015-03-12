@@ -2,17 +2,15 @@
 <resources>
 
     <string-array name="menu">
-        <item>导入导出</item>
-        <item>点名</item>
-        <item>总览</item>
-        <item>关于</item>
+        <item>主页</item>
+        <item>管理名单</item>
+        <item>数据统计</item>
         <item>设置</item>
     </string-array>
     <string-array name="fragment">
-        <item>com.unique.countsystem.fragment.InputFragment</item>
         <item>com.unique.countsystem.fragment.NamedFragment</item>
+        <item>com.unique.countsystem.fragment.InputFragment</item>
         <item>com.unique.countsystem.fragment.OverviewFragment</item>
-        <item>com.unique.countsystem.fragment.AboutFragment</item>
     </string-array>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -33,9 +31,10 @@
     <string name="drawer_open">open</string>
     <string name="drawer_close">close</string>
     <string name="ask_for_leave">请假</string>
-    <string name="truancy">逃课</string>
-    <string name="arrived">已到</string>
+    <string name="truancy">缺勤</string>
+    <string name="arrived">到课</string>
     <string name="title_activity_chart">ChartActivity</string>
     <string name="title_activity_summary">SummaryActivity</string>
+    <string name="name">姓名</string>
 
 </resources>

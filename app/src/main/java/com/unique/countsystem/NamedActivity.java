@@ -35,7 +35,6 @@ public class NamedActivity extends ActionBarActivity {
 
         ButterKnife.inject(this);
         BaseUtils.setToolbar(mToolbar, this);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         classes = new ArrayList<>();
         classes.add(RollCallFragment.class);

@@ -28,6 +28,7 @@ public class BaseUtils {
         mToolbar.setTitleTextColor(activity.getResources().getColor(R.color.white));
         mToolbar.setTitle(activity.getTitle());
         activity.setSupportActionBar(mToolbar);
+        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 //    public static List<Integer> getStudent() {
 //        int id = studentIds.get(position);
