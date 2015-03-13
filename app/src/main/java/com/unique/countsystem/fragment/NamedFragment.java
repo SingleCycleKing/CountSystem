@@ -28,7 +28,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class NamedFragment extends Fragment {
-    public static long id;
+
     public static String _class;
 
     @InjectView(R.id.named_course)
@@ -42,7 +42,6 @@ public class NamedFragment extends Fragment {
     public void start() {
         if (null != DbHelper.getInstance().getAllClassList()) {
             Date date = new Date();
-            id = DbHelper.getInstance().insertOrReplaceRecordTime(date);
             Intent intent = new Intent(new Intent(getActivity(), NamedActivity.class));
             intent.putExtra("number", number.getNumber());
             startActivity(intent);

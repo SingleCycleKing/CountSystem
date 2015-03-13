@@ -3,7 +3,6 @@ package com.unique.countsystem.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +11,8 @@ import android.widget.TextView;
 import com.unique.countsystem.R;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
-/**
- * Created by chen on 15-3-8.
- * adapter
- */
+
 
 
 public class AbsenceAdapter extends RecyclerView.Adapter<AbsenceAdapter.TextViewHolder> {
@@ -65,20 +60,11 @@ public class AbsenceAdapter extends RecyclerView.Adapter<AbsenceAdapter.TextView
     }
 
     public static class TextViewHolder extends RecyclerView.ViewHolder {
-        @InjectView(R.id.summary_info_text)
         TextView mTextView;
-        int position;
 
         TextViewHolder(View view) {
             super(view);
             ButterKnife.inject(this, view);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    position = getPosition();
-                    Log.d("TextViewHolder", "onClick--> position = " + getPosition());
-                }
-            });
         }
     }
 }

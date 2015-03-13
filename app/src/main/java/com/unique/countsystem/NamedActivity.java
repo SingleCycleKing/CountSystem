@@ -30,6 +30,7 @@ public class NamedActivity extends ActionBarActivity {
     CustomViewPager mViewPager;
     public int number;
     private ArrayList<Class<?>> classes;
+    public static long id;
 
 
     @Override
@@ -45,13 +46,15 @@ public class NamedActivity extends ActionBarActivity {
             SharedPreferences sharedPreferences = this.getSharedPreferences("Count", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putInt("number", number);
-            DebugLog.e(""+number);
             editor.apply();
-
-
 
             classes = new ArrayList<>();
             classes.add(RollCallFragment.class);
+            PagerAdapter mPagerAdapter = new PagerAdapter(this, classes);
+            mViewPager.setAdapter(mPagerAdapter);
+            mViewPager.isAlterable(false);
+        } else if (-1 != getIntent().getIntExtra("SummaryId", -1)) {
+            classes.add(FinishedFragment.class);
             PagerAdapter mPagerAdapter = new PagerAdapter(this, classes);
             mViewPager.setAdapter(mPagerAdapter);
             mViewPager.isAlterable(false);

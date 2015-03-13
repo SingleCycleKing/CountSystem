@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.unique.countsystem.adapter.SummaryAdapter;
+import com.unique.countsystem.database.DbHelper;
 import com.unique.countsystem.utils.BaseUtils;
 import com.unique.countsystem.utils.OnRecyclerItemClickListener;
 
@@ -36,32 +37,20 @@ public class SummaryActivity extends ActionBarActivity {
     @Override
     public void onStart() {
         super.onStart();
+    }
+
+    private void init() {
+        summaryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        summaryRecyclerView.setAdapter(new SummaryAdapter(this, DbHelper.getInstance().getAllRecordTimeDescOrdered()));
         summaryRecyclerView.addOnItemTouchListener(new OnRecyclerItemClickListener(this,
                 new OnRecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-
-                        switch (position) {
-                            case 0:
-
-                                break;
-                            case 1:
-
-                                break;
-                            default:
-
-                                break;
-                        }
-
+                        Intent intent = new Intent(SummaryActivity.this, NamedActivity.class);
+                        intent.putExtra("SummaryId", DbHelper.getInstance().getAllRecordTimeDescOrdered().get(position).getId());
+                        startActivity(intent);
                     }
                 }));
-    }
-
-    private void init() {
-
-        summaryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        summaryRecyclerView.setAdapter(new SummaryAdapter(this));
-
     }
 
     @Override

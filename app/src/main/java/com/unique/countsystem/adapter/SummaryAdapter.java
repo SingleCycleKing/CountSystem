@@ -10,45 +10,45 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.unique.countsystem.R;
+import com.unique.countsystem.Record;
+import com.unique.countsystem.RecordTime;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-/**
- * Created by chen on 15-3-8.
- * adapter
- */
 
-
-public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.TextViewHolder> {
+public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.ViewHolder> {
 
 
     private final LayoutInflater mLayoutInflater;
-    private final Context mContext;
-    String[] students = {
-            "王二", "张三", "李四", "赵六", "雷七", "周八", "汪九"
-    };
+    private List<RecordTime> mList;
 
-    public SummaryAdapter(Context context) {
-
-        mContext = context;
+    public SummaryAdapter(Context context, List<RecordTime> mList) {
         mLayoutInflater = LayoutInflater.from(context);
-
+        this.mList = mList;
     }
 
     @Override
-    public TextViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = mLayoutInflater.inflate(R.layout.summary_item_layout, parent, false);
-        TextViewHolder textViewHolder = new TextViewHolder(v);
-        return textViewHolder;
+        return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(TextViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        Date date = mList.get(position).getTime();
+        SimpleDateFormat format = new SimpleDateFormat("MM-dd-HH-mm-ss");
+        holder.time.setText(format.format(date));
+        List<Record> records = mList.get(position).getAbsenceTimes();
+        for (Record record : records) {
+            if (null != record.getStudent())
+                holder._class.setText(record.getStudent().get_class());
+        }
 
-        holder.mTextView.setText(students[position]);
     }
 
 
@@ -61,24 +61,18 @@ public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.TextView
 
     @Override
     public int getItemCount() {
-        return students == null ? 0 : students.length;
+        return mList == null ? 0 : mList.size();
     }
 
-    public static class TextViewHolder extends RecyclerView.ViewHolder {
-        @InjectView(R.id.summary_info_text)
-        TextView mTextView;
-        int position;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        @InjectView(R.id.summary_time)
+        TextView time;
+        @InjectView(R.id.summary_class)
+        TextView _class;
 
-        TextViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             ButterKnife.inject(this, view);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    position = getPosition();
-                    Log.d("TextViewHolder", "onClick--> position = " + getPosition());
-                }
-            });
         }
     }
 }

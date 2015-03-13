@@ -26,14 +26,11 @@ public class OverViewAdapter extends RecyclerView.Adapter<OverViewAdapter.TextVi
 
 
     private final LayoutInflater mLayoutInflater;
-    private final Context mContext;
     private String[] myDataset = {
             "历史记录", "缺勤记录","图表"
     };
 
     public OverViewAdapter(Context context) {
-
-        mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
 
     }
@@ -43,8 +40,7 @@ public class OverViewAdapter extends RecyclerView.Adapter<OverViewAdapter.TextVi
 
 
         View v = mLayoutInflater.inflate(R.layout.item_layout, parent, false);
-        TextViewHolder textViewHolder = new TextViewHolder(v);
-        return textViewHolder;
+        return new TextViewHolder(v);
     }
 
     @Override
@@ -69,18 +65,10 @@ public class OverViewAdapter extends RecyclerView.Adapter<OverViewAdapter.TextVi
     public static class TextViewHolder extends RecyclerView.ViewHolder {
         @InjectView(R.id.info_text)
         TextView mTextView;
-        int position;
 
         TextViewHolder(View view) {
             super(view);
             ButterKnife.inject(this, view);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    position = getPosition();
-                    Log.d("TextViewHolder", "onClick--> position = " + getPosition());
-                }
-            });
         }
     }
 }
