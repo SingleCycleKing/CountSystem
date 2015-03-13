@@ -1,6 +1,8 @@
 package com.cursor.generator;
 
 
+import java.sql.Date;
+
 import de.greenrobot.daogenerator.DaoGenerator;
 import de.greenrobot.daogenerator.Entity;
 import de.greenrobot.daogenerator.Property;
@@ -29,16 +31,30 @@ public class DbGenerator {
         student.addStringProperty("studentId");
         student.addStringProperty("_class");
 
+        Entity time = schema.addEntity("RecordTime");
+        time.addIdProperty().autoincrement().primaryKey();
+        time.addIntProperty("date");
+
+
         Entity absenceRecord = schema.addEntity("Record");
         absenceRecord.addIdProperty().autoincrement().primaryKey();
-        absenceRecord.addIntProperty("date").getProperty();
+//        absenceRecord.addIntProperty("date").getProperty();
         absenceRecord.addIntProperty("absenceType");
         Property sssId = absenceRecord.addLongProperty("sssId").notNull().getProperty();
+        Property tttId = absenceRecord.addLongProperty("tttId").notNull().getProperty();
+
 
         absenceRecord.addToOne(student, sssId);
+        absenceRecord.addToOne(time, tttId);
 
         ToMany recordToStudent = student.addToMany(absenceRecord, sssId);
         recordToStudent.setName("AbsenceRecords");
         recordToStudent.orderDesc();
+
+        ToMany recordToTime = time.addToMany(absenceRecord, tttId);
+        recordToTime.setName("AbsenceTimes");
+        recordToTime.orderDesc();
+
+
     }
 }

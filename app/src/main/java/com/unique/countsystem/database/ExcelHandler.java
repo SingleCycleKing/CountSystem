@@ -13,7 +13,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
 
 import jxl.Sheet;
 import jxl.Workbook;
@@ -22,7 +21,6 @@ import jxl.write.Label;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
-import jxl.write.biff.RowsExceededException;
 
 /**
  * Excel handler
@@ -111,8 +109,7 @@ public class ExcelHandler {
                 +File.separator+WRITE_DIR_PATH+File.separator
                 +fileName);
         WritableWorkbook workbook = Workbook.createWorkbook(file);
-        WritableSheet sheet = workbook.createSheet("sheet0",0);
-        int countTimes = DbHelper.getInstance().getSumCountTimes();
+        WritableSheet sheet = workbook.createSheet("sheet0", 0);
 
     }
 
@@ -124,6 +121,12 @@ public class ExcelHandler {
         sheet.addCell(label1);
         sheet.addCell(label2);
         sheet.addCell(label3);
+        int countTimes =0;
+//                DbHelper.getInstance().getSumCountTimes();
+        Label time = null;
+        for (int j =3; j < countTimes+3; j++){
+            time = new Label(j,0, "");
+        }
     }
 
     private final static String SAVE_NAME_FORMATER= "record_%s";

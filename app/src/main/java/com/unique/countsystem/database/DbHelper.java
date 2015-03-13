@@ -165,10 +165,10 @@ public class DbHelper {
      * @return The Absence records list on that day
      * @exception java.lang.IllegalArgumentException if day is incorrect.
      */
-    public List<Record> getAbsenceRecordsByDay(String day){
-        int date = DayUtils.fromString(day);
-        return mRecordDao.queryBuilder().where(com.unique.countsystem.RecordDao.Properties.Date.eq(date)).list();
-    }
+//    public List<Record> getAbsenceRecordsByDay(String day){
+//        int date = DayUtils.fromString(day);
+//        return mRecordDao.queryBuilder().where(com.unique.countsystem.RecordDao.Properties.Date.eq(date)).list();
+//    }
 
     /**
      * List all absence records for a specific student from studentId
@@ -236,24 +236,27 @@ public class DbHelper {
     /**
      * @return sum count times
      */
-    public int getSumCountTimes(){
-        String DISTINCT_DATE_FROM_RECORD = "SELECT DISTINCT " + RecordDao.Properties.Date.columnName + " FROM " + com.unique.countsystem.RecordDao.TABLENAME;
-        return getDaoSession(appContext).getDatabase().rawQuery(DISTINCT_DATE_FROM_RECORD, null).getCount();
-    }
+//    public int getSumCountTimes(){
+//        String DISTINCT_DATE_FROM_RECORD = "SELECT DISTINCT " + RecordDao.Properties.Date.columnName + " FROM " + com.unique.countsystem.RecordDao.TABLENAME;
+//        return getDaoSession(appContext).getDatabase().rawQuery(DISTINCT_DATE_FROM_RECORD, null).getCount();
+//        if (getSumCountList() == null)
+//            return 0;
+//        return getSumCountList().size();
+//    }
 
-    @Nullable
-    public List<Integer> getSumCountList(){
-        String DISTINCT_DATE_FROM_RECORD = "SELECT DISTINCT " + RecordDao.Properties.Date.columnName + " FROM " + com.unique.countsystem.RecordDao.TABLENAME;
-        Cursor cursor = getDaoSession(appContext).getDatabase().rawQuery(DISTINCT_DATE_FROM_RECORD, null);
-        List<Integer> result = new ArrayList<>(100);
-        if(cursor.moveToFirst()){
-            do{
-                result.add(cursor.getInt(cursor.getColumnIndex(RecordDao.Properties.Date.columnName)));
-            }while (cursor.moveToNext());
-            return  result;
-        }
-        return null;
-    }
+//    @Nullable
+//    public List<Integer> getSumCountList(){
+//        String DISTINCT_DATE_FROM_RECORD = "SELECT DISTINCT " + RecordDao.Properties.Date.columnName + " FROM " + com.unique.countsystem.RecordDao.TABLENAME;
+//        Cursor cursor = getDaoSession(appContext).getDatabase().rawQuery(DISTINCT_DATE_FROM_RECORD, null);
+//        List<Integer> result = new ArrayList<>(100);
+//        if(cursor.moveToFirst()){
+//            do{
+//                result.add(cursor.getInt(cursor.getColumnIndex(RecordDao.Properties.Date.columnName)));
+//            }while (cursor.moveToNext());
+//            return  result;
+//        }
+//        return null;
+//    }
 
     /**
      * use studentId
