@@ -5,7 +5,7 @@
         <item>主页</item>
         <item>管理名单</item>
         <item>数据统计</item>
-        <item>设置</item>
+        <!--<item>设置</item>-->
     </string-array>
     <string-array name="fragment">
         <item>com.unique.countsystem.fragment.NamedFragment</item>

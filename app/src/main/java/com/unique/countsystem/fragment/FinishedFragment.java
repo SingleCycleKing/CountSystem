@@ -18,6 +18,7 @@ import com.unique.countsystem.Record;
 import com.unique.countsystem.RecordTime;
 import com.unique.countsystem.adapter.FinishedAdapter;
 import com.unique.countsystem.database.DbHelper;
+import com.unique.countsystem.database.model.absenceType;
 import com.unique.countsystem.utils.BaseUtils;
 import com.unique.countsystem.utils.DebugLog;
 
@@ -33,7 +34,7 @@ public class FinishedFragment extends Fragment {
     RecyclerView mRecyclerView;
     private ArrayList<String> names = new ArrayList<>();
     private ArrayList<Integer> types = new ArrayList<>();
-
+    private RecordTime recordTime;
 
     @Override
     public void onPause() {
@@ -50,22 +51,30 @@ public class FinishedFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        recordTime = DbHelper.getInstance().getRecordTimeById(NamedFragment.id);
+        recordTime.resetAbsenceTimes();
+        setData();
+    }
+
+    private void setData() {
+        names.clear();
+        types.clear();
+        List<Record> records = recordTime.getAbsenceTimes();
+        for (Record record : records) {
+            names.add(record.getStudent().getName());
+            types.add(record.getAbsenceType());
+        }
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        RecordTime recordTime = DbHelper.getInstance().getRecordTimeById(NamedFragment.id);
-        recordTime.resetAbsenceTimes();
-        DebugLog.e(""+NamedFragment.id);
-        DebugLog.e(DbHelper.getInstance().getRecordsByTimeId(NamedFragment.id).size()+"");
-        List<Record> records = recordTime.getAbsenceTimes();
-        DebugLog.e(records.size() + "you");
-        for (Record record : records) {
-            names.add(record.getStudent().getName());
-            types.add(record.getAbsenceType());
-        }
         mRecyclerView.setAdapter(new FinishedAdapter(getActivity(), names, types));
     }
 
@@ -81,9 +90,19 @@ public class FinishedFragment extends Fragment {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(BaseUtils.FINISHED_UPDATE_DATA)) {
-                types.set(intent.getIntExtra("position", -1), intent.getIntExtra("type", -1));
+                List<Record> records = recordTime.getAbsenceTimes();
+                switch (intent.getIntExtra("type", -1)) {
+                    case 0:
+                        records.get(intent.getIntExtra("position", -1)).setAbsenceType(absenceType.NORMAL.toInteger());
+                        break;
+                    case 1:
+                        records.get(intent.getIntExtra("position", -1)).setAbsenceType(absenceType.VACATE.toInteger());
+                        break;
+                    case 2:
+                        records.get(intent.getIntExtra("position", -1)).setAbsenceType(absenceType.ABSENCE.toInteger());
+                        break;
+                }
                 mRecyclerView.setAdapter(new FinishedAdapter(getActivity(), names, types));
-
             }
         }
     };

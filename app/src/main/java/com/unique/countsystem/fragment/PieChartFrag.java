@@ -32,6 +32,7 @@ public class PieChartFrag extends SimpleFragment {
 
     protected String[] mParties = new String[]{
             "软工1班", "软工2班", "软工3班", "软工4班", "软工5班", "软工6班"
+            ,"数媒1班"
     };
 
     @Override
@@ -50,8 +51,8 @@ public class PieChartFrag extends SimpleFragment {
         mChart.setDescription("");
         mChart.setCenterText("各班缺勤率");
         mChart.setCenterTextSize(22f);
-        mChart.setHoleRadius(45f);
-        mChart.setTransparentCircleRadius(50f);
+        mChart.setHoleRadius(30f);
+        mChart.setTransparentCircleRadius(40f);
         mChart.setDrawCenterText(true);
         mChart.setDrawHoleEnabled(true);
         mChart.setRotationAngle(0);
@@ -60,9 +61,10 @@ public class PieChartFrag extends SimpleFragment {
         mChart.setTouchEnabled(false);
         //mChart.setData(generatePieData());
         mChart.setCenterTextSize(20f);
-        setData(5);
-        Legend l = mChart.getLegend();
-        l.setPosition(LegendPosition.RIGHT_OF_CHART);
+        setData(mParties.length) ;
+        mChart.getLegend().setEnabled(false);
+//        Legend l = mChart.getLegend();
+//        l.setPosition(LegendPosition.RIGHT_OF_CHART);
 
     }
 
@@ -70,38 +72,26 @@ public class PieChartFrag extends SimpleFragment {
 
         float number = 100;
         ArrayList<Entry> yVals1 = new ArrayList<Entry>();
-        for (int i = 0; i < count + 1; i++) {
+        for (int i = 0; i < count ; i++) {
             yVals1.add(new Entry((float) (Math.random() * number) + number / 5, i));
 
         }
 
         ArrayList<String> xVals = new ArrayList<String>();
 
-        for (int i = 0; i < count + 1; i++) {
+        for (int i = 0; i < count ; i++) {
 
             xVals.add(mParties[i % mParties.length]);
+
         }
         PieDataSet dataSet = new PieDataSet(yVals1, "");
         dataSet.setSliceSpace(3f);
 
         ArrayList<Integer> colors = new ArrayList<Integer>();
-
-        for (int c : ColorTemplate.VORDIPLOM_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.JOYFUL_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.COLORFUL_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.LIBERTY_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.PASTEL_COLORS)
-            colors.add(c);
-
-        colors.add(ColorTemplate.getHoloBlue());
+        colors.add(Color.parseColor("#089d87")) ;
+        colors.add(Color.parseColor("#cf5348")) ;
+        colors.add(Color.parseColor("#fbcc8f")) ;
+        colors.add(Color.parseColor("#5d4037")) ;
 
         dataSet.setColors(colors);
 

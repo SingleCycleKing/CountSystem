@@ -10,8 +10,10 @@ import android.view.animation.Interpolator;
 import android.view.animation.OvershootInterpolator;
 
 import com.unique.countsystem.R;
+import com.unique.countsystem.Record;
 import com.unique.countsystem.Student;
 import com.unique.countsystem.database.DbHelper;
+import com.unique.countsystem.database.model.absenceType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,20 +33,24 @@ public class BaseUtils {
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    public static ArrayList<Student> getStudent(int allNumber) {
+    public static ArrayList<Student> getStudent(int allNumber, String _class) {
         if (0 != allNumber) {
-            List<Student> students = DbHelper.getInstance().getAllStudents();
+            List<Student> students = DbHelper.getInstance().getAllStudentListWithClass(_class);
             ArrayList<String> ids = new ArrayList<>();
             ArrayList<Student> roll = new ArrayList<>();
             for (int i = 0; i < students.size(); i++) {
-                int absence = students.get(i).getAbsenceRecords().size();
+                List<Record> records = students.get(i).getAbsenceRecords();
+                int absence = 0;
+                for (Record record : records) {
+                    if (record.getAbsenceType() != absenceType.NORMAL.toInteger()) absence++;
+                }
                 for (int j = 0; j < absence + 1; j++) {
                     ids.add(students.get(i).getStudentId());
                 }
             }
             for (int i = 0; i < allNumber; i++) {
-                //TODO-ids is empty.
-                roll.add(DbHelper.getInstance().getStudentByStudentId(ids.get(getRandomNumber(ids.size()))));
+                if (0 != ids.size())
+                    roll.add(DbHelper.getInstance().getStudentByStudentId(ids.get(getRandomNumber(ids.size()))));
             }
             return roll;
         } else return null;
