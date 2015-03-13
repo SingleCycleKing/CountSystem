@@ -19,8 +19,13 @@ import android.support.v4.app.Fragment;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.Legend.LegendPosition;
+import com.unique.countsystem.Record;
+import com.unique.countsystem.RecordTime;
+import com.unique.countsystem.database.DbHelper;
+import com.unique.countsystem.database.model.absenceType;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PieChartFrag extends SimpleFragment {
 
@@ -105,14 +110,29 @@ public class PieChartFrag extends SimpleFragment {
 
         mChart.invalidate();
     }
-    private int  getSum() {
 
-
-        return 0 ;
+    private List<Record> records = DbHelper.getInstance().getAllAbsenceRecords();
+    private int getSum() {
+        int sum =0;
+        for (Record record:records){
+            if (record.getAbsenceType() != absenceType.NORMAL.toInteger()){
+                sum++;
+            }
+        }
+        return sum;
     }
 
 
-    private int getNumberFromClass(String _class ){
-        return 0 ;
+    private int[] getNumberFromClass(String... _classes ){
+        int[] result = new int[_classes.length];
+        for (Record record:records){
+            String a_class = record.getStudent().get_class();
+            for (int i = 0; i<_classes.length;i++){
+                if (_classes[i].equals(a_class)){
+                    result[i]++;
+                }
+            }
+        }
+        return result;
     }
 }
