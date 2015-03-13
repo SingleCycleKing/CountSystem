@@ -1,17 +1,28 @@
 package com.unique.countsystem.database;
 
+import android.content.Context;
+import android.os.Environment;
+
+import com.unique.countsystem.R;
 import com.unique.countsystem.Student;
 import com.unique.countsystem.utils.DebugLog;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
+import jxl.write.Label;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
+import jxl.write.biff.RowsExceededException;
 
 /**
  * Excel handler
@@ -22,6 +33,7 @@ import jxl.read.biff.BiffException;
  * DATE: 2015/3/9
  */
 public class ExcelHandler {
+    public static final String WRITE_DIR_PATH = "countSystem";
     /**
      * Singleton instance
      */
@@ -68,6 +80,7 @@ public class ExcelHandler {
             DebugLog.d(name + " ; " + studentId + " ; " + _class);
             excelStudentList.add(DbHelper.createStudentModel(name,studentId,_class));
         }
+        workbook.close();
         if(excelStudentList.isEmpty()) return;
         DbHelper.getInstance().insertStudentsList(excelStudentList);
     }
@@ -85,28 +98,45 @@ public class ExcelHandler {
         return true;
     }
 
-    private int getRightRows(Sheet sheet){
-        if (sheet == null){
-            return 0;
-        }
-        int rsCols = sheet.getColumns();
-        int rsRows = sheet.getRows();
-        int nullCellNum;
-        for(int i=1;i<rsRows;i++){
-            nullCellNum = 0;
-            for (int j = 0; j < rsCols; j++) {
-                String val = sheet.getCell(j, i).getContents();
+    public void WriteExcel(Context context) throws IOException, BiffException {
+        File cache = new File(Environment.getExternalStorageDirectory()
+                .getAbsolutePath(), WRITE_DIR_PATH);
+        if (!cache.exists()) {
+            if (!cache.mkdirs()){
+                throw new IOException("文件夹创建失败");
             }
         }
-        return 1;
+        String fileName = generateFileName();
+        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath()
+                +File.separator+WRITE_DIR_PATH+File.separator
+                +fileName);
+        WritableWorkbook workbook = Workbook.createWorkbook(file);
+        WritableSheet sheet = workbook.createSheet("sheet0",0);
+        int countTimes = DbHelper.getInstance().getSumCountTimes();
+
     }
 
-
-    public void WriteExcel(File file) throws IOException, BiffException {
-
+    private void createSheetHead(WritableSheet sheet, Context context) throws WriteException {
+        if (sheet == null) return;
+        Label label1 = new Label(0,0,  context.getString(R.string.sheet_name));
+        Label label2 = new Label(1,0,  context.getString(R.string.sheet_studentId));
+        Label label3 = new Label(2,0,  context.getString(R.string.sheet_class));
+        sheet.addCell(label1);
+        sheet.addCell(label2);
+        sheet.addCell(label3);
     }
 
+    private final static String SAVE_NAME_FORMATER= "record_%s";
 
+    private String generateFileName(){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_mm_ss");
+        Date date = new Date();
+        String formated_date = dateFormat.format(date);
+        return wrapXLS(String.format(SAVE_NAME_FORMATER, formated_date));
+    }
 
+    private String wrapXLS(String FileName){
+        return FileName + ".xls";
+    }
 
 }

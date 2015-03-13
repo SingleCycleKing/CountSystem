@@ -1,6 +1,7 @@
 package com.unique.countsystem.database;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.support.annotation.Nullable;
 
 import com.unique.countsystem.DaoMaster;
@@ -12,6 +13,7 @@ import com.unique.countsystem.StudentDao;
 import com.unique.countsystem.database.model.absenceType;
 import com.unique.countsystem.utils.DayUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -234,10 +236,23 @@ public class DbHelper {
     /**
      * @return sum count times
      */
-    public int getSumCountTimes(String _class)throws IllegalArgumentException{
-        check_class(_class);
-        String DISTINCT_DATE_FROM_RECORD = "SELECT DISTINCT " + com.unique.countsystem.RecordDao.Properties.Date + " FROM " + com.unique.countsystem.RecordDao.TABLENAME;
+    public int getSumCountTimes(){
+        String DISTINCT_DATE_FROM_RECORD = "SELECT DISTINCT " + RecordDao.Properties.Date.columnName + " FROM " + com.unique.countsystem.RecordDao.TABLENAME;
         return getDaoSession(appContext).getDatabase().rawQuery(DISTINCT_DATE_FROM_RECORD, null).getCount();
+    }
+
+    @Nullable
+    public List<Integer> getSumCountList(){
+        String DISTINCT_DATE_FROM_RECORD = "SELECT DISTINCT " + RecordDao.Properties.Date.columnName + " FROM " + com.unique.countsystem.RecordDao.TABLENAME;
+        Cursor cursor = getDaoSession(appContext).getDatabase().rawQuery(DISTINCT_DATE_FROM_RECORD, null);
+        List<Integer> result = new ArrayList<>(100);
+        if(cursor.moveToFirst()){
+            do{
+                result.add(cursor.getInt(cursor.getColumnIndex(RecordDao.Properties.Date.columnName)));
+            }while (cursor.moveToNext());
+            return  result;
+        }
+        return null;
     }
 
     /**

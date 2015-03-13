@@ -39,4 +39,8 @@
     <string name="title_activity_absence">缺勤记录</string>
     <string name="dialog_read">添加表格</string>
 
+    <string name="sheet_name">姓名</string>
+    <string name="sheet_studentId">学号</string>
+    <string name="sheet_class">班级</string>
+    <string name="sheet_sum">累计</string>
 </resources>
