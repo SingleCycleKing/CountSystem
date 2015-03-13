@@ -66,10 +66,14 @@ public class InputFragment extends Fragment {
             Toast.makeText(getActivity(),"文件写入错误",Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
+
+        Toast.makeText(getActivity(),"写入成功，储存在/sdcard/countSystem文件夹",Toast.LENGTH_SHORT).show();
 //        excelAdapter = new ExcelAdapter(getActivity());
 //        mListView.setAdapter(excelAdapter);
 //        setAnim(add, mLayout).start();
     }
+
+
 
 
     @OnClick(R.id.excel_add)

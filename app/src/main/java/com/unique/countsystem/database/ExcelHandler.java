@@ -36,7 +36,7 @@ import jxl.write.biff.RowsExceededException;
  * DATE: 2015/3/9
  */
 public class ExcelHandler {
-    public static final String WRITE_DIR_PATH = "countSystem";
+    public static final String WRITE_DIR_PATH = "/countSystem/";
     /**
      * Singleton instance
      */
@@ -114,15 +114,18 @@ public class ExcelHandler {
             if (!cache.mkdirs()){
                 throw new IOException("文件夹创建失败");
             }
+            DebugLog.e("create dirs success");
         }
         String fileName = generateFileName();
         File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath()
-                +File.separator+WRITE_DIR_PATH+File.separator
+                +WRITE_DIR_PATH
                 +fileName);
+        DebugLog.e(file.getPath());
         WritableWorkbook workbook = Workbook.createWorkbook(file);
         WritableSheet sheet = workbook.createSheet("sheet0", 0);
         createSheetHead(sheet,context);
         createSheetBody(sheet,context);
+        workbook.close();
     }
 
     private void createSheetBody(WritableSheet sheet, Context context) throws WriteException {
@@ -169,6 +172,7 @@ public class ExcelHandler {
 
     private void createSheetHead(WritableSheet sheet, Context context) throws WriteException {
         if (sheet == null) return;
+        DebugLog.e("createSheetHead");
         Label label1 = new Label(0,0,  context.getString(R.string.sheet_name));
         Label label2 = new Label(1,0,  context.getString(R.string.sheet_studentId));
         Label label3 = new Label(2,0,  context.getString(R.string.sheet_class));
