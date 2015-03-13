@@ -80,31 +80,28 @@ public class LineChartFragment extends SimpleFragment implements OnSeekBarChange
         mChart.animateX(2500);
 
         Legend l = mChart.getLegend();
-
-        l.setForm(LegendForm.LINE);
-        l.setTextSize(11f);
-        l.setTextColor(Color.WHITE);
-        l.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
+        l.setEnabled(false);
+//        l.setForm(LegendForm.LINE);
+//        l.setTextSize(11f);
+//        l.setTextColor(Color.WHITE);
+//        l.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
 
         XAxis xAxis = mChart.getXAxis();
-        xAxis.setTextSize(12f);
+
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setTextSize(10f);
         xAxis.setTextColor(Color.WHITE);
+        xAxis.setDrawAxisLine(true);
         xAxis.setDrawGridLines(false);
-        xAxis.setDrawAxisLine(false);
-        xAxis.setSpaceBetweenLabels(1);
-
-
-//        YAxis leftAxis = mChart.getAxisLeft();
-//        leftAxis.setTextColor(ColorTemplate.getHoloBlue());
-//        leftAxis.setAxisMaxValue(200f);
-//        leftAxis.setDrawGridLines(true);
 
         YAxis rightAxis = mChart.getAxisRight();
+        rightAxis.setEnabled(false) ;
         rightAxis.setTextColor(Color.BLACK);
         rightAxis.setAxisMaxValue(10);
         rightAxis.setStartAtZero(false);
         rightAxis.setAxisMinValue(0);
         rightAxis.setDrawGridLines(false);
+        rightAxis.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART) ;
         return v;
     }
 
