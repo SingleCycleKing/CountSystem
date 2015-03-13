@@ -1,6 +1,7 @@
 package com.unique.countsystem;
 
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.unique.countsystem.R;
+import com.unique.countsystem.fragment.PieChartFrag;
 import com.unique.countsystem.utils.BaseUtils;
 
 import butterknife.ButterKnife;
@@ -32,6 +34,9 @@ public class ChartActivity extends ActionBarActivity {
     }
 
     private void init() {
+
+        getSupportFragmentManager().beginTransaction().
+                replace(R.id.chart_content, new PieChartFrag()).commit();
 
     }
 
