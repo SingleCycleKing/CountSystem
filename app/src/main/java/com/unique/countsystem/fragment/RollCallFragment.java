@@ -57,7 +57,9 @@ public class RollCallFragment extends Fragment {
     @OnClick(R.id.roll_arrived)
     public void arrive() {
         if (!isFlying) {
-            DbHelper.getInstance().insertOrReplaceAbsenceRecord(DbHelper.getInstance().createAbsenceRecordModel(absenceType.NORMAL, rolls.get(position), id), rolls.get(position));
+            DbHelper.getInstance().insertOrReplaceAbsenceRecord(
+                    DbHelper.getInstance().createAbsenceRecordModel(absenceType.NORMAL, rolls.get(position), id)
+                    , rolls.get(position));
             dataHandler();
         }
     }

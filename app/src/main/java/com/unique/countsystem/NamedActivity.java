@@ -45,6 +45,7 @@ public class NamedActivity extends ActionBarActivity {
             SharedPreferences sharedPreferences = this.getSharedPreferences("Count", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putInt("number", number);
+            DebugLog.e(""+number);
             editor.apply();
 
 

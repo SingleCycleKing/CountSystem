@@ -43,6 +43,7 @@ public class BaseUtils {
                 }
             }
             for (int i = 0; i < allNumber; i++) {
+                //TODO-ids is empty.
                 roll.add(DbHelper.getInstance().getStudentByStudentId(ids.get(getRandomNumber(ids.size()))));
             }
             return roll;

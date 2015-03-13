@@ -13,7 +13,7 @@ import com.unique.countsystem.RecordTimeDao;
 import com.unique.countsystem.Student;
 import com.unique.countsystem.StudentDao;
 import com.unique.countsystem.database.model.absenceType;
-import com.unique.countsystem.utils.DayUtils;
+import com.unique.countsystem.utils.DebugLog;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -151,7 +151,7 @@ public class DbHelper {
      */
     @Nullable
     public Student getStudentByStudentId(String studentId) throws IllegalArgumentException{
-        if (!parseStudentIdFromString(studentId)){
+        if (!checkStudentId(studentId)){
             throw new IllegalArgumentException("StudentId is illegal");
         }
         return mStudentDao.queryBuilder().where(com.unique.countsystem.StudentDao.Properties.StudentId.eq(studentId)).unique();
@@ -191,8 +191,9 @@ public class DbHelper {
     }
 
     public void insertOrReplaceAbsenceRecord(Record record,Student student){
+//        daoSession.insertOrReplace(record);
         mRecordDao.insertOrReplace(record);
-        student.resetAbsenceRecords();
+        student.getAbsenceRecords().add(record);
     }
 
 
@@ -206,7 +207,9 @@ public class DbHelper {
      */
     public static Student createStudentModel(String name, String studentId, String _class)
             throws IllegalArgumentException{
-        if (parseStudentIdFromString(studentId)){
+        studentId = studentId.trim();
+        DebugLog.e("|"+studentId+"|");
+        if (!checkStudentId(studentId)){
             throw new IllegalArgumentException("studentId is illegal");
         }
         _class = _class.trim();
@@ -319,7 +322,7 @@ public class DbHelper {
 
     }
 
-    private static boolean parseStudentIdFromString(String studentId) {
+    public static boolean checkStudentId(String studentId) {
         Pattern pattern = Pattern.compile("^(U|u)(2|3)0[0-9]{7}$");
         return pattern.matcher(studentId).matches();
     }
