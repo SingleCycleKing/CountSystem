@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.unique.countsystem.R;
 import com.unique.countsystem.Record;
 import com.unique.countsystem.RecordTime;
+import com.unique.countsystem.database.DbHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,9 +28,15 @@ public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.ViewHold
     private final LayoutInflater mLayoutInflater;
     private List<RecordTime> mList;
 
-    public SummaryAdapter(Context context, List<RecordTime> mList) {
+    public SummaryAdapter(Context context) {
         mLayoutInflater = LayoutInflater.from(context);
-        this.mList = mList;
+        mList = DbHelper.getInstance().getAllRecordTimeDescOrdered();
+        for (RecordTime recordTime : mList) {
+            if (DbHelper.getInstance().checkIsNullRecordTime(recordTime)) {
+                DbHelper.getInstance().deleteRecordTime(recordTime);
+            }
+        }
+        mList = DbHelper.getInstance().getAllRecordTimeDescOrdered();
     }
 
     @Override

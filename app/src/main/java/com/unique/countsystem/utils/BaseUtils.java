@@ -33,7 +33,7 @@ public class BaseUtils {
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    public static ArrayList<Student> getStudent(int allNumber,   List<Student> mStudents) {
+    public static ArrayList<Student> getStudent(int allNumber, List<Student> mStudents) {
         if (0 != allNumber) {
             ArrayList<String> ids = new ArrayList<>();
             ArrayList<Student> roll = new ArrayList<>();
@@ -48,8 +48,17 @@ public class BaseUtils {
                 }
             }
             for (int i = 0; i < allNumber; i++) {
-                if (0 != ids.size())
-                    roll.add(DbHelper.getInstance().getStudentByStudentId(ids.get(getRandomNumber(ids.size()))));
+                if (0 != ids.size()) {
+                    Student student = DbHelper.getInstance().getStudentByStudentId(ids.get(getRandomNumber(ids.size())));
+                    for (int k = 0; k < ids.size(); k++) {
+                        DebugLog.e("id" + student.getStudentId());
+                        if (ids.get(k).equals(student.getStudentId())) {
+                            ids.remove(k);
+                            DebugLog.e("k" + k);
+                        }
+                    }
+                    roll.add(student);
+                }
             }
             return roll;
         } else return null;

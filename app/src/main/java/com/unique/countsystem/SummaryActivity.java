@@ -41,7 +41,7 @@ public class SummaryActivity extends ActionBarActivity {
 
     private void init() {
         summaryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        summaryRecyclerView.setAdapter(new SummaryAdapter(this, DbHelper.getInstance().getAllRecordTimeDescOrdered()));
+        summaryRecyclerView.setAdapter(new SummaryAdapter(this));
         summaryRecyclerView.addOnItemTouchListener(new OnRecyclerItemClickListener(this,
                 new OnRecyclerItemClickListener.OnItemClickListener() {
                     @Override

@@ -63,7 +63,7 @@ public class RollCallFragment extends Fragment {
     @OnClick(R.id.roll_leave)
     public void leave() {
         if (!isFlying) {
-            DbHelper.getInstance().insertOrReplaceAbsenceRecord(DbHelper.getInstance().createAbsenceRecordModel(absenceType.ABSENCE, rolls.get(position), id), rolls.get(position));
+            DbHelper.getInstance().insertOrReplaceAbsenceRecord(DbHelper.getInstance().createAbsenceRecordModel(absenceType.VACATE, rolls.get(position), id), rolls.get(position));
             dataHandler();
         }
     }
@@ -71,7 +71,7 @@ public class RollCallFragment extends Fragment {
     @OnClick(R.id.roll_truancy)
     public void truancy() {
         if (!isFlying) {
-            DbHelper.getInstance().insertOrReplaceAbsenceRecord(DbHelper.getInstance().createAbsenceRecordModel(absenceType.VACATE, rolls.get(position), id), rolls.get(position));
+            DbHelper.getInstance().insertOrReplaceAbsenceRecord(DbHelper.getInstance().createAbsenceRecordModel(absenceType.ABSENCE, rolls.get(position), id), rolls.get(position));
             dataHandler();
         }
     }

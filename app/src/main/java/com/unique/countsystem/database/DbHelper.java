@@ -258,7 +258,7 @@ public class DbHelper {
     }
 
     public boolean checkIsNullRecordTime(RecordTime recordTime){
-        return 0 != recordTime.getAbsenceTimes().size();
+        return 0 == recordTime.getAbsenceTimes().size();
     }
 
     public void deleteRecordTime(RecordTime recordTime){
