@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -58,15 +59,18 @@ public class PieChartFrag extends SimpleFragment {
         mChart.setTouchEnabled(true);
         mChart.setCenterTextSize(20f);
 
+
         setData(mParties.length);
 
-
+        Legend legend = mChart.getLegend();
+        legend.setEnabled(false);
     }
 
     private int setData(int count) {
 
         float number = getSum();
         int[] numberClass = getNumberFromClass(mParties);
+
         if (0 == number) {
             Toast.makeText(getActivity(), "当前缺勤次数为0", Toast.LENGTH_SHORT).show();
             return 0;
@@ -103,7 +107,7 @@ public class PieChartFrag extends SimpleFragment {
         data.setValueTextSize(11f);
         data.setValueTextColor(Color.BLACK);
 
-        mChart.getLegend().setEnabled(false);
+
         mChart.setData(data);
         mChart.highlightValues(null);
         mChart.invalidate();
