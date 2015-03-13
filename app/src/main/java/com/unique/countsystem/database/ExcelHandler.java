@@ -133,13 +133,13 @@ public class ExcelHandler {
         if (sheet ==null) return;
         List<Student> students = DbHelper.getInstance().getAllStudents();
         List<RecordTime> recordTimes = DbHelper.getInstance().getAllRecordTimeAscOrdered();
-        List<Record> recordList = null;
-        Label label = null;
-        Label name = null;
-        Label studentId = null;
-        Label _class = null;
-        Label sum = null;
-        int sum_counter = 0;
+        List<Record> recordList;
+        Label label;
+        Label name;
+        Label studentId;
+        Label _class;
+        Label sum;
+        int sum_counter;
         for (int i = 1;i<students.size()+1;i++){
             sum_counter = 0;
             name = new Label(0,i,students.get(i-1).getName());
@@ -154,6 +154,7 @@ public class ExcelHandler {
                     for(int t=0;t <recordTimes.size();t++){
                         if (record.getRecordTime().getTime().getTime()==recordTimes.get(t).getTime().getTime()){
                             if(record.getAbsenceType() == absenceType.ABSENCE.toInteger()){
+                                DebugLog.e(record.getRecordTime().getTime().toString());
                                 label = new Label(t+3,i,"X");
                                 sum_counter++;
                             }else if (record.getAbsenceType() == absenceType.VACATE.toInteger()){
