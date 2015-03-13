@@ -19,12 +19,17 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 import com.unique.countsystem.R;
+import com.unique.countsystem.Record;
 import com.unique.countsystem.Student;
 import com.unique.countsystem.adapter.InfoAdapter;
+import com.unique.countsystem.database.DbHelper;
+import com.unique.countsystem.database.model.absenceType;
 import com.unique.countsystem.utils.BaseUtils;
 import com.unique.countsystem.utils.DebugLog;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -39,6 +44,8 @@ public class RollCallFragment extends Fragment {
     private boolean isFlying = false;
     private SpeechSynthesizer mSynthesizer;
     private ArrayList<Student> rolls;
+    private SharedPreferences sharedPreferences;
+    public static long id;
 
     @InjectView(R.id.roll_name)
     TextView name;
@@ -49,20 +56,26 @@ public class RollCallFragment extends Fragment {
 
     @OnClick(R.id.roll_arrived)
     public void arrive() {
-        if (!isFlying)
+        if (!isFlying) {
+            DbHelper.getInstance().insertOrReplaceAbsenceRecord(DbHelper.getInstance().createAbsenceRecordModel(absenceType.NORMAL, rolls.get(position), id), rolls.get(position));
             dataHandler();
+        }
     }
 
     @OnClick(R.id.roll_leave)
     public void leave() {
-        if (!isFlying)
+        if (!isFlying) {
+            DbHelper.getInstance().insertOrReplaceAbsenceRecord(DbHelper.getInstance().createAbsenceRecordModel(absenceType.ABSENCE, rolls.get(position), id), rolls.get(position));
             dataHandler();
+        }
     }
 
     @OnClick(R.id.roll_truancy)
     public void truancy() {
-        if (!isFlying)
+        if (!isFlying) {
+            DbHelper.getInstance().insertOrReplaceAbsenceRecord(DbHelper.getInstance().createAbsenceRecordModel(absenceType.VACATE, rolls.get(position), id), rolls.get(position));
             dataHandler();
+        }
     }
 
 
@@ -75,8 +88,11 @@ public class RollCallFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Count", Context.MODE_PRIVATE);
-//        rolls = BaseUtils.getStudent(sharedPreferences.getInt("number", 0));
+        Date date = new Date();
+        id = DbHelper.getInstance().insertOrReplaceRecordTime(date);
+
+        sharedPreferences = getActivity().getSharedPreferences("Count", Context.MODE_PRIVATE);
+        rolls = BaseUtils.getStudent(sharedPreferences.getInt("number", 0));
         mList = new ArrayList<>();
         setData();
         adapter = new InfoAdapter(getActivity(), mList);
@@ -86,8 +102,8 @@ public class RollCallFragment extends Fragment {
         mSynthesizer.setParameter(SpeechConstant.VOICE_NAME, "xiaoli");
         mSynthesizer.setParameter(SpeechConstant.SPEED, "50");
         mSynthesizer.setParameter(SpeechConstant.VOLUME, "80");
-        int code = mSynthesizer.startSpeaking("卧槽", mListener);
-        DebugLog.e("fuck" + code);
+        if (0 == position)
+            mSynthesizer.startSpeaking(rolls.get(position).getName(), mListener);
 
     }
 
@@ -100,24 +116,35 @@ public class RollCallFragment extends Fragment {
     }
 
     private void setData() {
-        name.setText("啪啪啪，啊，嗯！");
-        mList.add("学号：");
-        mList.add("班级：");
-//        List<Record> records = rolls.get(position).getAbsenceRecords();
-//        int vacate = 0;
-//        int absence = 0;
-//        for (Record record : records) {
-//            if (record.getAbsenceType().equals(absenceType.VACATE.toInteger())) vacate++;
-//            if (record.getAbsenceType().equals(absenceType.ABSENCE.toInteger())) absence++;
-//        }
-        mList.add("已缺勤次数：");
-        mList.add("已请假次数：");
+        name.setText(rolls.get(position).getName());
+        mList.add("学号：" + rolls.get(position).getId());
+        mList.add("班级：" + rolls.get(position).getStudentId());
+        List<Record> records = rolls.get(position).getAbsenceRecords();
+        int vacate = 0;
+        int absence = 0;
+        for (Record record : records) {
+            if (record.getAbsenceType().equals(absenceType.VACATE.toInteger())) vacate++;
+            if (record.getAbsenceType().equals(absenceType.ABSENCE.toInteger())) absence++;
+        }
+        mList.add("已缺勤次数：" + vacate);
+        mList.add("已请假次数：" + absence);
+    }
+
+    @Override
+    public void onStop() {
+        mSynthesizer.stopSpeaking();
+        super.onStop();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     private void dataHandler() {
         if (position == 0)
             x = infoLayout.getX();
-        if (position < 5) {
+        if (position < sharedPreferences.getInt("number", 0) - 1) {
             position++;
             final ObjectAnimator fade = BaseUtils.moveAnim(500, infoLayout, x, x - 1000, BaseUtils.FADE_ANIM, "x");
             final ObjectAnimator appear = BaseUtils.moveAnim(500, infoLayout, x + 1000, x, BaseUtils.APPEAR_ANIM, "x");
@@ -130,7 +157,7 @@ public class RollCallFragment extends Fragment {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     isFlying = false;
-                    mSynthesizer.startSpeaking("神官姐姐真美丽", mListener);
+                    mSynthesizer.startSpeaking(rolls.get(position).getName(), mListener);
                 }
 
                 @Override
@@ -170,6 +197,7 @@ public class RollCallFragment extends Fragment {
             });
             fade.start();
         } else {
+            mSynthesizer.stopSpeaking();
             Intent intent = new Intent();
             intent.setAction(BaseUtils.HAS_FINISHED_CALLING_ROLL);
             getActivity().sendBroadcast(intent);

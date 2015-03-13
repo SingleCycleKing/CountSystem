@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -56,7 +57,10 @@ public class MainActivity extends ActionBarActivity {
         SpeechUtility.createUtility(this, SpeechConstant.APPID + "=54faf98f");
 
         final String[] fragments = getResources().getStringArray(R.array.fragment);
-        getSupportFragmentManager().beginTransaction().replace(R.id.content, Fragment.instantiate(MainActivity.this, fragments[0])).commit();
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.content, Fragment.instantiate(MainActivity.this, fragments[0]));
+        transaction.commit();
 
         menuList.setAdapter(new MenuAdapter(this));
         menuList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -92,7 +96,10 @@ public class MainActivity extends ActionBarActivity {
                 invalidateOptionsMenu();
                 if (isSelected) {
                     if (3 != mPosition) {
-                        getSupportFragmentManager().beginTransaction().replace(R.id.content, Fragment.instantiate(MainActivity.this, fragments[mPosition])).commit();
+                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.setCustomAnimations(R.anim.fragment_in, R.anim.fragment_out);
+                        transaction.replace(R.id.content, Fragment.instantiate(MainActivity.this, fragments[mPosition]));
+                        transaction.commit();
                     } else startActivity(new Intent(MainActivity.this, SettingActivity.class));
                     isSelected = false;
                 }

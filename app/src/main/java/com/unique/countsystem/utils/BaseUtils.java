@@ -5,22 +5,16 @@ import android.animation.PropertyValuesHolder;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AnticipateInterpolator;
-import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.view.animation.OvershootInterpolator;
-import android.widget.Button;
 
 import com.unique.countsystem.R;
-import com.unique.countsystem.Record;
 import com.unique.countsystem.Student;
 import com.unique.countsystem.database.DbHelper;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 
 public class BaseUtils {

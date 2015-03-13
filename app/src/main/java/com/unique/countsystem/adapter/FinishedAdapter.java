@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.unique.countsystem.R;
-import com.unique.countsystem.fragment.FinishedFragment;
 import com.unique.countsystem.utils.BaseUtils;
 
 import java.util.ArrayList;
@@ -27,9 +26,9 @@ public class FinishedAdapter extends RecyclerView.Adapter<FinishedAdapter.ViewHo
     private List<Integer> types;
     private Context mContext;
 
-    public FinishedAdapter(Context context, ArrayList<String> mList, ArrayList<Integer> infos) {
+    public FinishedAdapter(Context context, ArrayList<String> mList, ArrayList<Integer> types) {
         this.mList = mList;
-        this.types = infos;
+        this.types = types;
         mLayoutInflater = LayoutInflater.from(context);
         mContext = context;
     }
@@ -49,10 +48,10 @@ public class FinishedAdapter extends RecyclerView.Adapter<FinishedAdapter.ViewHo
                 holder.arrive.setImageResource(R.mipmap.selected);
                 break;
             case 1:
-                holder.leave.setImageResource(R.mipmap.selected);
+                holder.truancy.setImageResource(R.mipmap.selected);
                 break;
             case 2:
-                holder.truancy.setImageResource(R.mipmap.selected);
+                holder.leave.setImageResource(R.mipmap.selected);
                 break;
         }
     }
@@ -99,10 +98,10 @@ public class FinishedAdapter extends RecyclerView.Adapter<FinishedAdapter.ViewHo
                 case R.id.finished_arrive:
                     intent.putExtra("type", 0);
                     break;
-                case R.id.finished_leave:
+                case R.id.finished_truancy:
                     intent.putExtra("type", 1);
                     break;
-                case R.id.finished_truancy:
+                case R.id.finished_leave:
                     intent.putExtra("type", 2);
                     break;
             }

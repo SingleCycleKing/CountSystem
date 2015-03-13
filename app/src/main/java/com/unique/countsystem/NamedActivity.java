@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.unique.countsystem.adapter.PagerAdapter;
+import com.unique.countsystem.database.DbHelper;
 import com.unique.countsystem.fragment.FinishedFragment;
 import com.unique.countsystem.fragment.RollCallFragment;
 import com.unique.countsystem.utils.BaseUtils;
@@ -17,6 +18,7 @@ import com.unique.countsystem.utils.DebugLog;
 import com.unique.countsystem.view.CustomViewPager;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -44,6 +46,8 @@ public class NamedActivity extends ActionBarActivity {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putInt("number", number);
             editor.apply();
+
+
 
             classes = new ArrayList<>();
             classes.add(RollCallFragment.class);

@@ -14,12 +14,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.unique.countsystem.R;
+import com.unique.countsystem.Record;
+import com.unique.countsystem.RecordTime;
 import com.unique.countsystem.adapter.FinishedAdapter;
+import com.unique.countsystem.database.DbHelper;
 import com.unique.countsystem.utils.BaseUtils;
 import com.unique.countsystem.utils.DebugLog;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -27,10 +31,9 @@ import butterknife.InjectView;
 public class FinishedFragment extends Fragment {
     @InjectView(R.id.finished_list)
     RecyclerView mRecyclerView;
-    private String[] names = {"张三", "李四", "王五", "赵六", "雷丹雄"};
-    private Integer[] type = {0, 2, 1, 2, 1};
-    private ArrayList<Integer> typeList;
-    private ArrayList<String> nameList;
+    private ArrayList<String> names = new ArrayList<>();
+    private ArrayList<Integer> types = new ArrayList<>();
+
 
     @Override
     public void onPause() {
@@ -52,9 +55,16 @@ public class FinishedFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        nameList = new ArrayList<>(Arrays.asList(names));
-        typeList = new ArrayList<>(Arrays.asList(type));
-        mRecyclerView.setAdapter(new FinishedAdapter(getActivity(), nameList, typeList));
+
+        RecordTime recordTime = DbHelper.getInstance().getRecordTimeById(RollCallFragment.id);
+        recordTime.resetAbsenceTimes();
+        List<Record> records = recordTime.getAbsenceTimes();
+        DebugLog.e(records.size() + "you");
+        for (Record record : records) {
+            names.add(record.getStudent().getName());
+            types.add(record.getAbsenceType());
+        }
+        mRecyclerView.setAdapter(new FinishedAdapter(getActivity(), names, types));
     }
 
     @Override
@@ -69,8 +79,8 @@ public class FinishedFragment extends Fragment {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(BaseUtils.FINISHED_UPDATE_DATA)) {
-                typeList.set(intent.getIntExtra("position", -1), intent.getIntExtra("type", -1));
-                mRecyclerView.setAdapter(new FinishedAdapter(getActivity(), nameList, typeList));
+                types.set(intent.getIntExtra("position", -1), intent.getIntExtra("type", -1));
+                mRecyclerView.setAdapter(new FinishedAdapter(getActivity(), names, types));
 
             }
         }
