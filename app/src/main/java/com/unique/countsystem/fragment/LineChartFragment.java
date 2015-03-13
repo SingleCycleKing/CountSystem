@@ -36,7 +36,6 @@ import java.util.ArrayList;
 public class LineChartFragment extends SimpleFragment implements OnSeekBarChangeListener,
         OnChartValueSelectedListener {
 
-
     private LineChart mChart;
     private SeekBar mSeekBarX, mSeekBarY;
     private TextView tvX, tvY;
