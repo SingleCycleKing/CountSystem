@@ -4,11 +4,14 @@ import android.content.Context;
 import android.os.Environment;
 
 import com.unique.countsystem.R;
+import com.unique.countsystem.Record;
+import com.unique.countsystem.RecordTime;
 import com.unique.countsystem.Student;
 import com.unique.countsystem.utils.DebugLog;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.WriteAbortedException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -86,7 +89,7 @@ public class ExcelHandler {
     private boolean isANullRow(Sheet sheet, int rowsNumber){
         int columns = sheet.getColumns();
         String cell;
-        for( int j =0; j<= columns ; j++){
+        for( int j =0; j< columns ; j++){
             cell = sheet.getCell(j, rowsNumber).getContents();
             if(cell==null||cell.length()==0){
                 continue;
@@ -96,7 +99,7 @@ public class ExcelHandler {
         return true;
     }
 
-    public void WriteExcel(Context context) throws IOException, BiffException {
+    public void WriteExcel(Context context) throws IOException, BiffException, WriteException {
         File cache = new File(Environment.getExternalStorageDirectory()
                 .getAbsolutePath(), WRITE_DIR_PATH);
         if (!cache.exists()) {
@@ -110,6 +113,23 @@ public class ExcelHandler {
                 +fileName);
         WritableWorkbook workbook = Workbook.createWorkbook(file);
         WritableSheet sheet = workbook.createSheet("sheet0", 0);
+        createSheetHead(sheet,context);
+        createSheetBody(sheet,context);
+    }
+
+    private void createSheetBody(WritableSheet sheet, Context context){
+        if (sheet ==null) return;
+        List<Student> students = DbHelper.getInstance().getAllStudents();
+        List<RecordTime> recordTimes = DbHelper.getInstance().getAllRecordTime();
+        List<Record> recordList = null;
+        for (int i = 1;i<students.size()+1;i++){
+            for(int j=3;j<recordTimes.size()+3;j++){
+                recordList = students.get(i-1).getAbsenceRecords();
+                for (Record record:recordList){
+
+                }
+            }
+        }
 
     }
 
@@ -121,12 +141,16 @@ public class ExcelHandler {
         sheet.addCell(label1);
         sheet.addCell(label2);
         sheet.addCell(label3);
-        int countTimes =0;
-//                DbHelper.getInstance().getSumCountTimes();
         Label time = null;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        List<RecordTime> recordTimes = DbHelper.getInstance().getAllRecordTime();
+        int countTimes = recordTimes.size();
         for (int j =3; j < countTimes+3; j++){
-            time = new Label(j,0, "");
+            time = new Label(j,0, dateFormat.format(recordTimes.get(j-3).getTime()));
+            sheet.addCell(time);
         }
+        Label labelSum = new Label(countTimes+3,0,context.getString(R.string.sheet_sum));
+        sheet.addCell(labelSum);
     }
 
     private final static String SAVE_NAME_FORMATER= "record_%s";

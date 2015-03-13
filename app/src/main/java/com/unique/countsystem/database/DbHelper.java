@@ -229,13 +229,18 @@ public class DbHelper {
         mRecordTimeDao.insertOrReplace(new RecordTime(null,date));
     }
 
-    public void getSumCountRecordTime(){
-        mRecordTimeDao.count();
+    public long getSumCountRecordTime(){
+        return mRecordTimeDao.count();
     }
 
-    public void getSumCountRecord(){
-        mRecordDao.count();
+    public long getSumCountRecord(){
+        return mRecordDao.count();
     }
+
+    public List<RecordTime> getAllRecordTime(){
+        return mRecordTimeDao.loadAll();
+    }
+
 
     /**
      * @return sum count of students
