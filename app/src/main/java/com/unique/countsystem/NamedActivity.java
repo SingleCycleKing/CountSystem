@@ -42,9 +42,6 @@ public class NamedActivity extends ActionBarActivity {
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.isAlterable(false);
 
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(BaseUtils.HAS_FINISHED_CALLING_ROLL);
-        registerReceiver(namedReceiver, intentFilter);
     }
 
     @Override

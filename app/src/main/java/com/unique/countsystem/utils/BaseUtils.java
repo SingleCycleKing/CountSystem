@@ -22,6 +22,7 @@ public class BaseUtils {
     public static int FADE_ANIM = 0;
     public static int APPEAR_ANIM = 1;
     public static String HAS_FINISHED_CALLING_ROLL = "finish";
+    public static String FINISHED_UPDATE_DATA = "finished_update_data";
 
     public static void setToolbar(Toolbar mToolbar, ActionBarActivity activity) {
         activity.setSupportActionBar(mToolbar);

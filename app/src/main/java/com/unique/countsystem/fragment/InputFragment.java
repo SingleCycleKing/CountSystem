@@ -31,7 +31,7 @@ public class InputFragment extends Fragment {
     @OnClick(R.id.excel_add)
     void add(TextView add) {
         Intent start = new Intent(getActivity(), ExDialog.class);
-        start.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath())), "*/*");
+        start.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath())), "*/xls");
         startActivityForResult(start, 0);
     }
 
