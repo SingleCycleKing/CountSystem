@@ -21,7 +21,6 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class OverviewFragment extends Fragment {
-
     @InjectView(R.id.recycler_view)
     RecyclerView mRecyclerView;
 

@@ -6,18 +6,15 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 
-import com.unique.countsystem.adapter.PagerAdapter;
 import com.unique.countsystem.database.DbHelper;
 import com.unique.countsystem.fragment.FinishedFragment;
 import com.unique.countsystem.fragment.RollCallFragment;
 import com.unique.countsystem.utils.BaseUtils;
-import com.unique.countsystem.utils.DebugLog;
-import com.unique.countsystem.view.CustomViewPager;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import butterknife.ButterKnife;
@@ -26,12 +23,9 @@ import butterknife.InjectView;
 public class NamedActivity extends ActionBarActivity {
     @InjectView(R.id.my_toolbar)
     Toolbar mToolbar;
-    @InjectView(R.id.named_view_pager)
-    CustomViewPager mViewPager;
-    public int number;
-    private ArrayList<Class<?>> classes;
-    public static long id;
 
+    public int number;
+    public long id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,17 +44,23 @@ public class NamedActivity extends ActionBarActivity {
 
             id = DbHelper.getInstance().insertOrReplaceRecordTime(new Date());
 
-            classes = new ArrayList<>();
-            classes.add(RollCallFragment.class);
-            PagerAdapter mPagerAdapter = new PagerAdapter(this, classes);
-            mViewPager.setAdapter(mPagerAdapter);
-            mViewPager.isAlterable(false);
-        } else if (-1 != getIntent().getIntExtra("SummaryId", -1)) {
-            classes.add(FinishedFragment.class);
-            id = getIntent().getIntExtra("SummaryId", -1);
-            PagerAdapter mPagerAdapter = new PagerAdapter(this, classes);
-            mViewPager.setAdapter(mPagerAdapter);
-            mViewPager.isAlterable(false);
+            RollCallFragment rollCallFragment = new RollCallFragment();
+            Bundle bundle = new Bundle();
+            bundle.putLong("id", id);
+            rollCallFragment.setArguments(bundle);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.named_layout, rollCallFragment);
+            transaction.commit();
+
+        } else if (-1 != getIntent().getLongExtra("SummaryId", -1)) {
+            id = getIntent().getLongExtra("SummaryId", -1);
+            FinishedFragment finishedFragment = new FinishedFragment();
+            Bundle bundle = new Bundle();
+            bundle.putLong("id", id);
+            finishedFragment.setArguments(bundle);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.named_layout, finishedFragment);
+            transaction.commit();
         }
     }
 
@@ -89,9 +89,13 @@ public class NamedActivity extends ActionBarActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(BaseUtils.HAS_FINISHED_CALLING_ROLL)) {
-                classes.clear();
-                classes.add(FinishedFragment.class);
-                mViewPager.getAdapter().notifyDataSetChanged();
+                FinishedFragment finishedFragment = new FinishedFragment();
+                Bundle bundle = new Bundle();
+                bundle.putLong("id", id);
+                finishedFragment.setArguments(bundle);
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.named_layout, finishedFragment);
+                transaction.commit();
             }
         }
     };

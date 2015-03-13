@@ -6,14 +6,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.unique.countsystem.NamedActivity;
 import com.unique.countsystem.R;
 import com.unique.countsystem.Record;
 import com.unique.countsystem.RecordTime;
@@ -21,10 +20,8 @@ import com.unique.countsystem.adapter.FinishedAdapter;
 import com.unique.countsystem.database.DbHelper;
 import com.unique.countsystem.database.model.absenceType;
 import com.unique.countsystem.utils.BaseUtils;
-import com.unique.countsystem.utils.DebugLog;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -54,7 +51,8 @@ public class FinishedFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        recordTime = DbHelper.getInstance().getRecordTimeById(NamedActivity.id);
+        long id = this.getArguments().getLong("id");
+        recordTime = DbHelper.getInstance().getRecordTimeById(id);
         recordTime.resetAbsenceTimes();
         setData();
     }
@@ -75,7 +73,6 @@ public class FinishedFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
-
         mRecyclerView.setAdapter(new FinishedAdapter(getActivity(), names, types));
     }
 
@@ -102,6 +99,12 @@ public class FinishedFragment extends Fragment {
                     case 2:
                         records.get(intent.getIntExtra("position", -1)).setAbsenceType(absenceType.ABSENCE.toInteger());
                         break;
+                }
+                names.clear();
+                types.clear();
+                for (Record record : records) {
+                    names.add(record.getStudent().getName());
+                    types.add(record.getAbsenceType());
                 }
                 mRecyclerView.setAdapter(new FinishedAdapter(getActivity(), names, types));
             }

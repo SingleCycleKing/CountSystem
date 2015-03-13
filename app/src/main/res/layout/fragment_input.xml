@@ -5,25 +5,17 @@
     android:padding="@dimen/window_default_padding"
     tools:context="com.unique.countsystem.fragment.InputFragment">
 
-    <ListView
-        android:id="@+id/excel_list"
-        android:scrollbars="none"
-        android:dividerHeight="10dp"
-        android:divider="@android:color/transparent"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
     <TextView
-        android:id="@+id/excel_add"
-        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
+        android:id="@+id/excel_add"
         android:background="@mipmap/add"
         android:layout_width="75dp"
         android:layout_height="75dp" />
 
     <RelativeLayout
-        android:visibility="gone"
-        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
         android:id="@+id/input_layout"
         android:layout_margin="20dp"
         android:layout_width="match_parent"

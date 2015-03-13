@@ -27,7 +27,7 @@ public class InfoAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return mList.size();
+        return null == mList ? 0 : mList.size();
     }
 
     @Override
@@ -55,6 +55,7 @@ public class InfoAdapter extends BaseAdapter {
     static class ViewHolder {
         @InjectView(R.id.info_text)
         TextView mTextView;
+
         public ViewHolder(View view) {
             ButterKnife.inject(this, view);
         }

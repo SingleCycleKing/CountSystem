@@ -33,19 +33,18 @@ public class BaseUtils {
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    public static ArrayList<Student> getStudent(int allNumber, String _class) {
+    public static ArrayList<Student> getStudent(int allNumber,   List<Student> mStudents) {
         if (0 != allNumber) {
-            List<Student> students = DbHelper.getInstance().getAllStudentListWithClass(_class);
             ArrayList<String> ids = new ArrayList<>();
             ArrayList<Student> roll = new ArrayList<>();
-            for (int i = 0; i < students.size(); i++) {
-                List<Record> records = students.get(i).getAbsenceRecords();
+            for (int i = 0; i < mStudents.size(); i++) {
+                List<Record> records = mStudents.get(i).getAbsenceRecords();
                 int absence = 0;
                 for (Record record : records) {
                     if (record.getAbsenceType() != absenceType.NORMAL.toInteger()) absence++;
                 }
                 for (int j = 0; j < absence + 1; j++) {
-                    ids.add(students.get(i).getStudentId());
+                    ids.add(mStudents.get(i).getStudentId());
                 }
             }
             for (int i = 0; i < allNumber; i++) {

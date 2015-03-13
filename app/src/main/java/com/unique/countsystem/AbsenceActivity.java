@@ -44,25 +44,15 @@ public class AbsenceActivity extends ActionBarActivity {
                 new OnRecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-
-                        switch (position) {
-                            case 0:
-
-                                break;
-                            case 1:
-
-                                break;
-                            default:
-
-                                break;
-                        }
-
+                        Intent intent = new Intent(AbsenceActivity.this, PeopleActivity.class);
+                        intent.putExtra("position", position);
+                        overridePendingTransition(R.anim.move_right_in, R.anim.move_left_out);
+                        startActivity(intent);
                     }
                 }));
     }
 
     private void init() {
-
         absenceRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         absenceRecyclerView.setAdapter(new AbsenceAdapter(this));
 
