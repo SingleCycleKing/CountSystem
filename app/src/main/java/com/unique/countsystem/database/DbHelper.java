@@ -216,20 +216,26 @@ public class DbHelper {
     /**
      * Create model of absence record
      *
-     * @param date {@link com.unique.countsystem.utils.DayUtils}
      * @param type {@link absenceType}
      * @param student Student by getStudent() in database
      * @return record instance
      * @throws java.lang.IllegalArgumentException DayUtils.fromString(date)
      */
-    public static Record createAbsenceRecordModel(absenceType type, Student student, Date date) throws IllegalArgumentException{
-        return new Record(null, type.toInteger(), student.getId(), createRecordTime(date).getId());
+    public Record createAbsenceRecordModel(absenceType type, Student student, RecordTime recordTime) throws IllegalArgumentException{
+        return new Record(null, type.toInteger(), student.getId(), recordTime.getId());
     }
 
-    public static RecordTime createRecordTime(Date date){
-        return new RecordTime(null, date);
+    public void insertOrReplaceRecordTime(Date date){
+        mRecordTimeDao.insertOrReplace(new RecordTime(null,date));
     }
 
+    public void getSumCountRecordTime(){
+        mRecordTimeDao.count();
+    }
+
+    public void getSumCountRecord(){
+        mRecordDao.count();
+    }
 
     /**
      * @return sum count of students
