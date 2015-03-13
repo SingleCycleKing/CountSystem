@@ -8,8 +8,6 @@ import android.util.Log;
 import de.greenrobot.dao.AbstractDaoMaster;
 import de.greenrobot.dao.identityscope.IdentityScopeType;
 
-import com.unique.countsystem.StudentDao;
-import com.unique.countsystem.RecordDao;
 
 /**
  * Master of DAO (schema version 1): knows all DAOs.

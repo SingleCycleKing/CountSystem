@@ -44,7 +44,7 @@ public class DbHelper {
      * Context of applications
      * Please ensure using {@link Context#getApplicationContext()}
      */
-    private Context appContext;
+    private static Context appContext;
 
 
     // PUBLIC METHODS ==================================================
@@ -56,7 +56,8 @@ public class DbHelper {
      */
     public static void preInitHelper(Context context){
         getDaoSession(context);
-        sInstance.appContext =context;
+        getInstance();
+        appContext = context;
     }
 
     //Singleton method
@@ -64,10 +65,7 @@ public class DbHelper {
         if (sInstance == null){
             synchronized (DbHelper.class) {
                 if (null == sInstance) {
-                     sInstance = new DbHelper();
-                    if (sInstance.appContext == null){
-                        throw new IllegalArgumentException("Must call preInitHelper() before");
-                    }
+                    sInstance = new DbHelper();
                     sInstance.mRecordDao = daoSession.getRecordDao();
                     sInstance.mStudentDao = daoSession.getStudentDao();
                 }
