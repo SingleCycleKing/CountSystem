@@ -19,7 +19,7 @@ public class ChartAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        return 1 ;
     }
 
     @Override
@@ -29,9 +29,9 @@ public class ChartAdapter extends FragmentPagerAdapter {
 
                 return new PieChartFrag();
 
-            case 1:
-
-                return new LineChartFragment();
+//            case 1:
+//
+//                return new LineChartFragment();
 
             default:
                 return null;

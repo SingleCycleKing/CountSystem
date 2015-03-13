@@ -58,7 +58,7 @@ public class PieChartFrag extends SimpleFragment {
         mChart.setRotationAngle(0);
         mChart.setRotationEnabled(true);
         mChart.setUsePercentValues(true);
-        mChart.setTouchEnabled(false);
+        mChart.setTouchEnabled(true);
         //mChart.setData(generatePieData());
         mChart.setCenterTextSize(20f);
         setData(mParties.length) ;
@@ -105,6 +105,14 @@ public class PieChartFrag extends SimpleFragment {
 
         mChart.invalidate();
     }
+    private int  getSum() {
 
 
+        return 0 ;
+    }
+
+
+    private int getNumberFromClass(String _class ){
+        return 0 ;
+    }
 }
