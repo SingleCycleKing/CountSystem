@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.unique.countsystem.NamedActivity;
 import com.unique.countsystem.R;
 import com.unique.countsystem.Record;
 import com.unique.countsystem.RecordTime;
@@ -53,7 +54,7 @@ public class FinishedFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        recordTime = DbHelper.getInstance().getRecordTimeById(NamedFragment.id);
+        recordTime = DbHelper.getInstance().getRecordTimeById(NamedActivity.id);
         recordTime.resetAbsenceTimes();
         setData();
     }

@@ -48,6 +48,8 @@ public class NamedActivity extends ActionBarActivity {
             editor.putInt("number", number);
             editor.apply();
 
+            id = DbHelper.getInstance().insertOrReplaceRecordTime(new Date());
+
             classes = new ArrayList<>();
             classes.add(RollCallFragment.class);
             PagerAdapter mPagerAdapter = new PagerAdapter(this, classes);
@@ -55,6 +57,7 @@ public class NamedActivity extends ActionBarActivity {
             mViewPager.isAlterable(false);
         } else if (-1 != getIntent().getIntExtra("SummaryId", -1)) {
             classes.add(FinishedFragment.class);
+            id = getIntent().getIntExtra("SummaryId", -1);
             PagerAdapter mPagerAdapter = new PagerAdapter(this, classes);
             mViewPager.setAdapter(mPagerAdapter);
             mViewPager.isAlterable(false);

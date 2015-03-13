@@ -41,7 +41,7 @@ public class NamedFragment extends Fragment {
     @OnClick(R.id.named_start)
     public void start() {
         if (null != DbHelper.getInstance().getAllClassList()) {
-            Date date = new Date();
+
             Intent intent = new Intent(new Intent(getActivity(), NamedActivity.class));
             intent.putExtra("number", number.getNumber());
             startActivity(intent);
