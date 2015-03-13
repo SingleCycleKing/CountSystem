@@ -111,7 +111,9 @@ public abstract class SimpleFragment extends Fragment {
         for(int i = 0; i < count; i++) {
             xVals.add("entry" + (i+1));
     
-            entries1.add(new Entry((float) (Math.random() * 60) + 40, i));
+            entries1.add(new Entry((float) (Math.random() * 100) + 100 / 5, i));
+            //entries1.add(new Entry(86 ,i)) ;
+
         }
         
         PieDataSet ds1 = new PieDataSet(entries1, "");
@@ -128,8 +130,8 @@ public abstract class SimpleFragment extends Fragment {
         
         ArrayList<LineDataSet> sets = new ArrayList<LineDataSet>();
         
-        LineDataSet ds1 = new LineDataSet(FileUtils.loadEntriesFromAssets(getActivity().getAssets(), "sine.txt"), "Sine function");
-        LineDataSet ds2 = new LineDataSet(FileUtils.loadEntriesFromAssets(getActivity().getAssets(), "cosine.txt"), "Cosine function");
+        LineDataSet ds1 = new LineDataSet(FileUtils.loadEntriesFromAssets(getActivity().getAssets(),"" ), "Sine function");
+        LineDataSet ds2 = new LineDataSet(FileUtils.loadEntriesFromAssets(getActivity().getAssets(), ""), "Cosine function");
         
         ds1.setLineWidth(2f);
         ds2.setLineWidth(2f);

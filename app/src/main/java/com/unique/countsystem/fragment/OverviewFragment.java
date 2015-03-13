@@ -62,19 +62,18 @@ public class OverviewFragment extends Fragment {
                         Intent intentSummary = new Intent(getActivity(), SummaryActivity.class);
                         startActivity(intentSummary);
 
-                        //getActivity().overridePendingTransition(R.drawable.go_out,R.drawable.go_in);
+                        getActivity().overridePendingTransition(R.anim.move_right_in, R.anim.move_left_out) ; ;
                         break;
                     case 1 :
                         Intent intentAbsence = new Intent(getActivity() , AbsenceActivity.class) ;
                         startActivity(intentAbsence) ;
-
+                        getActivity().overridePendingTransition(R.anim.move_right_in, R.anim.move_left_out) ;
                         break;
                     case 2 :
 
                         Intent intentChart = new Intent(getActivity(), ChartActivity.class);
                         startActivity(intentChart);
-
-                        //getActivity().overridePendingTransition(R.drawable.go_in, R.drawable.go_out);
+                        getActivity().overridePendingTransition(R.anim.move_right_in, R.anim.move_left_out) ;
                         break;
                     default:
 
