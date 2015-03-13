@@ -30,20 +30,12 @@ public class OverviewFragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    public OverviewFragment() {
-        // Required empty public constructor
-    }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
-        // Inflate the layout for this fragment
         View overView = inflater.inflate(R.layout.fragment_overview, container, false);
-
-        //in fragment use this ,in activity use ButterKnife.inject(activity.this)；
         ButterKnife.inject(this, overView);
         init(overView);
         return overView;

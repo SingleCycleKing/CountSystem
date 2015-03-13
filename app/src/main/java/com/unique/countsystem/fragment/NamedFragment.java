@@ -6,8 +6,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.unique.countsystem.R;
 import com.unique.countsystem.NamedActivity;
@@ -16,6 +19,7 @@ import com.unique.countsystem.utils.DebugLog;
 import com.unique.countsystem.view.ColorfulPicker;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -25,19 +29,24 @@ import butterknife.OnClick;
 
 public class NamedFragment extends Fragment {
     public static long id;
+    public static String _class;
+
     @InjectView(R.id.named_course)
     Spinner mSpinner;
     @InjectView(R.id.named_number)
     ColorfulPicker number;
+    @InjectView(R.id.named_time)
+    TextView time;
 
     @OnClick(R.id.named_start)
     public void start() {
-        Date date = new Date();
-        id = DbHelper.getInstance().insertOrReplaceRecordTime(date);
-        DebugLog.e("date:"+date.getTime());
-        Intent intent = new Intent(new Intent(getActivity(), NamedActivity.class));
-        intent.putExtra("number", number.getNumber());
-        startActivity(intent);
+        if (null != DbHelper.getInstance().getAllClassList()) {
+            Date date = new Date();
+            id = DbHelper.getInstance().insertOrReplaceRecordTime(date);
+            Intent intent = new Intent(new Intent(getActivity(), NamedActivity.class));
+            intent.putExtra("number", number.getNumber());
+            startActivity(intent);
+        } else Toast.makeText(getActivity(), "数据库里并不存在资料,请添加", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -56,12 +65,29 @@ public class NamedFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        List<String> list = new ArrayList<>();
-        list.add("1~3班");
-        list.add("4~6班");
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_spinner_item, list);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mSpinner.setAdapter(dataAdapter);
+        Calendar calendar = Calendar.getInstance();
+        time.setText(calendar.get(Calendar.MONTH) + "月" + calendar.get(Calendar.DAY_OF_MONTH) + "日");
+        final List<String> _classes;
+        if (null != DbHelper.getInstance().getAllClassList()) {
+            _classes = DbHelper.getInstance().getAllClassList();
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(getActivity(),
+                    android.R.layout.simple_spinner_item, _classes);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            mSpinner.setAdapter(dataAdapter);
+            assert _classes != null;
+            _class = _classes.get(0);
+
+            mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    _class = _classes.get(position);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+        }
     }
 }

@@ -28,7 +28,6 @@ import com.unique.countsystem.utils.BaseUtils;
 import com.unique.countsystem.utils.DebugLog;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -56,14 +55,7 @@ public class RollCallFragment extends Fragment {
     @OnClick(R.id.roll_arrived)
     public void arrive() {
         if (!isFlying) {
-            DebugLog.e("!isFlying");
-            DbHelper.getInstance().insertOrReplaceAbsenceRecord(
-            DbHelper.getInstance().createAbsenceRecordModel(absenceType.NORMAL, rolls.get(position), NamedFragment.id)
-                    , rolls.get(position));
-            List<Record> records = DbHelper.getInstance().getAllAbsenceRecords();
-            DebugLog.e("id1:"+NamedFragment.id);
-            DebugLog.e("id2"+records.get(records.size()-1).getTttId());
-            DebugLog.e("recordTime"+ DbHelper.getInstance().getRecordsByTimeId(records.get(records.size()-1).getTttId()).size());
+            DbHelper.getInstance().insertOrReplaceAbsenceRecord(DbHelper.getInstance().createAbsenceRecordModel(absenceType.NORMAL, rolls.get(position), NamedFragment.id), rolls.get(position));
             dataHandler();
         }
     }
@@ -88,26 +80,19 @@ public class RollCallFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mSynthesizer = SpeechSynthesizer.createSynthesizer(getActivity(), null);
+        mSynthesizer.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD);
+        mSynthesizer.setParameter(SpeechConstant.VOICE_NAME, "xiaoli");
+        mSynthesizer.setParameter(SpeechConstant.SPEED, "50");
+        mSynthesizer.setParameter(SpeechConstant.VOLUME, "80");
 
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        sharedPreferences = getActivity().getSharedPreferences("Count", Context.MODE_PRIVATE);
-        rolls = BaseUtils.getStudent(sharedPreferences.getInt("number", 0));
-        mList = new ArrayList<>();
-        setData();
         adapter = new InfoAdapter(getActivity(), mList);
         mListView.setAdapter(adapter);
-        mSynthesizer = SpeechSynthesizer.createSynthesizer(getActivity(), null);
-        mSynthesizer.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD);
-        mSynthesizer.setParameter(SpeechConstant.VOICE_NAME, "xiaoli");
-        mSynthesizer.setParameter(SpeechConstant.SPEED, "50");
-        mSynthesizer.setParameter(SpeechConstant.VOLUME, "80");
-        if (0 == position)
-            mSynthesizer.startSpeaking(rolls.get(position).getName(), mListener);
-
     }
 
     @Override
@@ -115,6 +100,14 @@ public class RollCallFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_roll_call, container, false);
         ButterKnife.inject(this, view);
+
+        sharedPreferences = getActivity().getSharedPreferences("Count", Context.MODE_PRIVATE);
+        rolls = BaseUtils.getStudent(sharedPreferences.getInt("number", 0), NamedFragment._class);
+        mList = new ArrayList<>();
+        setData();
+        if (0 == position)
+            mSynthesizer.startSpeaking(rolls.get(position).getName(), mListener);
+
         return view;
     }
 
@@ -160,7 +153,7 @@ public class RollCallFragment extends Fragment {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     isFlying = false;
-                    mSynthesizer.startSpeaking(rolls.get(position).getName(), mListener);
+                    mSynthesizer.stopSpeaking();
                 }
 
                 @Override
@@ -184,6 +177,7 @@ public class RollCallFragment extends Fragment {
                     mList.clear();
                     setData();
                     adapter.notifyDataSetChanged();
+                    mSynthesizer.startSpeaking(rolls.get(position).getName(), mListener);
                     appear.start();
 
                 }
@@ -200,7 +194,6 @@ public class RollCallFragment extends Fragment {
             });
             fade.start();
         } else {
-            mSynthesizer.stopSpeaking();
             Intent intent = new Intent();
             intent.setAction(BaseUtils.HAS_FINISHED_CALLING_ROLL);
             getActivity().sendBroadcast(intent);

@@ -83,9 +83,9 @@ public class NamedActivity extends ActionBarActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(BaseUtils.HAS_FINISHED_CALLING_ROLL)) {
+                classes.clear();
                 classes.add(FinishedFragment.class);
                 mViewPager.getAdapter().notifyDataSetChanged();
-                mViewPager.setCurrentItem(1);
             }
         }
     };
