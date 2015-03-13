@@ -234,6 +234,10 @@ public class DbHelper {
         return mRecordTimeDao.count();
     }
 
+    public RecordTime getRecordTimeById(long id){
+        return mRecordTimeDao.queryBuilder().where(RecordTimeDao.Properties.Id.eq(id)).unique();
+    }
+
     public long getSumCountRecord(){
         return mRecordDao.count();
     }
