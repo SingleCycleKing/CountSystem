@@ -256,6 +256,10 @@ public class DbHelper {
         return mRecordTimeDao.queryBuilder().orderAsc(RecordTimeDao.Properties.Time).list();
     }
 
+    public List<RecordTime> getAllRecordTimeDescOrdered(){
+        return mRecordTimeDao.queryBuilder().orderDesc(RecordTimeDao.Properties.Time).list();
+    }
+
     /**
      * @return sum count of students
      */

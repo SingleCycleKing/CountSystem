@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.unique.countsystem.ExDialog;
 import com.unique.countsystem.MainActivity;
@@ -30,6 +31,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import jxl.read.biff.BiffException;
+import jxl.write.WriteException;
 
 
 public class InputFragment extends Fragment {
@@ -43,7 +45,6 @@ public class InputFragment extends Fragment {
     @InjectView(R.id.input_layout)
     RelativeLayout mLayout;
 
-
     @OnClick(R.id.excel_delete)
     void delete() {
         excelAdapter = new ExcelAdapter(getActivity());
@@ -53,9 +54,21 @@ public class InputFragment extends Fragment {
 
     @OnClick(R.id.excel_output)
     void output() {
-        excelAdapter = new ExcelAdapter(getActivity());
-        mListView.setAdapter(excelAdapter);
-        setAnim(add, mLayout).start();
+        try {
+            ExcelHandler.getInstance().WriteExcel(getActivity());
+        } catch (IOException e) {
+            Toast.makeText(getActivity(),"文件打开错误",Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }  catch (BiffException e) {
+            Toast.makeText(getActivity(),"Excel格式错误",Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        } catch (WriteException e) {
+            Toast.makeText(getActivity(),"文件写入错误",Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+//        excelAdapter = new ExcelAdapter(getActivity());
+//        mListView.setAdapter(excelAdapter);
+//        setAnim(add, mLayout).start();
     }
 
 
