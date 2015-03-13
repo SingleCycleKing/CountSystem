@@ -81,6 +81,7 @@ public class DbHelper {
         return sInstance;
     }
 
+
     /**
      * Insert or update students list in database
      * @param students models
@@ -237,7 +238,7 @@ public class DbHelper {
         return mRecordDao.count();
     }
 
-    public List<RecordTime> getAllRecordTime(){
+    public List<RecordTime> getAllRecordTimeAscOrdered(){
         return mRecordTimeDao.queryBuilder().orderAsc(RecordTimeDao.Properties.Time).list();
     }
 
@@ -248,9 +249,9 @@ public class DbHelper {
         return mStudentDao.count();
     }
 
-    /**
-     * @return sum count times
-     */
+//    /**
+//     * @return sum count times
+//     */
 //    public int getSumCountTimes(){
 //        String DISTINCT_DATE_FROM_RECORD = "SELECT DISTINCT " + RecordDao.Properties.Date.columnName + " FROM " + com.unique.countsystem.RecordDao.TABLENAME;
 //        return getDaoSession(appContext).getDatabase().rawQuery(DISTINCT_DATE_FROM_RECORD, null).getCount();
@@ -259,9 +260,28 @@ public class DbHelper {
 //        return getSumCountList().size();
 //    }
 
+    @Nullable
+    public List<String> getAllClassList(){
+        String DISTINCT_CLASS_FROM_STUDENT = "SELECT DISTINCT " + StudentDao.Properties._class.columnName + " FROM " + StudentDao.TABLENAME;
+        Cursor cursor = getDaoSession(appContext).getDatabase().rawQuery(DISTINCT_CLASS_FROM_STUDENT, null);
+        List<String> result = new ArrayList<>(100);
+        if(cursor.moveToFirst()){
+            do{
+                result.add(cursor.getString(cursor.getColumnIndex(StudentDao.Properties._class.columnName)));
+            }while (cursor.moveToNext());
+            return  result;
+        }
+        return null;
+    }
+
+    public List<Student> getAllClassListWithClass(String _class){
+        check_class(_class);
+        return mStudentDao.queryBuilder().where(StudentDao.Properties._class.eq(_class)).list();
+    }
+
 //    @Nullable
 //    public List<Integer> getSumCountList(){
-//        String DISTINCT_DATE_FROM_RECORD = "SELECT DISTINCT " + RecordDao.Properties.Date.columnName + " FROM " + com.unique.countsystem.RecordDao.TABLENAME;
+//        String DISTINCT_DATE_FROM_RECORD =
 //        Cursor cursor = getDaoSession(appContext).getDatabase().rawQuery(DISTINCT_DATE_FROM_RECORD, null);
 //        List<Integer> result = new ArrayList<>(100);
 //        if(cursor.moveToFirst()){
@@ -296,7 +316,7 @@ public class DbHelper {
     }
 
     private static boolean parseStudentIdFromString(String studentId) {
-        Pattern pattern = Pattern.compile("^(U|u)20[0-9]{7}$");
+        Pattern pattern = Pattern.compile("^(U|u)(2|3)0[0-9]{7}$");
         return pattern.matcher(studentId).matches();
     }
 

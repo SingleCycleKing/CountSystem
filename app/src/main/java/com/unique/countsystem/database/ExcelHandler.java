@@ -7,6 +7,7 @@ import com.unique.countsystem.R;
 import com.unique.countsystem.Record;
 import com.unique.countsystem.RecordTime;
 import com.unique.countsystem.Student;
+import com.unique.countsystem.database.model.absenceType;
 import com.unique.countsystem.utils.DebugLog;
 
 import java.io.File;
@@ -121,12 +122,23 @@ public class ExcelHandler {
     private void createSheetBody(WritableSheet sheet, Context context){
         if (sheet ==null) return;
         List<Student> students = DbHelper.getInstance().getAllStudents();
-        List<RecordTime> recordTimes = DbHelper.getInstance().getAllRecordTime();
+        List<RecordTime> recordTimes = DbHelper.getInstance().getAllRecordTimeAscOrdered();
         List<Record> recordList = null;
+        Label label = null;
         for (int i = 1;i<students.size()+1;i++){
+            //TODO-name studentId
             for(int j=3;j<recordTimes.size()+3;j++){
                 recordList = students.get(i-1).getAbsenceRecords();
                 for (Record record:recordList){
+                    for(int t=0;t <recordTimes.size();t++){
+                        if (record.getRecordTime().getTime().getTime()==recordTimes.get(t).getTime().getTime()){
+                            if(record.getAbsenceType() == absenceType.ABSENCE.toInteger()){
+                                //TODO-print what where
+                            }else if (record.getAbsenceType() == absenceType.VACATE.toInteger()){
+
+                            }
+                        }
+                    }
 //                    record.getRecordTime()
                 }
             }
@@ -144,7 +156,7 @@ public class ExcelHandler {
         sheet.addCell(label3);
         Label time = null;
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-        List<RecordTime> recordTimes = DbHelper.getInstance().getAllRecordTime();
+        List<RecordTime> recordTimes = DbHelper.getInstance().getAllRecordTimeAscOrdered();
         int countTimes = recordTimes.size();
         for (int j =3; j < countTimes+3; j++){
             time = new Label(j,0, dateFormat.format(recordTimes.get(j-3).getTime()));
