@@ -222,12 +222,12 @@ public class DbHelper {
      * @return record instance
      * @throws java.lang.IllegalArgumentException DayUtils.fromString(date)
      */
-    public Record createAbsenceRecordModel(absenceType type, Student student, RecordTime recordTime) throws IllegalArgumentException{
-        return new Record(null, type.toInteger(), student.getId(), recordTime.getId());
+    public Record createAbsenceRecordModel(absenceType type, Student student, long recordTimeId) throws IllegalArgumentException{
+        return new Record(null, type.toInteger(), student.getId(), recordTimeId);
     }
 
-    public void insertOrReplaceRecordTime(Date date){
-        mRecordTimeDao.insertOrReplace(new RecordTime(null,date));
+    public long insertOrReplaceRecordTime(Date date){
+        return mRecordTimeDao.insertOrReplace(new RecordTime(null,date));
     }
 
     public long getSumCountRecordTime(){
