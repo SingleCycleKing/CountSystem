@@ -13,7 +13,12 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 
 import com.unique.countsystem.R;
+import com.unique.countsystem.Record;
+import com.unique.countsystem.Student;
+import com.unique.countsystem.database.DbHelper;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -31,13 +36,24 @@ public class BaseUtils {
         activity.setSupportActionBar(mToolbar);
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-//    public static List<Integer> getStudent() {
-//        int id = studentIds.get(position);
-//        for (int i = 0; i < Math.pow(2, absenceNumber); i++) {
-//            studentIds.add(id);
-//        }
-//         getRandomNumber(studentIds.size());
-//    }
+
+    public static ArrayList<Student> getStudent(int allNumber) {
+        if (0 != allNumber) {
+            List<Student> students = DbHelper.getInstance().getAllStudents();
+            ArrayList<String> ids = new ArrayList<>();
+            ArrayList<Student> roll = new ArrayList<>();
+            for (int i = 0; i < students.size(); i++) {
+                int absence = students.get(i).getAbsenceRecords().size();
+                for (int j = 0; j < absence + 1; j++) {
+                    ids.add(students.get(i).getStudentId());
+                }
+            }
+            for (int i = 0; i < allNumber; i++) {
+                roll.add(DbHelper.getInstance().getStudentByStudentId(ids.get(getRandomNumber(ids.size()))));
+            }
+            return roll;
+        } else return null;
+    }
 
     public static int getRandomNumber(int allNumber) {
         return (int) (Math.random() * allNumber);
@@ -57,8 +73,8 @@ public class BaseUtils {
         return animator;
     }
 
-    public static ObjectAnimator moveAnim(long duration, View view, float from, float to, int type) {
-        ObjectAnimator animator = ObjectAnimator.ofFloat(view, "x", from, to);
+    public static ObjectAnimator moveAnim(long duration, View view, float from, float to, int type, String s) {
+        ObjectAnimator animator = ObjectAnimator.ofFloat(view, "s", from, to);
         Interpolator interpolator = null;
         animator.setDuration(duration);
         if (APPEAR_ANIM == type) {
