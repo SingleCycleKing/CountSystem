@@ -74,7 +74,7 @@ public class BaseUtils {
     }
 
     public static ObjectAnimator moveAnim(long duration, View view, float from, float to, int type, String s) {
-        ObjectAnimator animator = ObjectAnimator.ofFloat(view, "s", from, to);
+        ObjectAnimator animator = ObjectAnimator.ofFloat(view, s, from, to);
         Interpolator interpolator = null;
         animator.setDuration(duration);
         if (APPEAR_ANIM == type) {

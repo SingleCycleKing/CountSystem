@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.unique.countsystem.R;
+import com.unique.countsystem.utils.DebugLog;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;

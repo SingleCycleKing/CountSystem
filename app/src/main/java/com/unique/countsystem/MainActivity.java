@@ -62,7 +62,8 @@ public class MainActivity extends ActionBarActivity {
         menuList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mToolbar.setTitle(getResources().getStringArray(R.array.menu)[position]);
+                if (3 != position)
+                    mToolbar.setTitle(getResources().getStringArray(R.array.menu)[position]);
                 switch (position) {
                     case 0:
                         mPosition = 0;

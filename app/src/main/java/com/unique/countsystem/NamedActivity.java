@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +13,7 @@ import com.unique.countsystem.adapter.PagerAdapter;
 import com.unique.countsystem.fragment.FinishedFragment;
 import com.unique.countsystem.fragment.RollCallFragment;
 import com.unique.countsystem.utils.BaseUtils;
+import com.unique.countsystem.utils.DebugLog;
 import com.unique.countsystem.view.CustomViewPager;
 
 import java.util.ArrayList;
@@ -24,7 +26,7 @@ public class NamedActivity extends ActionBarActivity {
     Toolbar mToolbar;
     @InjectView(R.id.named_view_pager)
     CustomViewPager mViewPager;
-    public static int number = 0;
+    public int number;
     private ArrayList<Class<?>> classes;
 
 
@@ -38,6 +40,11 @@ public class NamedActivity extends ActionBarActivity {
 
         number = getIntent().getIntExtra("number", 0);
         if (number != 0) {
+            SharedPreferences sharedPreferences = this.getSharedPreferences("Count", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt("number", number);
+            editor.apply();
+
             classes = new ArrayList<>();
             classes.add(RollCallFragment.class);
             PagerAdapter mPagerAdapter = new PagerAdapter(this, classes);
@@ -45,6 +52,7 @@ public class NamedActivity extends ActionBarActivity {
             mViewPager.isAlterable(false);
         }
     }
+
 
     @Override
     public Intent getSupportParentActivityIntent() {

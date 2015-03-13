@@ -11,6 +11,7 @@ import android.widget.Spinner;
 
 import com.unique.countsystem.R;
 import com.unique.countsystem.NamedActivity;
+import com.unique.countsystem.utils.DebugLog;
 import com.unique.countsystem.view.ColorfulPicker;
 
 import java.util.ArrayList;

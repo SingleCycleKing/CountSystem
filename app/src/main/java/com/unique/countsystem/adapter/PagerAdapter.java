@@ -2,6 +2,7 @@ package com.unique.countsystem.adapter;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v7.app.ActionBarActivity;
 
@@ -23,7 +24,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int i) {
-        return Fragment.instantiate(mContext, mClasses.get(i).getName());
+         return Fragment.instantiate(mContext, mClasses.get(i).getName());
     }
 
     @Override

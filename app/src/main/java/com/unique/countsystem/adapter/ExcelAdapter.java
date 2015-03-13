@@ -53,7 +53,8 @@ public class ExcelAdapter extends BaseAdapter {
 
     public void editList(boolean b) {
         isEdited = b;
-        this.notifyDataSetChanged();
+
+        notifyDataSetInvalidated();
     }
 
     static class ViewHolder {

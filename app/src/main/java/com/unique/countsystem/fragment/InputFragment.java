@@ -1,5 +1,7 @@
 package com.unique.countsystem.fragment;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.unique.countsystem.ExDialog;
@@ -17,6 +20,7 @@ import com.unique.countsystem.MainActivity;
 import com.unique.countsystem.R;
 import com.unique.countsystem.adapter.ExcelAdapter;
 import com.unique.countsystem.database.ExcelHandler;
+import com.unique.countsystem.utils.BaseUtils;
 import com.unique.countsystem.utils.DebugLog;
 
 import java.io.File;
@@ -29,20 +33,36 @@ import jxl.read.biff.BiffException;
 
 
 public class InputFragment extends Fragment {
+
+    private ExcelAdapter excelAdapter;
+
     @InjectView(R.id.excel_list)
     ListView mListView;
     @InjectView(R.id.excel_add)
     TextView add;
-    @InjectView(R.id.excel_delete)
-    TextView delete;
-    @InjectView(R.id.excel_output)
-    TextView output;
+    @InjectView(R.id.input_layout)
+    RelativeLayout mLayout;
+
+
+    @OnClick(R.id.excel_delete)
+    void delete() {
+        excelAdapter = new ExcelAdapter(getActivity());
+        mListView.setAdapter(excelAdapter);
+        setAnim(add, mLayout).start();
+    }
+
+    @OnClick(R.id.excel_output)
+    void output() {
+        excelAdapter = new ExcelAdapter(getActivity());
+        mListView.setAdapter(excelAdapter);
+        setAnim(add, mLayout).start();
+    }
 
 
     @OnClick(R.id.excel_add)
     void add() {
         Intent start = new Intent(getActivity(), ExDialog.class);
-        start.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath())), "*/*");
+        start.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath())), "*/xls");
         startActivityForResult(start, 0);
     }
 
@@ -54,43 +74,48 @@ public class InputFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        final ExcelAdapter excelAdapter = new ExcelAdapter(getActivity());
+        excelAdapter = new ExcelAdapter(getActivity());
         mListView.setAdapter(excelAdapter);
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 excelAdapter.editList(true);
-//                float y = add.getY();
-//                final ObjectAnimator add_fade = BaseUtils.moveAnim(500, add, y, y + 1000, BaseUtils.FADE_ANIM, "y");
-//                add_fade.start();
-////                final ObjectAnimator add_appear = BaseUtils.moveAnim(500, add, add.getY(), add.getY() - 1000, BaseUtils.FADE_ANIM, "y");
-////                final ObjectAnimator delete_fade = BaseUtils.moveAnim(500, add, add.getY(), add.getY() + 1000, BaseUtils.FADE_ANIM, "y");
-//                final ObjectAnimator delete_appear = BaseUtils.moveAnim(500, output, y + 1000, y, BaseUtils.FADE_ANIM, "y");
-//                add_fade.addListener(new Animator.AnimatorListener() {
-//                    @Override
-//                    public void onAnimationStart(Animator animation) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onAnimationEnd(Animator animation) {
-//                        delete_appear.start();
-//                    }
-//
-//                    @Override
-//                    public void onAnimationCancel(Animator animation) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onAnimationRepeat(Animator animation) {
-//
-//                    }
-//                });
+                setAnim(mLayout, add).start();
                 return true;
             }
         });
 
+    }
+
+    private ObjectAnimator setAnim(View appear, final View fade) {
+        float y = fade.getY();
+        appear.setY(y + 1000);
+        appear.setVisibility(View.VISIBLE);
+        final ObjectAnimator fadeAnim = BaseUtils.moveAnim(500, fade, y, y + 1000, BaseUtils.FADE_ANIM, "y");
+        final ObjectAnimator appearAnim = BaseUtils.moveAnim(500, appear, y + 1000, y, BaseUtils.APPEAR_ANIM, "y");
+        fadeAnim.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                appearAnim.start();
+                fade.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        return fadeAnim;
     }
 
     @Override

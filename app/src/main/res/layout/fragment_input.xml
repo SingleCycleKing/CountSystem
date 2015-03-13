@@ -21,20 +21,25 @@
         android:layout_width="75dp"
         android:layout_height="75dp" />
 
-    <TextView
+    <RelativeLayout
         android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/input_layout"
         android:layout_margin="20dp"
-        android:id="@+id/excel_output"
-        android:background="@drawable/output_background"
-        android:layout_width="50dp"
-        android:layout_height="50dp" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:visibility="gone"
-        android:layout_alignParentRight="true"
-        android:layout_margin="20dp"
-        android:id="@+id/excel_delete"
-        android:background="@drawable/delete_background"
-        android:layout_width="50dp"
-        android:layout_height="50dp" />
+        <TextView
+            android:id="@+id/excel_output"
+            android:background="@drawable/output_background"
+            android:layout_width="60dp"
+            android:layout_height="60dp" />
+
+        <TextView
+            android:layout_alignParentRight="true"
+            android:id="@+id/excel_delete"
+            android:background="@drawable/delete_background"
+            android:layout_width="60dp"
+            android:layout_height="60dp" />
+    </RelativeLayout>
 </RelativeLayout>
