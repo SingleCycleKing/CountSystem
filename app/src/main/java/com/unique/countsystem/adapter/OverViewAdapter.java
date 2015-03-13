@@ -27,7 +27,7 @@ public class OverViewAdapter extends RecyclerView.Adapter<OverViewAdapter.TextVi
 
     private final LayoutInflater mLayoutInflater;
     private String[] myDataset = {
-            "历史记录", "缺勤记录","图表"
+            "历史记录", "人员总览","图表"
     };
 
     public OverViewAdapter(Context context) {

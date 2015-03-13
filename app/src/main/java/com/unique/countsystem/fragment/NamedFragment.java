@@ -1,6 +1,8 @@
 package com.unique.countsystem.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -29,7 +31,7 @@ import butterknife.OnClick;
 
 public class NamedFragment extends Fragment {
 
-    public static String _class;
+    public static int _class;
 
     @InjectView(R.id.named_course)
     Spinner mSpinner;
@@ -68,18 +70,25 @@ public class NamedFragment extends Fragment {
         time.setText(calendar.get(Calendar.MONTH) + "月" + calendar.get(Calendar.DAY_OF_MONTH) + "日");
         final List<String> _classes;
         if (null != DbHelper.getInstance().getAllClassList()) {
-            _classes = DbHelper.getInstance().getAllClassList();
+            _classes = new ArrayList<>();
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("xlsNumber", Context.MODE_PRIVATE);
+            if (sharedPreferences.getInt("number", 0) == 1)
+                _classes.add("软工1～3班");
+            else if (sharedPreferences.getInt("number", 0) == 1) {
+                _classes.add("软工1～3班");
+                _classes.add("软工4～6班及数媒班");
+            }
+
             ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(getActivity(),
                     android.R.layout.simple_spinner_item, _classes);
             dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             mSpinner.setAdapter(dataAdapter);
-            assert _classes != null;
-            _class = _classes.get(0);
+            _class = 0;
 
             mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    _class = _classes.get(position);
+                    _class = position;
                 }
 
                 @Override

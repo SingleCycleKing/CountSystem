@@ -9,60 +9,55 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.unique.countsystem.R;
+import com.unique.countsystem.database.DbHelper;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 
-
-
-public class AbsenceAdapter extends RecyclerView.Adapter<AbsenceAdapter.TextViewHolder> {
+public class AbsenceAdapter extends RecyclerView.Adapter<AbsenceAdapter.ViewHolder> {
 
 
     private final LayoutInflater mLayoutInflater;
-    private final Context mContext;
-    String[] studentsAbsence = {
-            "王二", "张三", "李四", "赵六", "雷七", "周八", "汪九"
-    };
+    private List<String> mList;
 
     public AbsenceAdapter(Context context) {
-
-        mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
-
+        mList = DbHelper.getInstance().getAllClassList();
     }
 
     @Override
-    public TextViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
 
         View v = mLayoutInflater.inflate(R.layout.summary_item_layout, parent, false);
-        TextViewHolder textViewHolder = new TextViewHolder(v);
-        return textViewHolder;
+        return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(TextViewHolder holder, int position) {
-
-        holder.mTextView.setText(studentsAbsence[position]);
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        holder._class.setText(mList.get(position));
     }
 
 
     @Override
     public int getItemViewType(int position) {
-
         return super.getItemViewType(position);
 
     }
 
     @Override
     public int getItemCount() {
-        return studentsAbsence == null ? 0 : studentsAbsence.length;
+        return mList == null ? 0 : mList.size();
     }
 
-    public static class TextViewHolder extends RecyclerView.ViewHolder {
-        TextView mTextView;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        @InjectView(R.id.summary_class)
+        TextView _class;
 
-        TextViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             ButterKnife.inject(this, view);
         }

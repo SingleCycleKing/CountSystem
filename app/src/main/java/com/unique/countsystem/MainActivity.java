@@ -41,6 +41,7 @@ public class MainActivity extends ActionBarActivity {
 
     private int mPosition = 0;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,8 +67,6 @@ public class MainActivity extends ActionBarActivity {
         menuList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                if (3 != position)
-//                    mToolbar.setTitle(getResources().getStringArray(R.array.menu)[position]);
                 switch (position) {
                     case 0:
                         mPosition = 0;

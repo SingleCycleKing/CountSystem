@@ -41,7 +41,7 @@ public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Date date = mList.get(position).getTime();
-        SimpleDateFormat format = new SimpleDateFormat("MM-dd-HH-mm-ss");
+        SimpleDateFormat format = new SimpleDateFormat("MM月dd日 '\n' HH:mm:ss");
         holder.time.setText(format.format(date));
         List<Record> records = mList.get(position).getAbsenceTimes();
         for (Record record : records) {

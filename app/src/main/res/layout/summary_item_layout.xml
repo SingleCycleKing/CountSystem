@@ -11,13 +11,13 @@
     <TextView
         android:layout_margin="10dp"
         android:layout_gravity="center_vertical"
-        android:id="@+id/summary_time"
+        android:id="@+id/summary_class"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="25sp" />
 
     <TextView
-        android:id="@+id/summary_class"
+        android:id="@+id/summary_time"
         android:textSize="20sp"
         android:layout_gravity="right|center_vertical"
         android:layout_margin="10dp"

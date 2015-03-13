@@ -20,12 +20,12 @@
         android:padding="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="25sp" />
+        android:textSize="20sp" />
 
     <ImageView
         android:id="@+id/info_image_view"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_gravity="end|center_vertical"
         android:background="@mipmap/arrow" />
 
