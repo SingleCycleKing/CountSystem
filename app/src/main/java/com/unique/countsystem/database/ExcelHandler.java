@@ -125,6 +125,7 @@ public class ExcelHandler {
         WritableSheet sheet = workbook.createSheet("sheet0", 0);
         createSheetHead(sheet,context);
         createSheetBody(sheet,context);
+        workbook.write();
         workbook.close();
     }
 

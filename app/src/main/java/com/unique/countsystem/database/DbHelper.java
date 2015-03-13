@@ -265,7 +265,6 @@ public class DbHelper {
         mRecordTimeDao.delete(recordTime);
     }
 
-
     /**
      * use studentId
      * @param studentId U201317485
