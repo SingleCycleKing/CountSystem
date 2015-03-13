@@ -17,6 +17,7 @@ import butterknife.InjectView;
 
 public class ExcelAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
+    private boolean isEdited = false;
 
     public ExcelAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
@@ -46,7 +47,13 @@ public class ExcelAdapter extends BaseAdapter {
             convertView.setTag(viewHolder);
         } else viewHolder = (ViewHolder) convertView.getTag();
         viewHolder.mTextView.setText("软工" + position + "班");
+        if (isEdited) viewHolder.mCheckBox.setVisibility(View.VISIBLE);
         return convertView;
+    }
+
+    public void editList(boolean b) {
+        isEdited = b;
+        this.notifyDataSetChanged();
     }
 
     static class ViewHolder {

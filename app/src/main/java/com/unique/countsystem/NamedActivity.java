@@ -24,7 +24,7 @@ public class NamedActivity extends ActionBarActivity {
     Toolbar mToolbar;
     @InjectView(R.id.named_view_pager)
     CustomViewPager mViewPager;
-
+    public static int number = 0;
     private ArrayList<Class<?>> classes;
 
 
@@ -36,12 +36,14 @@ public class NamedActivity extends ActionBarActivity {
         ButterKnife.inject(this);
         BaseUtils.setToolbar(mToolbar, this);
 
-        classes = new ArrayList<>();
-        classes.add(RollCallFragment.class);
-        PagerAdapter mPagerAdapter = new PagerAdapter(this, classes);
-        mViewPager.setAdapter(mPagerAdapter);
-        mViewPager.isAlterable(false);
-
+        number = getIntent().getIntExtra("number", 0);
+        if (number != 0) {
+            classes = new ArrayList<>();
+            classes.add(RollCallFragment.class);
+            PagerAdapter mPagerAdapter = new PagerAdapter(this, classes);
+            mViewPager.setAdapter(mPagerAdapter);
+            mViewPager.isAlterable(false);
+        }
     }
 
     @Override

@@ -20,4 +20,21 @@
         android:background="@mipmap/add"
         android:layout_width="75dp"
         android:layout_height="75dp" />
+
+    <TextView
+        android:visibility="gone"
+        android:layout_margin="20dp"
+        android:id="@+id/excel_output"
+        android:background="@drawable/output_background"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+
+    <TextView
+        android:visibility="gone"
+        android:layout_alignParentRight="true"
+        android:layout_margin="20dp"
+        android:id="@+id/excel_delete"
+        android:background="@drawable/delete_background"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
 </RelativeLayout>

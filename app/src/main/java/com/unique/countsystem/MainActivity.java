@@ -48,7 +48,7 @@ public class MainActivity extends ActionBarActivity {
         ButterKnife.inject(this);
         BaseUtils.setToolbar(mToolbar, this);
 
-//        DbHelper.preInitHelper(this);
+        DbHelper.preInitHelper(this);
         init();
     }
 

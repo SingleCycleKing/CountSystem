@@ -16,12 +16,17 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
+import com.unique.countsystem.NamedActivity;
 import com.unique.countsystem.R;
+import com.unique.countsystem.Record;
+import com.unique.countsystem.Student;
 import com.unique.countsystem.adapter.InfoAdapter;
+import com.unique.countsystem.database.model.absenceType;
 import com.unique.countsystem.utils.BaseUtils;
 import com.unique.countsystem.utils.DebugLog;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -29,15 +34,13 @@ import butterknife.OnClick;
 
 public class RollCallFragment extends Fragment {
 
-    private String[] classes = {"软工三班", "软工三班", "软工三班", "软工三班", "软工三班"};
-    private String[] names = {"张三", "李四", "王五", "赵六", "雷丹雄"};
-    private String[] ids = {"U201317490", "U201317491", "U201317492", "U201317493", "U201317494"};
     private ArrayList<String> mList;
     private float x;
     private int position = 0;
     private InfoAdapter adapter;
     private boolean isFlying = false;
     private SpeechSynthesizer mSynthesizer;
+    private ArrayList<Student> rolls;
 
     @InjectView(R.id.roll_name)
     TextView name;
@@ -76,6 +79,7 @@ public class RollCallFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        rolls = BaseUtils.getStudent(NamedActivity.number);
         mList = new ArrayList<>();
         setData();
         adapter = new InfoAdapter(getActivity(), mList);
@@ -86,8 +90,8 @@ public class RollCallFragment extends Fragment {
         mSynthesizer.setParameter(SpeechConstant.SPEED, "50");
         mSynthesizer.setParameter(SpeechConstant.VOLUME, "80");
         int code = mSynthesizer.startSpeaking("卧槽", mListener);
-
         DebugLog.e("fuck" + code);
+
     }
 
     @Override
@@ -99,20 +103,27 @@ public class RollCallFragment extends Fragment {
     }
 
     private void setData() {
-        name.setText(names[position]);
-        mList.add("学号：" + ids[position]);
-        mList.add("班级：" + classes[position]);
-        mList.add("已逃课次数：0");
-        mList.add("已请假次数：0");
+        name.setText(rolls.get(position).getName());
+        mList.add("学号：" + rolls.get(position).getStudentId());
+        mList.add("班级：" + rolls.get(position).get_class());
+        List<Record> records = rolls.get(position).getAbsenceRecords();
+        int vacate = 0;
+        int absence = 0;
+        for (Record record : records) {
+            if (record.getAbsenceType().equals(absenceType.VACATE.toInteger())) vacate++;
+            if (record.getAbsenceType().equals(absenceType.ABSENCE.toInteger())) absence++;
+        }
+        mList.add("已缺勤次数：" + vacate);
+        mList.add("已请假次数：" + absence);
     }
 
     private void dataHandler() {
         if (position == 0)
             x = infoLayout.getX();
-        if (position < 4) {
+        if (position < rolls.size()) {
             position++;
-            final ObjectAnimator fade = BaseUtils.moveAnim(500, infoLayout, x, x - 1000, BaseUtils.FADE_ANIM);
-            final ObjectAnimator appear = BaseUtils.moveAnim(500, infoLayout, x + 1000, x, BaseUtils.APPEAR_ANIM);
+            final ObjectAnimator fade = BaseUtils.moveAnim(500, infoLayout, x, x - 1000, BaseUtils.FADE_ANIM, "x");
+            final ObjectAnimator appear = BaseUtils.moveAnim(500, infoLayout, x + 1000, x, BaseUtils.APPEAR_ANIM, "x");
             appear.addListener(new Animator.AnimatorListener() {
                 @Override
                 public void onAnimationStart(Animator animation) {
@@ -122,7 +133,7 @@ public class RollCallFragment extends Fragment {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     isFlying = false;
-                    mSynthesizer.startSpeaking(names[position], mListener);
+                    mSynthesizer.startSpeaking(rolls.get(position).getName(), mListener);
                 }
 
                 @Override
