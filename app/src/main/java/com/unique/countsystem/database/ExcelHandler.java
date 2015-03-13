@@ -70,7 +70,7 @@ public class ExcelHandler {
         String name;
         String studentId;
         String _class;
-        for(int i =1; i <=rowsNumber; i++){
+        for(int i =1; i <rowsNumber; i++){
             if (isANullRow(sheet,i)){
                 DebugLog.d("null");
                 break;
@@ -88,6 +88,7 @@ public class ExcelHandler {
 
     private boolean isANullRow(Sheet sheet, int rowsNumber){
         int columns = sheet.getColumns();
+        DebugLog.d(""+columns);
         String cell;
         for( int j =0; j< columns ; j++){
             cell = sheet.getCell(j, rowsNumber).getContents();
@@ -126,7 +127,7 @@ public class ExcelHandler {
             for(int j=3;j<recordTimes.size()+3;j++){
                 recordList = students.get(i-1).getAbsenceRecords();
                 for (Record record:recordList){
-
+//                    record.getRecordTime()
                 }
             }
         }

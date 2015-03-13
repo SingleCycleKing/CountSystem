@@ -238,9 +238,8 @@ public class DbHelper {
     }
 
     public List<RecordTime> getAllRecordTime(){
-        return mRecordTimeDao.loadAll();
+        return mRecordTimeDao.queryBuilder().orderAsc(RecordTimeDao.Properties.Time).list();
     }
-
 
     /**
      * @return sum count of students
