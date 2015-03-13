@@ -67,8 +67,9 @@ public class ExcelHandler {
         Sheet sheet = workbook.getSheet(0);
         int rowsNumber = sheet.getRows();
 //        int columnNumber = sheet.getColumns();
-        DebugLog.d(""+ rowsNumber);
+//        DebugLog.d(""+ rowsNumber);
         List<Student> excelStudentList = new ArrayList<>(rowsNumber);
+        Student student;
         String name;
         String studentId;
         String _class;
@@ -81,7 +82,11 @@ public class ExcelHandler {
             studentId = sheet.getCell(1, i).getContents();
             _class = sheet.getCell(2, i).getContents();
             DebugLog.d(name + " ; " + studentId + " ; " + _class);
-            excelStudentList.add(DbHelper.createStudentModel(name,studentId,_class));
+            student = DbHelper.createStudentModel(name,studentId,_class);
+            if (DbHelper.getInstance().getStudentByStudentId(student.getStudentId())!=null){
+                continue;
+            }
+            excelStudentList.add(student);
         }
         workbook.close();
         if(excelStudentList.isEmpty()) return;

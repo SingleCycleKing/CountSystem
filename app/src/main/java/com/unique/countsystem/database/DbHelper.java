@@ -101,6 +101,10 @@ public class DbHelper {
         mStudentDao.insertOrReplace(aStudent);
     }
 
+    public void insertOrReplaceRecords(List<Record> records){
+        mRecordDao.insertOrReplaceInTx(records);
+    }
+
     /**
      * Delete a single student
      * @param aStudent student
