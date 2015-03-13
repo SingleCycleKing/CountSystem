@@ -33,7 +33,7 @@ public class DbGenerator {
 
         Entity time = schema.addEntity("RecordTime");
         time.addIdProperty().autoincrement().primaryKey();
-        time.addIntProperty("date");
+        time.addDateProperty("time");
 
 
         Entity absenceRecord = schema.addEntity("Record");
@@ -54,7 +54,5 @@ public class DbGenerator {
         ToMany recordToTime = time.addToMany(absenceRecord, tttId);
         recordToTime.setName("AbsenceTimes");
         recordToTime.orderDesc();
-
-
     }
 }

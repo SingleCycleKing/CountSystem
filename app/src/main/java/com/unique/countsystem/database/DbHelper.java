@@ -8,12 +8,15 @@ import com.unique.countsystem.DaoMaster;
 import com.unique.countsystem.DaoSession;
 import com.unique.countsystem.Record;
 import com.unique.countsystem.RecordDao;
+import com.unique.countsystem.RecordTime;
+import com.unique.countsystem.RecordTimeDao;
 import com.unique.countsystem.Student;
 import com.unique.countsystem.StudentDao;
 import com.unique.countsystem.database.model.absenceType;
 import com.unique.countsystem.utils.DayUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -41,6 +44,7 @@ public class DbHelper {
     // data access objects
     private RecordDao mRecordDao;
     private StudentDao mStudentDao;
+    private RecordTimeDao mRecordTimeDao;
 
     /**
      * Context of applications
@@ -70,6 +74,7 @@ public class DbHelper {
                     sInstance = new DbHelper();
                     sInstance.mRecordDao = daoSession.getRecordDao();
                     sInstance.mStudentDao = daoSession.getStudentDao();
+                    sInstance.mRecordTimeDao = daoSession.getRecordTimeDao();
                 }
             }
         }
@@ -161,14 +166,13 @@ public class DbHelper {
 
     /**
      * List all absence records from day
-     * @param day pattern should be "20130405"
+     * @param date java.util.Date
      * @return The Absence records list on that day
      * @exception java.lang.IllegalArgumentException if day is incorrect.
      */
-//    public List<Record> getAbsenceRecordsByDay(String day){
-//        int date = DayUtils.fromString(day);
-//        return mRecordDao.queryBuilder().where(com.unique.countsystem.RecordDao.Properties.Date.eq(date)).list();
-//    }
+    public List<RecordTime> getAbsenceRecordsByDay(Date date){
+        return mRecordTimeDao.queryBuilder().where(RecordTimeDao.Properties.Time.eq(date)).list();
+    }
 
     /**
      * List all absence records for a specific student from studentId
@@ -185,13 +189,10 @@ public class DbHelper {
         return student.getAbsenceRecords();
     }
 
-    /**
-     *
-     */
-   public void insertOrReplaceAbsenceRecord(Record record,Student student){
-       mRecordDao.insertOrReplace(record);
-       student.resetAbsenceRecords();
-   }
+    public void insertOrReplaceAbsenceRecord(Record record,Student student){
+        mRecordDao.insertOrReplace(record);
+        student.resetAbsenceRecords();
+    }
 
 
     /**
@@ -221,8 +222,12 @@ public class DbHelper {
      * @return record instance
      * @throws java.lang.IllegalArgumentException DayUtils.fromString(date)
      */
-    public static Record createAbsenceRecordModel(String date, absenceType type, Student student) throws IllegalArgumentException{
-        return new Record(null, DayUtils.fromString(date), type.toInteger(),student.getId());
+    public static Record createAbsenceRecordModel(absenceType type, Student student, Date date) throws IllegalArgumentException{
+        return new Record(null, type.toInteger(), student.getId(), createRecordTime(date).getId());
+    }
+
+    public static RecordTime createRecordTime(Date date){
+        return new RecordTime(null, date);
     }
 
 
