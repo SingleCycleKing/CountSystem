@@ -16,20 +16,22 @@ public class ChartAdapter extends FragmentPagerAdapter {
     public ChartAdapter(FragmentManager fm) {
         super(fm);
     }
+
     @Override
     public int getCount() {
-        return 2 ;
+        return 2;
     }
+
     @Override
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
 
-                return  new PieChartFrag () ;
+                return new PieChartFrag();
 
             case 1:
 
-                return new PieChartFrag() ;
+                return new LineChartFragment();
 
             default:
                 return null;
