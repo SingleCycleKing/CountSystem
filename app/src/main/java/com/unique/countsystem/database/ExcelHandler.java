@@ -1,6 +1,8 @@
 package com.unique.countsystem.database;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Environment;
 
 import com.unique.countsystem.R;
@@ -124,9 +126,17 @@ public class ExcelHandler {
         WritableWorkbook workbook = Workbook.createWorkbook(file);
         WritableSheet sheet = workbook.createSheet("sheet0", 0);
         createSheetHead(sheet,context);
-        createSheetBody(sheet,context);
+        createSheetBody(sheet, context);
         workbook.write();
         workbook.close();
+
+        fileScan(file.getAbsolutePath(), context);
+
+    }
+
+    private void fileScan(String fName,Context context){
+        Uri data = Uri. parse("file:///" +fName);
+        context.sendBroadcast( new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE , data));
     }
 
     private void createSheetBody(WritableSheet sheet, Context context) throws WriteException {
@@ -154,7 +164,6 @@ public class ExcelHandler {
                     for(int t=0;t <recordTimes.size();t++){
                         if (record.getRecordTime().getTime().getTime()==recordTimes.get(t).getTime().getTime()){
                             if(record.getAbsenceType() == absenceType.ABSENCE.toInteger()){
-                                DebugLog.e(record.getRecordTime().getTime().toString());
                                 label = new Label(t+3,i,"X");
                                 sum_counter++;
                             }else if (record.getAbsenceType() == absenceType.VACATE.toInteger()){
@@ -196,7 +205,7 @@ public class ExcelHandler {
     private final static String SAVE_NAME_FORMATER= "record_%s";
 
     private String generateFileName(){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_mm_ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
         Date date = new Date();
         String formated_date = dateFormat.format(date);
         return wrapXLS(String.format(SAVE_NAME_FORMATER, formated_date));
