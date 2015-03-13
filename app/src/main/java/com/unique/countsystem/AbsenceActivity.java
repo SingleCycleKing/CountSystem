@@ -75,4 +75,9 @@ public class AbsenceActivity extends ActionBarActivity {
         return super.getSupportParentActivityIntent();
     }
 
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.move_left_in, R.anim.move_right_out);
+    }
 }

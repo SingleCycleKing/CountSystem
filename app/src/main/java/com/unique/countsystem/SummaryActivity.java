@@ -9,9 +9,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
 import com.unique.countsystem.adapter.SummaryAdapter;
 import com.unique.countsystem.utils.BaseUtils;
 import com.unique.countsystem.utils.OnRecyclerItemClickListener;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -27,7 +29,7 @@ public class SummaryActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary);
         ButterKnife.inject(this);
-        BaseUtils.setToolbar(mToolbar ,this) ;
+        BaseUtils.setToolbar(mToolbar, this);
         init();
     }
 
@@ -62,11 +64,15 @@ public class SummaryActivity extends ActionBarActivity {
 
     }
 
-
     @Override
     public Intent getSupportParentActivityIntent() {
         finish();
         return super.getSupportParentActivityIntent();
     }
 
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.move_left_in, R.anim.move_right_out);
+    }
 }
