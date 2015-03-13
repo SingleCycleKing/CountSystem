@@ -14,7 +14,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechUtility;
 import com.unique.countsystem.adapter.MenuAdapter;
+import com.unique.countsystem.database.DbHelper;
 import com.unique.countsystem.utils.BaseUtils;
 
 import butterknife.ButterKnife;
@@ -50,6 +53,8 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void init() {
+        SpeechUtility.createUtility(this, SpeechConstant.APPID + "=54faf98f");
+
         final String[] fragments = getResources().getStringArray(R.array.fragment);
         getSupportFragmentManager().beginTransaction().replace(R.id.content, Fragment.instantiate(MainActivity.this, fragments[0])).commit();
 
