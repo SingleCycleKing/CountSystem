@@ -26,7 +26,7 @@ public class PieChartFrag extends SimpleFragment {
         View v = inflater.inflate(R.layout.frag_simple_pie, container, false);
 
         mChart = (PieChart) v.findViewById(R.id.pieChart1);
-        mChart.setUsePercentValues(true);
+
 
         mChart.setDescription("");
 
@@ -36,18 +36,12 @@ public class PieChartFrag extends SimpleFragment {
 
         mChart.setHoleRadius(45f);
         mChart.setTransparentCircleRadius(50f);
-
-
         mChart.setDrawCenterText(true);
-
         mChart.setDrawHoleEnabled(true);
-
         mChart.setRotationAngle(0);
-        // enable rotation of the chart by touch
         mChart.setRotationEnabled(true);
-
-
-
+        mChart.setUsePercentValues(true);
+        mChart.setTouchEnabled(false) ;
         mChart.setData(generatePieData());
         mChart.setCenterTextSize(20f);
 
