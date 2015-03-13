@@ -25,6 +25,7 @@ import jxl.write.Label;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
+import jxl.write.biff.RowsExceededException;
 
 /**
  * Excel handler
@@ -119,31 +120,46 @@ public class ExcelHandler {
         createSheetBody(sheet,context);
     }
 
-    private void createSheetBody(WritableSheet sheet, Context context){
+    private void createSheetBody(WritableSheet sheet, Context context) throws WriteException {
         if (sheet ==null) return;
         List<Student> students = DbHelper.getInstance().getAllStudents();
         List<RecordTime> recordTimes = DbHelper.getInstance().getAllRecordTimeAscOrdered();
         List<Record> recordList = null;
         Label label = null;
+        Label name = null;
+        Label studentId = null;
+        Label _class = null;
+        Label sum = null;
+        int sum_counter = 0;
         for (int i = 1;i<students.size()+1;i++){
-            //TODO-name studentId
+            sum_counter = 0;
+            name = new Label(0,i,students.get(i-1).getName());
+            studentId = new Label(1,i,students.get(i-1).getStudentId());
+            _class = new Label(2,i,students.get(i-1).getStudentId());
+            sheet.addCell(name);
+            sheet.addCell(studentId);
+            sheet.addCell(_class);
             for(int j=3;j<recordTimes.size()+3;j++){
                 recordList = students.get(i-1).getAbsenceRecords();
                 for (Record record:recordList){
                     for(int t=0;t <recordTimes.size();t++){
                         if (record.getRecordTime().getTime().getTime()==recordTimes.get(t).getTime().getTime()){
                             if(record.getAbsenceType() == absenceType.ABSENCE.toInteger()){
-                                //TODO-print what where
+                                label = new Label(t+3,i,"X");
+                                sum_counter++;
                             }else if (record.getAbsenceType() == absenceType.VACATE.toInteger()){
-
+                                label = new Label(t+3,i,"I");
+                            }else{
+                                label = new Label(t+3,i,"V");
                             }
+                            sheet.addCell(label);
                         }
                     }
-//                    record.getRecordTime()
                 }
             }
+            sum = new Label(recordTimes.size()+3,i,sum_counter+"");
+            sheet.addCell(sum);
         }
-
     }
 
     private void createSheetHead(WritableSheet sheet, Context context) throws WriteException {

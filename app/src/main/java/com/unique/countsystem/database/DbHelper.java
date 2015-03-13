@@ -274,7 +274,7 @@ public class DbHelper {
         return null;
     }
 
-    public List<Student> getAllClassListWithClass(String _class){
+    public List<Student> getAllStudentListWithClass(String _class){
         check_class(_class);
         return mStudentDao.queryBuilder().where(StudentDao.Properties._class.eq(_class)).list();
     }
