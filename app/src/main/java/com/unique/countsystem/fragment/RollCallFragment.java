@@ -45,7 +45,6 @@ public class RollCallFragment extends Fragment {
     private SpeechSynthesizer mSynthesizer;
     private ArrayList<Student> rolls;
     private SharedPreferences sharedPreferences;
-    public static long id;
 
     @InjectView(R.id.roll_name)
     TextView name;
@@ -57,9 +56,14 @@ public class RollCallFragment extends Fragment {
     @OnClick(R.id.roll_arrived)
     public void arrive() {
         if (!isFlying) {
+            DebugLog.e("!isFlying");
             DbHelper.getInstance().insertOrReplaceAbsenceRecord(
-                    DbHelper.getInstance().createAbsenceRecordModel(absenceType.NORMAL, rolls.get(position), id)
+            DbHelper.getInstance().createAbsenceRecordModel(absenceType.NORMAL, rolls.get(position), NamedFragment.id)
                     , rolls.get(position));
+            List<Record> records = DbHelper.getInstance().getAllAbsenceRecords();
+            DebugLog.e("id1:"+NamedFragment.id);
+            DebugLog.e("id2"+records.get(records.size()-1).getTttId());
+            DebugLog.e("recordTime"+ DbHelper.getInstance().getRecordsByTimeId(records.get(records.size()-1).getTttId()).size());
             dataHandler();
         }
     }
@@ -67,7 +71,7 @@ public class RollCallFragment extends Fragment {
     @OnClick(R.id.roll_leave)
     public void leave() {
         if (!isFlying) {
-            DbHelper.getInstance().insertOrReplaceAbsenceRecord(DbHelper.getInstance().createAbsenceRecordModel(absenceType.ABSENCE, rolls.get(position), id), rolls.get(position));
+            DbHelper.getInstance().insertOrReplaceAbsenceRecord(DbHelper.getInstance().createAbsenceRecordModel(absenceType.ABSENCE, rolls.get(position), NamedFragment.id), rolls.get(position));
             dataHandler();
         }
     }
@@ -75,7 +79,7 @@ public class RollCallFragment extends Fragment {
     @OnClick(R.id.roll_truancy)
     public void truancy() {
         if (!isFlying) {
-            DbHelper.getInstance().insertOrReplaceAbsenceRecord(DbHelper.getInstance().createAbsenceRecordModel(absenceType.VACATE, rolls.get(position), id), rolls.get(position));
+            DbHelper.getInstance().insertOrReplaceAbsenceRecord(DbHelper.getInstance().createAbsenceRecordModel(absenceType.VACATE, rolls.get(position), NamedFragment.id), rolls.get(position));
             dataHandler();
         }
     }
@@ -90,9 +94,6 @@ public class RollCallFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        Date date = new Date();
-        id = DbHelper.getInstance().insertOrReplaceRecordTime(date);
-
         sharedPreferences = getActivity().getSharedPreferences("Count", Context.MODE_PRIVATE);
         rolls = BaseUtils.getStudent(sharedPreferences.getInt("number", 0));
         mList = new ArrayList<>();

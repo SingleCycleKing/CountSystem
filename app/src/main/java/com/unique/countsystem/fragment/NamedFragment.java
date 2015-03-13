@@ -11,10 +11,12 @@ import android.widget.Spinner;
 
 import com.unique.countsystem.R;
 import com.unique.countsystem.NamedActivity;
+import com.unique.countsystem.database.DbHelper;
 import com.unique.countsystem.utils.DebugLog;
 import com.unique.countsystem.view.ColorfulPicker;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -22,6 +24,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class NamedFragment extends Fragment {
+    public static long id;
     @InjectView(R.id.named_course)
     Spinner mSpinner;
     @InjectView(R.id.named_number)
@@ -29,6 +32,9 @@ public class NamedFragment extends Fragment {
 
     @OnClick(R.id.named_start)
     public void start() {
+        Date date = new Date();
+        id = DbHelper.getInstance().insertOrReplaceRecordTime(date);
+        DebugLog.e("date:"+date.getTime());
         Intent intent = new Intent(new Intent(getActivity(), NamedActivity.class));
         intent.putExtra("number", number.getNumber());
         startActivity(intent);

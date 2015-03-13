@@ -171,9 +171,9 @@ public class DbHelper {
      * @return The Absence records list on that day
      * @exception java.lang.IllegalArgumentException if day is incorrect.
      */
-    public List<RecordTime> getAbsenceRecordsByDay(Date date){
-        return mRecordTimeDao.queryBuilder().where(RecordTimeDao.Properties.Time.eq(date)).list();
-    }
+//    public List<RecordTime> getAbsenceRecordsByDay(Date date){
+//        return mRecordTimeDao.queryBuilder().where(RecordTimeDao.Properties.Time.eq(date)).list();
+//    }
 
     /**
      * List all absence records for a specific student from studentId
@@ -181,19 +181,19 @@ public class DbHelper {
      * @return list Record. return null when can't find a specific student
      * @exception java.lang.IllegalArgumentException if studentId is illegal
      */
-    @Nullable
-    public List<Record> getAbsenceRecordsForStudent(String studentId) throws IllegalArgumentException{
-        Student student = getStudentByStudentId(studentId);
-        if (student == null){
-            return null;
-        }
-        return student.getAbsenceRecords();
-    }
+//    @Nullable
+//    public List<Record> getAbsenceRecordsForStudent(String studentId) throws IllegalArgumentException{
+//        Student student = getStudentByStudentId(studentId);
+//        if (student == null){
+//            return null;
+//        }
+//        return student.getAbsenceRecords();
+//    }
 
-    public void insertOrReplaceAbsenceRecord(Record record,Student student){
+    public long insertOrReplaceAbsenceRecord(Record record,Student student){
 //        daoSession.insertOrReplace(record);
-        mRecordDao.insertOrReplace(record);
         student.getAbsenceRecords().add(record);
+        return mRecordDao.insertOrReplace(record);
     }
 
 
@@ -208,7 +208,6 @@ public class DbHelper {
     public static Student createStudentModel(String name, String studentId, String _class)
             throws IllegalArgumentException{
         studentId = studentId.trim();
-        DebugLog.e("|"+studentId+"|");
         if (!checkStudentId(studentId)){
             throw new IllegalArgumentException("studentId is illegal");
         }
@@ -239,6 +238,10 @@ public class DbHelper {
 
     public RecordTime getRecordTimeById(long id){
         return mRecordTimeDao.queryBuilder().where(RecordTimeDao.Properties.Id.eq(id)).unique();
+    }
+
+    public List<Record> getRecordsByTimeId(long id){
+        return mRecordDao.queryBuilder().where(RecordDao.Properties.TttId.eq(id)).list();
     }
 
     public long getSumCountRecord(){

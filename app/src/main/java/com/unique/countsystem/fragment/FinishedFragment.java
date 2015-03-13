@@ -56,8 +56,10 @@ public class FinishedFragment extends Fragment {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        RecordTime recordTime = DbHelper.getInstance().getRecordTimeById(RollCallFragment.id);
+        RecordTime recordTime = DbHelper.getInstance().getRecordTimeById(NamedFragment.id);
         recordTime.resetAbsenceTimes();
+        DebugLog.e(""+NamedFragment.id);
+        DebugLog.e(DbHelper.getInstance().getRecordsByTimeId(NamedFragment.id).size()+"");
         List<Record> records = recordTime.getAbsenceTimes();
         DebugLog.e(records.size() + "you");
         for (Record record : records) {
