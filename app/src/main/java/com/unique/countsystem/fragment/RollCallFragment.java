@@ -157,6 +157,12 @@ public class RollCallFragment extends Fragment {
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mSynthesizer.stopSpeaking();
+    }
+
+    @Override
     public void onStop() {
         mSynthesizer.stopSpeaking();
         super.onStop();
