@@ -74,6 +74,9 @@ public class NamedActivity extends ActionBarActivity {
     @Override
     public void finish() {
         super.finish();
+        Intent intent=new Intent();
+        intent.setAction(BaseUtils.CALLING_ROLL_BACK);
+        sendBroadcast(intent);
         overridePendingTransition(R.anim.move_left_in, R.anim.move_right_out);
     }
 
@@ -105,4 +108,5 @@ public class NamedActivity extends ActionBarActivity {
             }
         }
     };
+
 }

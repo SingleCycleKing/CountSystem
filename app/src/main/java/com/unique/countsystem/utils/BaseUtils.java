@@ -2,19 +2,13 @@ package com.unique.countsystem.utils;
 
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.animation.AnticipateInterpolator;
 import android.view.animation.Interpolator;
 import android.view.animation.OvershootInterpolator;
-import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 
-import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.unique.countsystem.R;
 import com.unique.countsystem.Record;
 import com.unique.countsystem.Student;
@@ -30,6 +24,7 @@ public class BaseUtils {
     public static int APPEAR_ANIM = 1;
     public static String HAS_FINISHED_CALLING_ROLL = "finish";
     public static String FINISHED_UPDATE_DATA = "finished_update_data";
+    public static String CALLING_ROLL_BACK = "call_roll_back";
 
     public static void setToolbar(Toolbar mToolbar, ActionBarActivity activity) {
         activity.setSupportActionBar(mToolbar);

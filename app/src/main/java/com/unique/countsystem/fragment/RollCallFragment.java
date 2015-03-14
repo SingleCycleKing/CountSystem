@@ -2,8 +2,10 @@ package com.unique.countsystem.fragment;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,6 +28,7 @@ import com.unique.countsystem.adapter.InfoAdapter;
 import com.unique.countsystem.database.DbHelper;
 import com.unique.countsystem.database.model.absenceType;
 import com.unique.countsystem.utils.BaseUtils;
+import com.unique.countsystem.utils.DebugLog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,6 +98,7 @@ public class RollCallFragment extends Fragment {
         mSynthesizer.setParameter(SpeechConstant.SPEED, "50");
         mSynthesizer.setParameter(SpeechConstant.VOLUME, "80");
         id = this.getArguments().getLong("id");
+
     }
 
     @Override
@@ -102,6 +106,9 @@ public class RollCallFragment extends Fragment {
         super.onStart();
         adapter = new InfoAdapter(getActivity(), mList);
         mListView.setAdapter(adapter);
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(BaseUtils.CALLING_ROLL_BACK);
+        getActivity().registerReceiver(mBroadcastReceiver, filter);
     }
 
     @Override
@@ -164,6 +171,7 @@ public class RollCallFragment extends Fragment {
     public void onStop() {
         mSynthesizer.stopSpeaking();
         super.onStop();
+        getActivity().unregisterReceiver(mBroadcastReceiver);
     }
 
     @Override
@@ -267,7 +275,7 @@ public class RollCallFragment extends Fragment {
 
         @Override
         public void onCompleted(SpeechError speechError) {
-            handler.postDelayed(mRunnable, 3000);
+            handler.postDelayed(mRunnable, 2000);
         }
 
         @Override
@@ -279,6 +287,17 @@ public class RollCallFragment extends Fragment {
         @Override
         public void run() {
             mSynthesizer.startSpeaking(rolls.get(position).getName(), mListener);
+        }
+    };
+
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(BaseUtils.CALLING_ROLL_BACK)) {
+                DebugLog.e("destroy");
+                mSynthesizer.stopSpeaking();
+                mSynthesizer.destroy();
+            }
         }
     };
 }
