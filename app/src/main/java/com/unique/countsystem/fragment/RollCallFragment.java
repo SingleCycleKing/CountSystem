@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Debug;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +47,7 @@ public class RollCallFragment extends Fragment {
     private ArrayList<Student> rolls;
     private SharedPreferences sharedPreferences;
     private long id;
+    private Handler handler;
 
     @InjectView(R.id.roll_name)
     TextView name;
@@ -57,6 +59,8 @@ public class RollCallFragment extends Fragment {
     @OnClick(R.id.roll_arrived)
     public void arrive() {
         if (!isFlying) {
+            handler.removeCallbacks(mRunnable);
+            mSynthesizer.stopSpeaking();
             DbHelper.getInstance().insertOrReplaceAbsenceRecord(DbHelper.getInstance().createAbsenceRecordModel(absenceType.NORMAL, rolls.get(position), id), rolls.get(position));
             dataHandler();
         }
@@ -65,6 +69,8 @@ public class RollCallFragment extends Fragment {
     @OnClick(R.id.roll_leave)
     public void leave() {
         if (!isFlying) {
+            handler.removeCallbacks(mRunnable);
+            mSynthesizer.stopSpeaking();
             DbHelper.getInstance().insertOrReplaceAbsenceRecord(DbHelper.getInstance().createAbsenceRecordModel(absenceType.VACATE, rolls.get(position), id), rolls.get(position));
             dataHandler();
         }
@@ -73,6 +79,8 @@ public class RollCallFragment extends Fragment {
     @OnClick(R.id.roll_truancy)
     public void truancy() {
         if (!isFlying) {
+            handler.removeCallbacks(mRunnable);
+            mSynthesizer.stopSpeaking();
             DbHelper.getInstance().insertOrReplaceAbsenceRecord(DbHelper.getInstance().createAbsenceRecordModel(absenceType.ABSENCE, rolls.get(position), id), rolls.get(position));
             dataHandler();
         }
@@ -82,9 +90,10 @@ public class RollCallFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        handler = new Handler();
         mSynthesizer = SpeechSynthesizer.createSynthesizer(getActivity(), null);
         mSynthesizer.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD);
-        mSynthesizer.setParameter(SpeechConstant.VOICE_NAME, "xiaomei");
+        mSynthesizer.setParameter(SpeechConstant.VOICE_NAME, "xiaoyan");
         mSynthesizer.setParameter(SpeechConstant.SPEED, "50");
         mSynthesizer.setParameter(SpeechConstant.VOLUME, "80");
         id = this.getArguments().getLong("id");
@@ -95,6 +104,12 @@ public class RollCallFragment extends Fragment {
         super.onStart();
         adapter = new InfoAdapter(getActivity(), mList);
         mListView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mSynthesizer.destroy();
     }
 
     @Override
@@ -120,9 +135,7 @@ public class RollCallFragment extends Fragment {
             mList = new ArrayList<>();
             setData();
             if (0 == position) {
-                DebugLog.e("fuck" + name.getText().toString());
-                mSynthesizer.startSpeaking(name.getText().toString(), mListener);
-
+                mRunnable.run();
             }
         }
         return view;
@@ -193,7 +206,7 @@ public class RollCallFragment extends Fragment {
                     mList.clear();
                     setData();
                     adapter.notifyDataSetChanged();
-                    mSynthesizer.startSpeaking(name.getText().toString(), mListener);
+                    mRunnable.run();
                     appear.start();
 
                 }
@@ -244,7 +257,7 @@ public class RollCallFragment extends Fragment {
 
         @Override
         public void onCompleted(SpeechError speechError) {
-            mSynthesizer.stopSpeaking();
+            handler.postDelayed(mRunnable, 3000);
         }
 
         @Override
@@ -252,5 +265,10 @@ public class RollCallFragment extends Fragment {
 
         }
     };
-
+    private Runnable mRunnable = new Runnable() {
+        @Override
+        public void run() {
+            mSynthesizer.startSpeaking(rolls.get(position).getName(), mListener);
+        }
+    };
 }
