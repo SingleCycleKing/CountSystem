@@ -101,14 +101,5 @@ public class BaseUtils {
         return animator;
     }
 
-    @TargetApi(Build.VERSION_CODES.KITKAT)
-    public static void setTint(ActionBarActivity activity) {
-        int API_LEVEL = Build.VERSION.SDK_INT;
-        if (API_LEVEL >= 19) {
-            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            SystemBarTintManager tintManager = new SystemBarTintManager(activity);
-            tintManager.setStatusBarTintEnabled(true);
-            tintManager.setStatusBarTintColor(activity.getResources().getColor(R.color.theme_green));
-        }
-    }
+
 }
