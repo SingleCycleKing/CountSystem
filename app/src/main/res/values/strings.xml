@@ -43,5 +43,5 @@
     <string name="sheet_studentId">学号</string>
     <string name="sheet_class">班级</string>
     <string name="sheet_sum">累计</string>
-    <string name="title_activity_people">PeopleActivity</string>
+    <string name="title_activity_people">缺勤人员</string>
 </resources>

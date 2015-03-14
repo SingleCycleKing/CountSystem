@@ -46,8 +46,8 @@ public class AbsenceActivity extends ActionBarActivity {
                     public void onItemClick(View view, int position) {
                         Intent intent = new Intent(AbsenceActivity.this, PeopleActivity.class);
                         intent.putExtra("position", position);
-                        overridePendingTransition(R.anim.move_right_in, R.anim.move_left_out);
                         startActivity(intent);
+                        overridePendingTransition(R.anim.move_right_in, R.anim.move_left_out);
                     }
                 }));
     }

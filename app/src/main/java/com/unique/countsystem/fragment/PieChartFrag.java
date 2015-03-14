@@ -92,7 +92,7 @@ public class PieChartFrag extends SimpleFragment {
         }
 
         PieDataSet dataSet = new PieDataSet(yVals1, "");
-        dataSet.setSliceSpace(3f);
+        dataSet.setSliceSpace(1f) ;
 
         ArrayList<Integer> colors = new ArrayList<Integer>();
         colors.add(Color.parseColor("#089d87"));

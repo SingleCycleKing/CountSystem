@@ -49,6 +49,7 @@ public class SummaryActivity extends ActionBarActivity {
                         Intent intent = new Intent(SummaryActivity.this, NamedActivity.class);
                         intent.putExtra("SummaryId", DbHelper.getInstance().getAllRecordTimeDescOrdered().get(position).getId());
                         startActivity(intent);
+                        overridePendingTransition(R.anim.move_right_in,R.anim.move_left_out);
                     }
                 }));
     }

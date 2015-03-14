@@ -72,6 +72,12 @@ public class NamedActivity extends ActionBarActivity {
     }
 
     @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.move_left_in, R.anim.move_right_out);
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
         unregisterReceiver(namedReceiver);
