@@ -244,6 +244,7 @@ public class RollCallFragment extends Fragment {
 
         @Override
         public void onCompleted(SpeechError speechError) {
+            mSynthesizer.stopSpeaking();
         }
 
         @Override
