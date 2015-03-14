@@ -14,15 +14,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.unique.countsystem.R;
 import com.unique.countsystem.NamedActivity;
+import com.unique.countsystem.R;
 import com.unique.countsystem.database.DbHelper;
-import com.unique.countsystem.utils.DebugLog;
 import com.unique.countsystem.view.ColorfulPicker;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.ButterKnife;

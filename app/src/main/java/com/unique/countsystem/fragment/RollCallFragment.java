@@ -82,7 +82,7 @@ public class RollCallFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mSynthesizer = SpeechSynthesizer.createSynthesizer(getActivity(), null);
         mSynthesizer.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD);
-        mSynthesizer.setParameter(SpeechConstant.VOICE_NAME, "xiaoli");
+        mSynthesizer.setParameter(SpeechConstant.VOICE_NAME, "xiaomei");
         mSynthesizer.setParameter(SpeechConstant.SPEED, "50");
         mSynthesizer.setParameter(SpeechConstant.VOLUME, "80");
         id = this.getArguments().getLong("id");
@@ -118,7 +118,7 @@ public class RollCallFragment extends Fragment {
             mList = new ArrayList<>();
             setData();
             if (0 == position)
-                mSynthesizer.startSpeaking(rolls.get(position).getName(), mListener);
+                mSynthesizer.startSpeaking(name.getText().toString(), mListener);
         }
         return view;
     }
@@ -188,7 +188,7 @@ public class RollCallFragment extends Fragment {
                     mList.clear();
                     setData();
                     adapter.notifyDataSetChanged();
-                    mSynthesizer.startSpeaking(rolls.get(position).getName(), mListener);
+                    mSynthesizer.startSpeaking(name.getText().toString(), mListener);
                     appear.start();
 
                 }
@@ -246,4 +246,5 @@ public class RollCallFragment extends Fragment {
 
         }
     };
+
 }
