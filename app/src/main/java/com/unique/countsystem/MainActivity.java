@@ -13,12 +13,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.unique.countsystem.adapter.MenuAdapter;
 import com.unique.countsystem.database.DbHelper;
+import com.unique.countsystem.fragment.AboutUsFragment;
 import com.unique.countsystem.utils.BaseUtils;
 
 import butterknife.ButterKnife;
@@ -35,6 +37,8 @@ public class MainActivity extends ActionBarActivity {
     @InjectView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
 
+    @InjectView(R.id.about_us_ll)
+    LinearLayout aboutLinearLayout ;
     private ActionBarDrawerToggle mDrawerToggle;
 
     private boolean isSelected = false;
@@ -59,9 +63,22 @@ public class MainActivity extends ActionBarActivity {
 
         final String[] fragments = getResources().getStringArray(R.array.fragment);
 
+
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.content, Fragment.instantiate(MainActivity.this, fragments[0]));
         transaction.commit();
+
+        aboutLinearLayout.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.fragment_in, R.anim.fragment_out);
+                transaction.replace(R.id.content,  new AboutUsFragment()) ;
+                transaction.commit();
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+            }
+        });
 
         menuList.setAdapter(new MenuAdapter(this));
         menuList.setOnItemClickListener(new AdapterView.OnItemClickListener() {

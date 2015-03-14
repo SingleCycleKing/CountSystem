@@ -44,4 +44,5 @@
     <string name="sheet_class">班级</string>
     <string name="sheet_sum">累计</string>
     <string name="title_activity_people">缺勤人员</string>
+    <string name="about_text">关于</string>
 </resources>
