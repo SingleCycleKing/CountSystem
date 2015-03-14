@@ -29,7 +29,10 @@ public class ColorfulPicker extends FrameLayout {
 
         mNumberPicker.setMaxValue(20);
         mNumberPicker.setMinValue(1);
-        mNumberPicker.setValue(10);
+    }
+
+    public void setMax(int max) {
+        mNumberPicker.setMaxValue(max);
     }
 
     public int getNumber() {

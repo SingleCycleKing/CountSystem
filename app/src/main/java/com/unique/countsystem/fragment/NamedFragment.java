@@ -84,7 +84,7 @@ public class NamedFragment extends Fragment {
             dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             mSpinner.setAdapter(dataAdapter);
             _class = 0;
-
+            number.setMax(DbHelper.getInstance().getAllStudents().size());
             mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
