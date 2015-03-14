@@ -2,13 +2,19 @@ package com.unique.countsystem.utils;
 
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.AnticipateInterpolator;
 import android.view.animation.Interpolator;
 import android.view.animation.OvershootInterpolator;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.unique.countsystem.R;
 import com.unique.countsystem.Record;
 import com.unique.countsystem.Student;
@@ -93,5 +99,16 @@ public class BaseUtils {
         }
         animator.setInterpolator(interpolator);
         return animator;
+    }
+
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    public static void setTint(ActionBarActivity activity) {
+        int API_LEVEL = Build.VERSION.SDK_INT;
+        if (API_LEVEL >= 19) {
+            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            SystemBarTintManager tintManager = new SystemBarTintManager(activity);
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarTintColor(activity.getResources().getColor(R.color.theme_green));
+        }
     }
 }

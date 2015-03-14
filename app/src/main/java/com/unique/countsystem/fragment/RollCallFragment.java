@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Debug;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.unique.countsystem.adapter.InfoAdapter;
 import com.unique.countsystem.database.DbHelper;
 import com.unique.countsystem.database.model.absenceType;
 import com.unique.countsystem.utils.BaseUtils;
+import com.unique.countsystem.utils.DebugLog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,8 +119,11 @@ public class RollCallFragment extends Fragment {
             rolls = BaseUtils.getStudent(sharedPreferences.getInt("number", 0), students);
             mList = new ArrayList<>();
             setData();
-            if (0 == position)
+            if (0 == position) {
+                DebugLog.e("fuck" + name.getText().toString());
                 mSynthesizer.startSpeaking(name.getText().toString(), mListener);
+
+            }
         }
         return view;
     }
