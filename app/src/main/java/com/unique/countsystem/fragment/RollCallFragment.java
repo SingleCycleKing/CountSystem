@@ -115,6 +115,7 @@ public class RollCallFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         mSynthesizer.stopSpeaking();
+        handler.removeCallbacks(mRunnable);
     }
 
     @Override
@@ -294,7 +295,7 @@ public class RollCallFragment extends Fragment {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(BaseUtils.CALLING_ROLL_BACK)) {
-                DebugLog.e("destroy");
+                handler.removeCallbacks(mRunnable);
                 mSynthesizer.stopSpeaking();
                 mSynthesizer.destroy();
             }
