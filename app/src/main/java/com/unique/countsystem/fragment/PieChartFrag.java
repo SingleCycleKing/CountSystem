@@ -2,21 +2,18 @@ package com.unique.countsystem.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.utils.PercentFormatter;
 import com.unique.countsystem.R;
-
-import android.widget.Toast;
-
-import com.github.mikephil.charting.charts.PieChart;
 import com.unique.countsystem.Record;
 import com.unique.countsystem.database.DbHelper;
 import com.unique.countsystem.database.model.absenceType;
@@ -66,24 +63,19 @@ public class PieChartFrag extends SimpleFragment {
         legend.setEnabled(false);
     }
 
-    private int setData(int count) {
+    private void setData(int count) {
 
         float number = getSum();
         int[] numberClass = getNumberFromClass(mParties);
 
-        if (0 == number) {
-            Toast.makeText(getActivity(), "当前缺勤次数为0", Toast.LENGTH_SHORT).show();
-            return 0;
-        }
-
-        ArrayList<Entry> yVals1 = new ArrayList<Entry>();
+        ArrayList<Entry> yVals1 = new ArrayList<>();
 
         for (int i = 0; i < count; i++) {
 
-            yVals1.add(new Entry((numberClass[i] / (float) number), i));
+            yVals1.add(new Entry((numberClass[i] / number), i));
         }
 
-        ArrayList<String> xVals = new ArrayList<String>();
+        ArrayList<String> xVals = new ArrayList<>();
 
         for (int i = 0; i < count; i++) {
 
@@ -94,7 +86,7 @@ public class PieChartFrag extends SimpleFragment {
         PieDataSet dataSet = new PieDataSet(yVals1, "");
         dataSet.setSliceSpace(1f) ;
 
-        ArrayList<Integer> colors = new ArrayList<Integer>();
+        ArrayList<Integer> colors = new ArrayList<>();
         colors.add(Color.parseColor("#089d87"));
         colors.add(Color.parseColor("#cf5348"));
         colors.add(Color.parseColor("#fbcc8f"));
@@ -111,7 +103,6 @@ public class PieChartFrag extends SimpleFragment {
         mChart.setData(data);
         mChart.highlightValues(null);
         mChart.invalidate();
-        return 0;
     }
 
 

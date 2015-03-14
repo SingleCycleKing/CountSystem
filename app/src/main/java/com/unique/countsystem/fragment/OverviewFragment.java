@@ -1,7 +1,9 @@
 package com.unique.countsystem.fragment;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,12 +11,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.unique.countsystem.AbsenceActivity;
 import com.unique.countsystem.ChartActivity;
 import com.unique.countsystem.R;
 import com.unique.countsystem.SummaryActivity;
 import com.unique.countsystem.adapter.OverViewAdapter;
+import com.unique.countsystem.database.DbHelper;
 import com.unique.countsystem.utils.OnRecyclerItemClickListener;
 
 import butterknife.ButterKnife;
@@ -53,9 +57,13 @@ public class OverviewFragment extends Fragment {
                                 getActivity().overridePendingTransition(R.anim.move_right_in, R.anim.move_left_out);
                                 break;
                             case 2:
-                                Intent intentChart = new Intent(getActivity(), ChartActivity.class);
-                                startActivity(intentChart);
-                                getActivity().overridePendingTransition(R.anim.move_right_in, R.anim.move_left_out);
+                                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("xlsNumber", Context.MODE_PRIVATE);
+                                if (0 != sharedPreferences.getInt("number", 0) && DbHelper.getInstance().getAllAbsenceRecords().size() != 0) {
+                                    Intent intentChart = new Intent(getActivity(), ChartActivity.class);
+                                    startActivity(intentChart);
+                                    getActivity().overridePendingTransition(R.anim.move_right_in, R.anim.move_left_out);
+                                } else
+                                    Toast.makeText(getActivity(), "没有任何数据", Toast.LENGTH_SHORT).show();
                                 break;
                             default:
 
