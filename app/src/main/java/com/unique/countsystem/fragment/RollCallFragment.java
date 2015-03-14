@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Debug;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -27,7 +26,6 @@ import com.unique.countsystem.adapter.InfoAdapter;
 import com.unique.countsystem.database.DbHelper;
 import com.unique.countsystem.database.model.absenceType;
 import com.unique.countsystem.utils.BaseUtils;
-import com.unique.countsystem.utils.DebugLog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -109,7 +107,7 @@ public class RollCallFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mSynthesizer.destroy();
+        mSynthesizer.stopSpeaking();
     }
 
     @Override
