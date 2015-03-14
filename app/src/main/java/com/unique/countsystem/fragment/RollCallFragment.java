@@ -171,6 +171,12 @@ public class RollCallFragment extends Fragment {
         super.onResume();
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        mSynthesizer.stopSpeaking();
+    }
+
     private void dataHandler() {
         if (position == 0)
             x = infoLayout.getX();
