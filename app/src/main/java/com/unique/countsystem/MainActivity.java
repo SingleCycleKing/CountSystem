@@ -25,6 +25,7 @@ import com.unique.countsystem.utils.BaseUtils;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -37,8 +38,18 @@ public class MainActivity extends ActionBarActivity {
     @InjectView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
 
-    @InjectView(R.id.about_us_ll)
-    LinearLayout aboutLinearLayout ;
+    @OnClick(R.id.about_us_ll)
+    void about() {
+        if (mPosition != 3) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.setCustomAnimations(R.anim.fragment_in, R.anim.fragment_out);
+            transaction.replace(R.id.content, new AboutUsFragment());
+            transaction.commit();
+            mPosition = 3;
+        }
+        mDrawerLayout.closeDrawer(GravityCompat.START);
+    }
+
     private ActionBarDrawerToggle mDrawerToggle;
 
     private boolean isSelected = false;
@@ -68,17 +79,6 @@ public class MainActivity extends ActionBarActivity {
         transaction.replace(R.id.content, Fragment.instantiate(MainActivity.this, fragments[0]));
         transaction.commit();
 
-        aboutLinearLayout.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.setCustomAnimations(R.anim.fragment_in, R.anim.fragment_out);
-                transaction.replace(R.id.content,  new AboutUsFragment()) ;
-                transaction.commit();
-                mDrawerLayout.closeDrawer(GravityCompat.START);
-            }
-        });
 
         menuList.setAdapter(new MenuAdapter(this));
         menuList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -86,21 +86,29 @@ public class MainActivity extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
-                        mPosition = 0;
-                        isSelected = true;
+                        if (mPosition != position) {
+                            mPosition = 0;
+                            isSelected = true;
+                        }
                         break;
                     case 1:
-                        mPosition = 1;
-                        isSelected = true;
+                        if (mPosition != position) {
+                            mPosition = 1;
+                            isSelected = true;
+                        }
                         break;
                     case 2:
-                        mPosition = 2;
-                        isSelected = true;
+                        if (mPosition != position) {
+                            mPosition = 2;
+                            isSelected = true;
+                        }
                         break;
                     case 3:
-                        mPosition = 3;
-                        isSelected = true;
-                        break;
+                        if (mPosition != position) {
+                            mPosition = 3;
+                            isSelected = true;
+                            break;
+                        }
                 }
                 mDrawerLayout.closeDrawer(GravityCompat.START);
             }

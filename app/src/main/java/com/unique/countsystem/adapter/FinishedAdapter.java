@@ -49,11 +49,12 @@ public class FinishedAdapter extends RecyclerView.Adapter<FinishedAdapter.ViewHo
                 holder.arrive.setImageResource(R.mipmap.selected);
                 break;
             case 1:
-                holder.truancy.setImageResource(R.mipmap.selected);
-                break;
-            case 2:
                 holder.leave.setImageResource(R.mipmap.selected);
                 break;
+            case 2:
+                holder.truancy.setImageResource(R.mipmap.selected);
+                break;
+
         }
     }
 

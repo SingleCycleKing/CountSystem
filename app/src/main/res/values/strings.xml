@@ -5,7 +5,6 @@
         <item>主页</item>
         <item>管理名单</item>
         <item>数据统计</item>
-        <!--<item>设置</item>-->
     </string-array>
     <string-array name="fragment">
         <item>com.unique.countsystem.fragment.NamedFragment</item>
@@ -45,4 +44,6 @@
     <string name="sheet_sum">累计</string>
     <string name="title_activity_people">缺勤人员</string>
     <string name="about_text">关于</string>
+    <string name="design_info">Design：yuqinhuang@hustunique.com</string>
+    <string name="android_info">Android：chenzhao@hustunique.com</string>
 </resources>

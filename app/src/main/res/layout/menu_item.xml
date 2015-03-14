@@ -16,6 +16,6 @@
         android:id="@+id/menu_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:textColor="@color/word"
         android:textSize="20sp" />
 </LinearLayout>

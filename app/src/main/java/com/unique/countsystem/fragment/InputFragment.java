@@ -38,6 +38,7 @@ public class InputFragment extends Fragment {
 
     @OnClick(R.id.excel_delete)
     void delete() {
+        Toast.makeText(getActivity(), "开发中ing", Toast.LENGTH_SHORT).show();
     }
 
     @OnClick(R.id.excel_output)
