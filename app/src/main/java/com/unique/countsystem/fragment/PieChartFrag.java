@@ -25,8 +25,8 @@ public class PieChartFrag extends SimpleFragment {
     private List<Record> records = DbHelper.getInstance().getAllAbsenceRecords();
     private PieChart mChart;
     protected String[] mParties = new String[]{
-            "软工1班", "软工2班", "软工3班", "软工4班", "软工5班", "软工6班"
-            , "数媒1班"
+            "软工1303班", "软工1302班", "软工1303班", "软工1304班", "软工1305班", "软工1306班"
+            , "数媒1301班"
     };
 
     @Override

@@ -84,6 +84,9 @@ public class ExcelHandler {
             studentId = sheet.getCell(1, i).getContents();
             _class = sheet.getCell(2, i).getContents();
             DebugLog.d(name + " ; " + studentId + " ; " + _class);
+            if(!DbHelper.checkStudentId(studentId)){
+                continue;
+            }
             student = DbHelper.createStudentModel(name,studentId,_class);
             if (DbHelper.getInstance().getStudentByStudentId(student.getStudentId())!=null){
                 continue;

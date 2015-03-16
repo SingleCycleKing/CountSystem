@@ -127,14 +127,14 @@ public class RollCallFragment extends Fragment {
         sharedPreferences = getActivity().getSharedPreferences("Count", Context.MODE_PRIVATE);
         List<Student> students;
         if (NamedFragment._class == 0) {
-            students = DbHelper.getInstance().getAllStudentListWithClass("软工1班");
-            students.addAll(DbHelper.getInstance().getAllStudentListWithClass("软工2班"));
-            students.addAll(DbHelper.getInstance().getAllStudentListWithClass("软工3班"));
+            students = DbHelper.getInstance().getAllStudentListWithClass("软工1301班");
+            students.addAll(DbHelper.getInstance().getAllStudentListWithClass("软工1302班"));
+            students.addAll(DbHelper.getInstance().getAllStudentListWithClass("软工1303班"));
         } else {
-            students = DbHelper.getInstance().getAllStudentListWithClass("软工4班");
-            students.addAll(DbHelper.getInstance().getAllStudentListWithClass("软工5班"));
-            students.addAll(DbHelper.getInstance().getAllStudentListWithClass("软工6班"));
-            students.addAll(DbHelper.getInstance().getAllStudentListWithClass("数媒1班"));
+            students = DbHelper.getInstance().getAllStudentListWithClass("软工1304班");
+            students.addAll(DbHelper.getInstance().getAllStudentListWithClass("软工1305班"));
+            students.addAll(DbHelper.getInstance().getAllStudentListWithClass("软工1306班"));
+            students.addAll(DbHelper.getInstance().getAllStudentListWithClass("数媒1301班"));
         }
         if (students.size() != 0) {
             rolls = BaseUtils.getStudent(sharedPreferences.getInt("number", 0), students);
@@ -149,6 +149,7 @@ public class RollCallFragment extends Fragment {
 
     private void setData() {
         name.setText(rolls.get(position).getName());
+        DebugLog.e(rolls.get(position).getName()+"fuck");
         mList.add("学号：" + rolls.get(position).getStudentId());
         mList.add("班级：" + rolls.get(position).get_class());
         List<Record> records = rolls.get(position).getAbsenceRecords();

@@ -53,7 +53,7 @@ public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.ViewHold
         List<Record> records = mList.get(position).getAbsenceTimes();
         for (Record record : records) {
             if (null != record.getStudent())
-                holder._class.setText(record.getStudent().get_class());
+                holder._class.setText("软工1303班");
         }
 
     }
