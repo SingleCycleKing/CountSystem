@@ -9,14 +9,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.unique.countsystem.adapter.SummaryAdapter;
 import com.unique.countsystem.database.DbHelper;
 import com.unique.countsystem.utils.BaseUtils;
 import com.unique.countsystem.utils.OnRecyclerItemClickListener;
+import com.unique.countsystem.utils.OnRecyclerItemLongClickListener;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import uk.me.lewisdeane.ldialogs.CustomDialog;
 
 public class SummaryActivity extends ActionBarActivity {
 
@@ -42,16 +45,41 @@ public class SummaryActivity extends ActionBarActivity {
     private void init() {
         summaryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         summaryRecyclerView.setAdapter(new SummaryAdapter(this));
-        summaryRecyclerView.addOnItemTouchListener(new OnRecyclerItemClickListener(this,
-                new OnRecyclerItemClickListener.OnItemClickListener() {
+
+        summaryRecyclerView.addOnItemTouchListener(new OnRecyclerItemLongClickListener(this, summaryRecyclerView, new OnRecyclerItemLongClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent = new Intent(SummaryActivity.this, NamedActivity.class);
+                intent.putExtra("SummaryId", DbHelper.getInstance().getAllRecordTimeDescOrdered().get(position).getId());
+                startActivity(intent);
+                overridePendingTransition(R.anim.move_right_in, R.anim.move_left_out);
+            }
+
+            @Override
+            public void onItemLongClick(View view, final int position) {
+                CustomDialog.Builder builder = new CustomDialog.Builder(SummaryActivity.this, "确认删除吗？", "确定");
+                builder.content("");
+                builder.darkTheme(false);
+                CustomDialog customDialog = builder.build();
+                customDialog.show();
+                customDialog.setClickListener(new CustomDialog.ClickListener() {
                     @Override
-                    public void onItemClick(View view, int position) {
-                        Intent intent = new Intent(SummaryActivity.this, NamedActivity.class);
-                        intent.putExtra("SummaryId", DbHelper.getInstance().getAllRecordTimeDescOrdered().get(position).getId());
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.move_right_in,R.anim.move_left_out);
+                    public void onConfirmClick() {
+                        RecordTime mRecordTime = DbHelper.getInstance().getAllRecordTimeDescOrdered().get(position);
+                        DbHelper.getInstance().deleteAbsenceRecord(mRecordTime.getAbsenceTimes());
+                        mRecordTime.delete();
+                        summaryRecyclerView.getAdapter().notifyDataSetChanged();
+                        summaryRecyclerView.setAdapter(new SummaryAdapter(SummaryActivity.this));
                     }
-                }));
+
+                    @Override
+                    public void onCancelClick() {
+
+                    }
+                });
+
+            }
+        }));
     }
 
     @Override

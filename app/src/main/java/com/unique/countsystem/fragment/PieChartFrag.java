@@ -40,7 +40,6 @@ public class PieChartFrag extends SimpleFragment {
     }
 
     private void init(View view) {
-
         mChart = (PieChart) view.findViewById(R.id.pieChart1);
         mChart.setDescription("");
         mChart.setCenterText("各班缺勤率");
