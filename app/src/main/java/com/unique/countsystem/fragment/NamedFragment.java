@@ -72,7 +72,7 @@ public class NamedFragment extends Fragment {
             SharedPreferences sharedPreferences = getActivity().getSharedPreferences("xlsNumber", Context.MODE_PRIVATE);
             if (sharedPreferences.getInt("number", 0) == 1)
                 _classes.add("软工1～3班");
-            else if (sharedPreferences.getInt("number", 0) == 1) {
+            else if (sharedPreferences.getInt("number", 0) == 2) {
                 _classes.add("软工1～3班");
                 _classes.add("软工4～6班及数媒班");
             }
