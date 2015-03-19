@@ -48,6 +48,6 @@
         <activity android:name=".ExDialog" />
         <activity
             android:name=".PeopleActivity"
-            android:label="@string/title_activity_people"></activity>
+            android:label="@string/title_activity_people"/>
     </application>
 </manifest>
