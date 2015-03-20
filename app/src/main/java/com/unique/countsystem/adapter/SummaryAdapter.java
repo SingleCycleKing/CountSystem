@@ -48,12 +48,15 @@ public class SummaryAdapter extends RecyclerView.Adapter<SummaryAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Date date = mList.get(position).getTime();
-        SimpleDateFormat format = new SimpleDateFormat("MM月dd日 '\n' HH:mm");
-        holder.time.setText(format.format(date));
+        SimpleDateFormat mouth = new SimpleDateFormat("MM月dd日");
+
+        holder.time.setText(mouth.format(date));
         List<Record> records = mList.get(position).getAbsenceTimes();
         for (Record record : records) {
-            if (null != record.getStudent())
-                holder._class.setText("软工1303班");
+            if (null != record.getStudent()) {
+                SimpleDateFormat time = new SimpleDateFormat("HH:mm");
+                holder._class.setText(time.format(date));
+            }
         }
 
     }
