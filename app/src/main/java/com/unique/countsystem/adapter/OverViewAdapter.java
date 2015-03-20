@@ -16,10 +16,6 @@ import com.unique.countsystem.R;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-/**
- * Created by chen on 15-3-8.
- * adapter
- */
 
 
 public class OverViewAdapter extends RecyclerView.Adapter<OverViewAdapter.TextViewHolder> {

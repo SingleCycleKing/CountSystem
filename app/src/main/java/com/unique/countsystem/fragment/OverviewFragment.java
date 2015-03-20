@@ -57,8 +57,9 @@ public class OverviewFragment extends Fragment {
                                 getActivity().overridePendingTransition(R.anim.move_right_in, R.anim.move_left_out);
                                 break;
                             case 2:
-                                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("xlsNumber", Context.MODE_PRIVATE);
-                                if (0 != sharedPreferences.getInt("number", 0) && DbHelper.getInstance().getAllAbsenceRecords().size() != 0) {
+//                                SharedPreferences sharedPreferences = getActivity().
+//                                        getSharedPreferences("xlsNumber", Context.MODE_PRIVATE);
+                                if (DbHelper.getInstance().getAllAbsenceRecords().size() != 0) {
                                     Intent intentChart = new Intent(getActivity(), ChartActivity.class);
                                     startActivity(intentChart);
                                     getActivity().overridePendingTransition(R.anim.move_right_in, R.anim.move_left_out);
