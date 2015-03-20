@@ -37,16 +37,13 @@ public class NamedActivity extends ActionBarActivity {
 
         number = getIntent().getIntExtra("number", 0);
         if (number != 0) {
-            SharedPreferences sharedPreferences = this.getSharedPreferences("Count", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putInt("number", number);
-            editor.apply();
-
             id = DbHelper.getInstance().insertOrReplaceRecordTime(new Date());
 
             RollCallFragment rollCallFragment = new RollCallFragment();
             Bundle bundle = new Bundle();
             bundle.putLong("id", id);
+            bundle.putInt("number",number);
+            bundle.putStringArrayList("classes",getIntent().getStringArrayListExtra("classes"));
             rollCallFragment.setArguments(bundle);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.named_layout, rollCallFragment);

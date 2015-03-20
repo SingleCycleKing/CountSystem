@@ -6,7 +6,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -28,7 +27,6 @@ import com.unique.countsystem.adapter.InfoAdapter;
 import com.unique.countsystem.database.DbHelper;
 import com.unique.countsystem.database.model.absenceType;
 import com.unique.countsystem.utils.BaseUtils;
-import com.unique.countsystem.utils.DebugLog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,16 +44,20 @@ public class RollCallFragment extends Fragment {
     private boolean isFlying = false;
     private SpeechSynthesizer mSynthesizer;
     private ArrayList<Student> rolls;
-    private SharedPreferences sharedPreferences;
     private long id;
     private Handler handler;
 
+    @InjectView(R.id.roll_number)
+    TextView number;
     @InjectView(R.id.roll_name)
     TextView name;
     @InjectView(R.id.roll_info)
     ListView mListView;
     @InjectView(R.id.roll_info_layout)
     RelativeLayout infoLayout;
+
+    public RollCallFragment() {
+    }
 
     @OnClick(R.id.roll_arrived)
     public void arrive() {
@@ -104,6 +106,21 @@ public class RollCallFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        rolls = new ArrayList<>();
+        ArrayList<String> classes = this.getArguments().getStringArrayList("classes");
+        List<Student> students = new ArrayList<>();
+        for (String s : classes) {
+            students.addAll(DbHelper.getInstance().getAllStudentListWithClass(s));
+        }
+        if (0 != students.size()) {
+            rolls = BaseUtils.getStudent(this.getArguments().getInt("number"), students);
+            mList = new ArrayList<>();
+            setData();
+            number.setText("1/" + this.getArguments().getInt("number"));
+            if (0 == position) {
+                mRunnable.run();
+            }
+        }
         adapter = new InfoAdapter(getActivity(), mList);
         mListView.setAdapter(adapter);
         IntentFilter filter = new IntentFilter();
@@ -123,33 +140,11 @@ public class RollCallFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_roll_call, container, false);
         ButterKnife.inject(this, view);
-
-        sharedPreferences = getActivity().getSharedPreferences("Count", Context.MODE_PRIVATE);
-        List<Student> students;
-        if (NamedFragment._class == 0) {
-            students = DbHelper.getInstance().getAllStudentListWithClass("软工1301班");
-            students.addAll(DbHelper.getInstance().getAllStudentListWithClass("软工1302班"));
-            students.addAll(DbHelper.getInstance().getAllStudentListWithClass("软工1303班"));
-        } else {
-            students = DbHelper.getInstance().getAllStudentListWithClass("软工1304班");
-            students.addAll(DbHelper.getInstance().getAllStudentListWithClass("软工1305班"));
-            students.addAll(DbHelper.getInstance().getAllStudentListWithClass("软工1306班"));
-            students.addAll(DbHelper.getInstance().getAllStudentListWithClass("数媒1301班"));
-        }
-        if (students.size() != 0) {
-            rolls = BaseUtils.getStudent(sharedPreferences.getInt("number", 0), students);
-            mList = new ArrayList<>();
-            setData();
-            if (0 == position) {
-                mRunnable.run();
-            }
-        }
         return view;
     }
 
     private void setData() {
         name.setText(rolls.get(position).getName());
-        DebugLog.e(rolls.get(position).getName()+"fuck");
         mList.add("学号：" + rolls.get(position).getStudentId());
         mList.add("班级：" + rolls.get(position).get_class());
         List<Record> records = rolls.get(position).getAbsenceRecords();
@@ -190,8 +185,9 @@ public class RollCallFragment extends Fragment {
     private void dataHandler() {
         if (position == 0)
             x = infoLayout.getX();
-        if (position < sharedPreferences.getInt("number", 0) - 1) {
+        if (position < this.getArguments().getInt("number", 0) - 1) {
             position++;
+            number.setText((position + 1) + "/" + this.getArguments().getInt("number", 0));
             final ObjectAnimator fade = BaseUtils.moveAnim(500, infoLayout, x, x - 1000, BaseUtils.FADE_ANIM, "x");
             final ObjectAnimator appear = BaseUtils.moveAnim(500, infoLayout, x + 1000, x, BaseUtils.APPEAR_ANIM, "x");
             appear.addListener(new Animator.AnimatorListener() {

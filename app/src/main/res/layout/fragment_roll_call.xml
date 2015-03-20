@@ -4,7 +4,15 @@
     android:layout_height="match_parent"
     tools:context="com.unique.countsystem.fragment.RollCallFragment">
 
+    <TextView
+        android:layout_margin="@dimen/window_default_padding"
+        android:id="@+id/roll_number"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <RelativeLayout
+        android:layout_below="@id/roll_number"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="40dp"
@@ -37,10 +45,10 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_margin="@dimen/window_default_padding"
+        android:layout_alignParentBottom="true"
+        android:padding="@dimen/window_default_padding"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/roll_info_layout">
+        android:layout_height="wrap_content">
 
 
         <TextView

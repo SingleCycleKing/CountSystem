@@ -3,64 +3,79 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="@dimen/window_default_padding"
     tools:context="com.unique.countsystem.fragment.NamedFragment">
 
-
-    <TextView
-        android:id="@+id/named_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/named_week"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:textSize="20sp" />
-
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/named_layout"
+        android:padding="@dimen/window_default_padding"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/named_time"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/course"
             android:textSize="20sp" />
 
-        <Spinner
-            android:id="@+id/named_course"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_margin="10dp" />
-
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/named_week"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/named_student_number"
+            android:layout_alignParentRight="true"
             android:textSize="20sp" />
 
-        <com.unique.countsystem.view.ColorfulPicker
-            android:id="@+id/named_number"
+        <LinearLayout
+            android:layout_below="@id/named_week"
+            android:clipToPadding="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="#ffc7c7c7" />
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-        <TextView
-            android:textColor="@color/white"
-            android:id="@+id/named_start"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_marginTop="50dp"
-            android:background="@drawable/circle_background"
-            android:gravity="center"
-            android:text="@string/click"
-            android:textSize="30sp" />
-    </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/named_student_number"
+                android:textSize="20sp" />
+
+            <com.unique.countsystem.view.ColorfulPicker
+                android:id="@+id/named_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="#ffc7c7c7" />
+
+            <TextView
+                android:textColor="@color/white"
+                android:id="@+id/named_start"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:background="@drawable/circle_background"
+                android:gravity="center"
+                android:text="@string/click"
+                android:textSize="30sp" />
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/course"
+                android:textSize="20sp" />
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:padding="@dimen/window_default_padding"
+        android:layout_below="@id/named_layout"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="5dp"
+        android:scrollbars="none"
+        android:id="@+id/named_classes"
+        android:clipToPadding="false"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </RelativeLayout>

@@ -89,11 +89,6 @@ public class InputFragment extends Fragment {
                 DebugLog.e(path);
                 try {
                     ExcelHandler.getInstance().ReadExcel(new File(path));
-                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("xlsNumber", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    int number = sharedPreferences.getInt("number", 0);
-                    editor.putInt("number", ++number);
-                    editor.apply();
                 } catch (IOException | BiffException e) {
                     e.printStackTrace();
                 }

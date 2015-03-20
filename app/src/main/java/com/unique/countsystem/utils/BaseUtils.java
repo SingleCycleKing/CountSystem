@@ -52,10 +52,9 @@ public class BaseUtils {
                 if (0 != ids.size()) {
                     Student student = DbHelper.getInstance().getStudentByStudentId(ids.get(getRandomNumber(ids.size())));
                     for (int k = 0; k < ids.size(); k++) {
-                        DebugLog.e("id" + student.getStudentId());
+                        assert student != null;
                         if (ids.get(k).equals(student.getStudentId())) {
                             ids.remove(k);
-                            DebugLog.e("k" + k);
                         }
                     }
                     roll.add(student);
