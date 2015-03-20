@@ -75,7 +75,6 @@
         android:dividerHeight="5dp"
         android:scrollbars="none"
         android:id="@+id/named_classes"
-        android:clipToPadding="false"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </RelativeLayout>

@@ -86,12 +86,16 @@ public class InputFragment extends Fragment {
         switch (resultCode) {
             case MainActivity.RESULT_OK:
                 String path = data.getData().getPath();
-                DebugLog.e(path);
                 try {
                     ExcelHandler.getInstance().ReadExcel(new File(path));
                 } catch (IOException | BiffException e) {
                     e.printStackTrace();
+                    Toast.makeText(getActivity(), "导入失败", Toast.LENGTH_SHORT).show();
                 }
+                Toast.makeText(getActivity(), "导入成功", Toast.LENGTH_SHORT).show();
+                break;
+            case MainActivity.RESULT_CANCELED:
+                Toast.makeText(getActivity(), "取消导入", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
