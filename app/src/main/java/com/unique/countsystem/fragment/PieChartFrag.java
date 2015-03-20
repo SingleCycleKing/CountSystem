@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -16,18 +17,18 @@ import com.unique.countsystem.R;
 import com.unique.countsystem.Record;
 import com.unique.countsystem.database.DbHelper;
 import com.unique.countsystem.database.model.absenceType;
+import com.unique.countsystem.utils.DebugLog;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class PieChartFrag extends SimpleFragment {
 
     private List<Record> records = DbHelper.getInstance().getAllAbsenceRecords();
     private PieChart mChart;
-    protected String[] mParties = new String[]{
-            "软工1303班", "软工1302班", "软工1303班", "软工1304班", "软工1305班", "软工1306班"
-            , "数媒1301班"
-    };
+    private List<String> nameClass = DbHelper.getInstance().getAllClassList();
+    private String[] mParties = nameClass.toArray(new String[nameClass.size()]);
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -64,6 +65,9 @@ public class PieChartFrag extends SimpleFragment {
     private void setData(int count) {
 
         float number = getSum();
+        if (0 == number) {
+            Toast.makeText(getActivity(), "当前没有缺勤记录", Toast.LENGTH_SHORT).show();
+        }
         int[] numberClass = getNumberFromClass(mParties);
 
         ArrayList<Entry> yVals1 = new ArrayList<>();
@@ -82,7 +86,7 @@ public class PieChartFrag extends SimpleFragment {
         }
 
         PieDataSet dataSet = new PieDataSet(yVals1, "");
-        dataSet.setSliceSpace(1f) ;
+        dataSet.setSliceSpace(1f);
 
         ArrayList<Integer> colors = new ArrayList<>();
         colors.add(Color.parseColor("#089d87"));
@@ -127,4 +131,5 @@ public class PieChartFrag extends SimpleFragment {
         }
         return result;
     }
+
 }
