@@ -74,7 +74,7 @@ public class RollCallFragment extends Fragment {
         if (!isFlying) {
             handler.removeCallbacks(mRunnable);
             mSynthesizer.stopSpeaking();
-            DbHelper.getInstance().insertOrReplaceAbsenceRecord(DbHelper.getInstance().createAbsenceRecordModel(absenceType.VACATE, rolls.get(position), id), rolls.get(position));
+            DbHelper.getInstance().insertOrReplaceAbsenceRecord(DbHelper.getInstance().createAbsenceRecordModel(absenceType.ABSENCE, rolls.get(position), id), rolls.get(position));
             dataHandler();
         }
     }
@@ -84,7 +84,7 @@ public class RollCallFragment extends Fragment {
         if (!isFlying) {
             handler.removeCallbacks(mRunnable);
             mSynthesizer.stopSpeaking();
-            DbHelper.getInstance().insertOrReplaceAbsenceRecord(DbHelper.getInstance().createAbsenceRecordModel(absenceType.ABSENCE, rolls.get(position), id), rolls.get(position));
+            DbHelper.getInstance().insertOrReplaceAbsenceRecord(DbHelper.getInstance().createAbsenceRecordModel(absenceType.VACATE, rolls.get(position), id), rolls.get(position));
             dataHandler();
         }
     }
