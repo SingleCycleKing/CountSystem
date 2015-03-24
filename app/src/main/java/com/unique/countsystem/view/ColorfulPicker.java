@@ -39,6 +39,14 @@ public class ColorfulPicker extends FrameLayout {
         return mNumberPicker.getValue();
     }
 
+    public int getNumberAll() {
+        return mNumberPicker.getMaxValue();
+    }
+
+    public void setMaxQuiz(int number) {
+         mNumberPicker.setMaxValue(number);
+    }
+
     public void setNumber(int value) {
         mNumberPicker.setValue(value);
     }

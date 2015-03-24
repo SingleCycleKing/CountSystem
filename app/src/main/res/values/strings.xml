@@ -3,11 +3,13 @@
 
     <string-array name="menu">
         <item>主页</item>
+        <item>提问</item>
         <item>管理名单</item>
         <item>数据统计</item>
     </string-array>
     <string-array name="fragment">
         <item>com.unique.countsystem.fragment.NamedFragment</item>
+        <item>com.unique.countsystem.fragment.QuizFragment</item>
         <item>com.unique.countsystem.fragment.InputFragment</item>
         <item>com.unique.countsystem.fragment.OverviewFragment</item>
     </string-array>
@@ -32,6 +34,8 @@
     <string name="ask_for_leave">请假</string>
     <string name="truancy">缺勤</string>
     <string name="arrived">到课</string>
+    <string name="quiz_next">下一个</string>
+    <string name="quiz_finish">结束</string>
     <string name="title_activity_chart">图表</string>
     <string name="title_activity_summary">历史记录</string>
     <string name="name">姓名</string>
@@ -46,4 +50,5 @@
     <string name="about_text">关于</string>
     <string name="design_info">Design：yuqinhuang@hustunique.com</string>
     <string name="android_info">Android：chenzhao@hustunique.com</string>
+    <string name="title_activity_quiz">QuizActivity</string>
 </resources>

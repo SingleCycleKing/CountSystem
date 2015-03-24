@@ -38,17 +38,7 @@ public class MainActivity extends ActionBarActivity {
     @InjectView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
 
-    @OnClick(R.id.about_us_ll)
-    void about() {
-        if (mPosition != 3) {
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.setCustomAnimations(R.anim.fragment_in, R.anim.fragment_out);
-            transaction.replace(R.id.content, new AboutUsFragment());
-            transaction.commit();
-            mPosition = 3;
-        }
-        mDrawerLayout.closeDrawer(GravityCompat.START);
-    }
+
 
     private ActionBarDrawerToggle mDrawerToggle;
 
@@ -119,12 +109,12 @@ public class MainActivity extends ActionBarActivity {
                 super.onDrawerClosed(view);
                 invalidateOptionsMenu();
                 if (isSelected) {
-                    if (3 != mPosition) {
+                    if (4 != mPosition) {
                         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                         transaction.setCustomAnimations(R.anim.fragment_in, R.anim.fragment_out);
                         transaction.replace(R.id.content, Fragment.instantiate(MainActivity.this, fragments[mPosition]));
                         transaction.commit();
-                    } else startActivity(new Intent(MainActivity.this, SettingActivity.class));
+                    };
                     isSelected = false;
                 }
             }
@@ -144,6 +134,19 @@ public class MainActivity extends ActionBarActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
     }
 
+
+    @OnClick(R.id.about_us_ll)
+    void about() {
+        if (mPosition != 4) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.setCustomAnimations(R.anim.fragment_in, R.anim.fragment_out);
+            transaction.replace(R.id.content, new AboutUsFragment());
+            transaction.commit();
+            mPosition = 4;
+            isSelected = true;
+        }
+        mDrawerLayout.closeDrawer(GravityCompat.START);
+    }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {

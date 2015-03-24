@@ -17,7 +17,7 @@ import butterknife.InjectView;
 public class MenuAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private String[] menus;
-    private int[] images = {R.mipmap.call_roll_icon, R.mipmap.input_icon, R.mipmap.overview_icon, R.mipmap.setting_icon};
+    private int[] images = {R.mipmap.call_roll_icon, R.mipmap.quiz_icon, R.mipmap.input_icon, R.mipmap.overview_icon};
 
     public MenuAdapter(Context context) {
         mInflater = LayoutInflater.from(context);

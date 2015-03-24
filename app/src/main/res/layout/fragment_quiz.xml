@@ -3,29 +3,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.unique.countsystem.fragment.NamedFragment">
+    tools:context="com.unique.countsystem.fragment.quizFragment">
 
     <RelativeLayout
-        android:id="@+id/named_layout"
+        android:id="@+id/quiz_layout"
         android:padding="@dimen/window_default_padding"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/named_time"
+            android:id="@+id/quiz_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/named_week"
+            android:id="@+id/quiz_week"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:textSize="20sp" />
 
         <LinearLayout
-            android:layout_below="@id/named_week"
+            android:layout_below="@id/quiz_week"
             android:clipToPadding="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,15 +41,16 @@
                 android:textSize="20sp" />
 
             <com.unique.countsystem.view.ColorfulPicker
-                android:id="@+id/named_number"
+                android:id="@+id/quiz_number"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_margin="10dp"
+                android:visibility="invisible"
                 android:background="#ffc7c7c7" />
 
             <TextView
                 android:textColor="@color/white"
-                android:id="@+id/named_start"
+                android:id="@+id/quiz_start"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:background="@drawable/circle_background"
@@ -64,16 +65,17 @@
                 android:text="@string/course"
                 android:textSize="20sp" />
 
+
         </LinearLayout>
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:padding="@dimen/window_default_padding"
-        android:layout_below="@id/named_layout"
+        android:layout_below="@id/quiz_layout"
         android:divider="@android:color/transparent"
         android:dividerHeight="5dp"
         android:scrollbars="none"
-        android:id="@+id/named_classes"
+        android:id="@+id/quiz_classes"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </RelativeLayout>
