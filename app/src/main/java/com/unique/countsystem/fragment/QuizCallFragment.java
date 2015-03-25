@@ -20,8 +20,6 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
-import com.unique.countsystem.MainActivity;
-import com.unique.countsystem.QuizActivity;
 import com.unique.countsystem.R;
 import com.unique.countsystem.Record;
 import com.unique.countsystem.Student;
@@ -75,13 +73,8 @@ public class QuizCallFragment extends Fragment {
     @OnClick(R.id.quiz_roll_finish)
     public void quizLeave() {
         if (!isFlying) {
-//            handler.removeCallbacks(mRunnable);
             mSynthesizer.stopSpeaking();
-//            DbHelper.getInstance().insertOrReplaceAbsenceRecord(DbHelper.getInstance().createAbsenceRecordModel(absenceType.ABSENCE, rolls.get(position), id), rolls.get(position));
-//            dataHandler();
-            Intent intent = new Intent(new Intent(getActivity(), MainActivity.class));
-            startActivity(intent);
-            getActivity().overridePendingTransition(R.anim.move_right_in, R.anim.move_left_out);
+            getActivity().finish();
         }
     }
 
@@ -118,15 +111,11 @@ public class QuizCallFragment extends Fragment {
         for (String s : classes) {
             students.addAll(DbHelper.getInstance().getAllStudentListWithClass(s));
         }
-        if (0 != students.size()) {
-            rolls = BaseUtils.getStudent(this.getArguments().getInt("number"), students);
-            mList = new ArrayList<>();
-            setData();
-            number.setText("1/" + this.getArguments().getInt("number"));
-            if (0 == position) {
-                mRunnable.run();
-            }
-        }
+        rolls = BaseUtils.getStudent(students.size(), students);
+        mList = new ArrayList<>();
+        setData();
+        number.setText("第" + (position + 1));
+        mRunnable.run();
         adapter = new InfoAdapter(getActivity(), mList);
         mListView.setAdapter(adapter);
         IntentFilter filter = new IntentFilter();
@@ -191,65 +180,61 @@ public class QuizCallFragment extends Fragment {
     private void dataHandler() {
         if (position == 0)
             x = infoLayout.getX();
-        if (position < this.getArguments().getInt("number", 0) - 1) {
-            position++;
-            number.setText((position + 1) + "/" + this.getArguments().getInt("number", 0));
-            final ObjectAnimator fade = BaseUtils.moveAnim(500, infoLayout, x, x - 1000, BaseUtils.FADE_ANIM, "x");
-            final ObjectAnimator appear = BaseUtils.moveAnim(500, infoLayout, x + 1000, x, BaseUtils.APPEAR_ANIM, "x");
-            appear.addListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animation) {
+        position++;
+        number.setText("第" + (position + 1));
+        final ObjectAnimator fade = BaseUtils.moveAnim(500, infoLayout, x, x - 1000, BaseUtils.FADE_ANIM, "x");
+        final ObjectAnimator appear = BaseUtils.moveAnim(500, infoLayout, x + 1000, x, BaseUtils.APPEAR_ANIM, "x");
+        appear.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
 
-                }
+            }
 
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    isFlying = false;
-                }
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                isFlying = false;
+            }
 
-                @Override
-                public void onAnimationCancel(Animator animation) {
+            @Override
+            public void onAnimationCancel(Animator animation) {
 
-                }
+            }
 
-                @Override
-                public void onAnimationRepeat(Animator animation) {
+            @Override
+            public void onAnimationRepeat(Animator animation) {
 
-                }
-            });
-            fade.addListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animation) {
-                    isFlying = true;
-                }
+            }
+        });
+        fade.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                isFlying = true;
+            }
 
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mList.clear();
-                    setData();
-                    adapter.notifyDataSetChanged();
-                    mRunnable.run();
-                    appear.start();
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mList.clear();
+                setData();
+                adapter.notifyDataSetChanged();
+                mRunnable.run();
+                appear.start();
 
-                }
+            }
 
-                @Override
-                public void onAnimationCancel(Animator animation) {
+            @Override
+            public void onAnimationCancel(Animator animation) {
 
-                }
+            }
 
-                @Override
-                public void onAnimationRepeat(Animator animation) {
+            @Override
+            public void onAnimationRepeat(Animator animation) {
 
-                }
-            });
-            fade.start();
-        } else {
-            Intent intent = new Intent();
-            intent.setAction(BaseUtils.HAS_FINISHED_CALLING_ROLL);
-            getActivity().sendBroadcast(intent);
-        }
+            }
+        });
+        fade.start();
+
     }
+
 
     private SynthesizerListener mListener = new SynthesizerListener() {
         @Override

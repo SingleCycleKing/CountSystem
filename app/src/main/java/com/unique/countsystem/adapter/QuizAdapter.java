@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.unique.countsystem.R;
 import com.unique.countsystem.database.DbHelper;
 import com.unique.countsystem.utils.DebugLog;
-import com.unique.countsystem.view.ColorfulPicker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,16 +22,9 @@ import butterknife.InjectView;
 public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
     private List<String> mData;
     private LayoutInflater mInflater;
-    private ColorfulPicker mPicker;
     private ArrayList<String> classes;
 
-    public QuizAdapter(Context context, ColorfulPicker mPicker) {
-        mData = DbHelper.getInstance().getAllClassList();
-        mInflater = LayoutInflater.from(context);
-        this.mPicker = mPicker;
-        classes = new ArrayList<>();
-    }
-    public QuizAdapter(Context context ) {
+    public QuizAdapter(Context context) {
         mData = DbHelper.getInstance().getAllClassList();
         mInflater = LayoutInflater.from(context);
         classes = new ArrayList<>();
@@ -61,10 +53,6 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
                     for (String s : classes) {
                         number += DbHelper.getInstance().getAllStudentListWithClass(s).size();
                     }
-                    DebugLog.e("number" + number);
-//                    mPicker.setMaxQuiz(number);
-//                    DebugLog.e(""+mPicker.getNumberAll());
-//                    DebugLog.e(""+mPicker.getNumber());
                 }
             }
         });

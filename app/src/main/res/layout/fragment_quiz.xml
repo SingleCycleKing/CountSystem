@@ -33,21 +33,6 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/named_student_number"
-                android:textSize="20sp" />
-
-            <com.unique.countsystem.view.ColorfulPicker
-                android:id="@+id/quiz_number"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_margin="10dp"
-                android:visibility="invisible"
-                android:background="#ffc7c7c7" />
-
             <TextView
                 android:textColor="@color/white"
                 android:id="@+id/quiz_start"

@@ -33,7 +33,6 @@ public class QuizActivity extends ActionBarActivity {
     public long id;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,36 +42,16 @@ public class QuizActivity extends ActionBarActivity {
         BaseUtils.setToolbar(mToolbar, this);
 
 
-        number = getIntent().getIntExtra("number", 0);
-        if (number != 0) {
-            id = DbHelper.getInstance().insertOrReplaceRecordTime(new Date());
+        id = DbHelper.getInstance().insertOrReplaceRecordTime(new Date());
 
-            QuizCallFragment quizCallFragment = new QuizCallFragment();
-            Bundle bundle = new Bundle();
-            bundle.putLong("id", id);
-            bundle.putInt("number",number);
-            DebugLog.e("number" +number);
-            bundle.putStringArrayList("classes",getIntent().getStringArrayListExtra("classes"));
-            quizCallFragment.setArguments(bundle);
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.quiz_layout, quizCallFragment);
-            transaction.commit();
-
-        } else if (-1 != getIntent().getLongExtra("SummaryId", -1)) {
-            id = getIntent().getLongExtra("SummaryId", -1);
-
-            //  need
-            FinishedFragment finishedFragment = new FinishedFragment();
-            Bundle bundle = new Bundle();
-            bundle.putLong("id", id);
-            finishedFragment.setArguments(bundle);
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.quiz_layout, finishedFragment);
-            transaction.commit();
-            overridePendingTransition(R.anim.move_right_in ,R.anim.move_left_out) ;
-        }
-
-
+        QuizCallFragment quizCallFragment = new QuizCallFragment();
+        Bundle bundle = new Bundle();
+        bundle.putLong("id", id);
+        bundle.putStringArrayList("classes", getIntent().getStringArrayListExtra("classes"));
+        quizCallFragment.setArguments(bundle);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.quiz_layout, quizCallFragment);
+        transaction.commit();
     }
 
     @Override
@@ -84,39 +63,18 @@ public class QuizActivity extends ActionBarActivity {
     @Override
     public void finish() {
         super.finish();
-        Intent intent=new Intent();
-        intent.setAction(BaseUtils.CALLING_ROLL_BACK);
-        sendBroadcast(intent);
         overridePendingTransition(R.anim.move_left_in, R.anim.move_right_out);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        unregisterReceiver(namedReceiver);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(BaseUtils.HAS_FINISHED_CALLING_ROLL);
-        registerReceiver(namedReceiver, intentFilter);
     }
 
-    private BroadcastReceiver namedReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(BaseUtils.HAS_FINISHED_CALLING_ROLL)) {
-                FinishedFragment finishedFragment = new FinishedFragment();
-                Bundle bundle = new Bundle();
-                bundle.putLong("id", id);
-                finishedFragment.setArguments(bundle);
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.named_layout, finishedFragment);
-                transaction.commit();
-            }
-        }
-    };
 
 }
