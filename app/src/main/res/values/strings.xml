@@ -50,5 +50,5 @@
     <string name="about_text">关于</string>
     <string name="design_info">Design：yuqinhuang@hustunique.com</string>
     <string name="android_info">Android：chenzhao@hustunique.com</string>
-    <string name="title_activity_quiz">QuizActivity</string>
+    <string name="title_activity_quiz">提问</string>
 </resources>

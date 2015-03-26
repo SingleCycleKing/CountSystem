@@ -17,15 +17,8 @@
             android:layout_height="wrap_content"
             android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/quiz_week"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:textSize="20sp" />
-
         <LinearLayout
-            android:layout_below="@id/quiz_week"
+            android:layout_below="@id/quiz_time"
             android:clipToPadding="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,15 +26,6 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
-            <TextView
-                android:textColor="@color/white"
-                android:id="@+id/quiz_start"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:background="@drawable/circle_background"
-                android:gravity="center"
-                android:text="@string/click"
-                android:textSize="30sp" />
 
             <TextView
                 android:layout_marginTop="10dp"
@@ -50,17 +34,30 @@
                 android:text="@string/course"
                 android:textSize="20sp" />
 
+            <android.support.v7.widget.RecyclerView
+                android:padding="@dimen/window_default_padding"
+
+                android:divider="@android:color/transparent"
+                android:dividerHeight="5dp"
+                android:scrollbars="none"
+                android:id="@+id/quiz_classes"
+                android:layout_width="match_parent"
+                android:layout_height="300dp" />
 
         </LinearLayout>
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:padding="@dimen/window_default_padding"
+    <TextView
+        android:textColor="@color/white"
+        android:id="@+id/quiz_start"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_centerHorizontal="true"
         android:layout_below="@id/quiz_layout"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="5dp"
-        android:scrollbars="none"
-        android:id="@+id/quiz_classes"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:background="@drawable/circle_background"
+        android:gravity="center"
+        android:text="@string/click"
+        android:textSize="30sp" />
+
+
 </RelativeLayout>

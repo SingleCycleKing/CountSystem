@@ -53,7 +53,7 @@
 
         <TextView
             android:id="@+id/quiz_roll_finish"
-            android:background="@drawable/roll_leave_background"
+            android:background="@drawable/next_background"
             android:layout_centerInParent="true"
             android:layout_width="@dimen/roll_button_diameter"
             android:layout_height="@dimen/roll_button_diameter" />
@@ -71,7 +71,7 @@
             android:layout_centerVertical="true"
             android:layout_width="@dimen/roll_button_diameter"
             android:layout_height="@dimen/roll_button_diameter"
-            android:background="@drawable/roll_arrive_background" />
+            android:background="@drawable/finish_background" />
 
         <TextView
             android:layout_below="@id/quiz_roll_next"

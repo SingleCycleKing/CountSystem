@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.unique.countsystem.QuizActivity;
@@ -15,6 +16,8 @@ import com.unique.countsystem.R;
 import com.unique.countsystem.adapter.QuizAdapter;
 import com.unique.countsystem.database.DbHelper;
 
+
+import java.util.Calendar;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -26,6 +29,8 @@ public class QuizFragment extends Fragment {
     private QuizAdapter mAdapter;
     @InjectView(R.id.quiz_classes)
     RecyclerView mListView;
+    @InjectView(R.id.quiz_time)
+    TextView time;
 
     @OnClick(R.id.quiz_start)
     public void start() {
@@ -63,6 +68,8 @@ public class QuizFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        Calendar calendar = Calendar.getInstance();
+        time.setText((calendar.get(Calendar.MONTH) + 1) + "月" + calendar.get(Calendar.DAY_OF_MONTH) + "日");
         mAdapter = new QuizAdapter(getActivity());
         mListView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mListView.setAdapter(mAdapter);
