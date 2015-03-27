@@ -10,17 +10,18 @@
         android:src="@mipmap/about"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+    <TextView
+        android:layout_margin="10dp"
+        android:text="@string/android_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <TextView
         android:text="@string/design_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <TextView
-        android:layout_margin="10dp"
-        android:text="@string/android_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+
 
 
 </LinearLayout>

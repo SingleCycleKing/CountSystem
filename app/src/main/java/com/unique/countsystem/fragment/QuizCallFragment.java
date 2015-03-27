@@ -114,7 +114,7 @@ public class QuizCallFragment extends Fragment {
         rolls = BaseUtils.getStudent(students.size(), students);
         mList = new ArrayList<>();
         setData();
-        number.setText("第" + (position + 1));
+        number.setText("第" + (position + 1) + "个");
         mRunnable.run();
         adapter = new InfoAdapter(getActivity(), mList);
         mListView.setAdapter(adapter);
