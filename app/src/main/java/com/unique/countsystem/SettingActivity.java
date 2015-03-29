@@ -11,6 +11,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 
+//not use
 public class SettingActivity extends ActionBarActivity {
     @InjectView(R.id.my_toolbar)
     Toolbar mToolbar;
@@ -28,4 +29,5 @@ public class SettingActivity extends ActionBarActivity {
         finish();
         return super.getSupportParentActivityIntent();
     }
+
 }

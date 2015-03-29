@@ -48,6 +48,7 @@ public class NamedActivity extends ActionBarActivity {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.named_layout, rollCallFragment);
             transaction.commit();
+            overridePendingTransition(R.anim.move_right_in ,R.anim.move_left_out) ;
 
         } else if (-1 != getIntent().getLongExtra("SummaryId", -1)) {
             id = getIntent().getLongExtra("SummaryId", -1);
