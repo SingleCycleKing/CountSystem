@@ -1,3 +1,4 @@
+
 package com.unique.countsystem.fragment;
 
 import android.animation.Animator;
@@ -12,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -38,26 +40,56 @@ import butterknife.OnClick;
 public class QuizCallFragment extends Fragment {
 
     private ArrayList<String> mList;
+
     private float x;
+
     private int position = 0;
+
     private InfoAdapter adapter;
+
     private boolean isFlying = false;
+
+    private boolean isVoice = false;
+
     private SpeechSynthesizer mSynthesizer;
+
     private ArrayList<Student> rolls;
+
     private long id;
+
     private Handler handler;
 
     @InjectView(R.id.quiz_roll_number)
     TextView number;
+
     @InjectView(R.id.quiz_roll_name)
     TextView name;
+
     @InjectView(R.id.quiz_roll_info)
     ListView mListView;
+
     @InjectView(R.id.quiz_roll_info_layout)
     RelativeLayout infoLayout;
 
+    @InjectView(R.id.quiz_voice)
+    TextView voiceView;
+
     public QuizCallFragment() {
 
+    }
+
+    @OnClick(R.id.quiz_voice)
+    public void quizVoice() {
+        if (!isVoice) {
+            handler.removeCallbacks(mRunnable);
+            mSynthesizer.pauseSpeaking();
+            isVoice = true;
+
+            voiceView.setBackgroundResource(R.mipmap.quiz_stop_voice);
+        }else {
+            backVoice();
+            mSynthesizer.resumeSpeaking();
+        }
     }
 
     @OnClick(R.id.quiz_roll_next)
@@ -65,9 +97,12 @@ public class QuizCallFragment extends Fragment {
         if (!isFlying) {
             handler.removeCallbacks(mRunnable);
             mSynthesizer.stopSpeaking();
-            DbHelper.getInstance().insertOrReplaceAbsenceRecord(DbHelper.getInstance().createAbsenceRecordModel(absenceType.NORMAL, rolls.get(position), id), rolls.get(position));
+            DbHelper.getInstance().insertOrReplaceAbsenceRecord(
+                    DbHelper.getInstance().createAbsenceRecordModel(absenceType.NORMAL,
+                            rolls.get(position), id), rolls.get(position));
             dataHandler();
         }
+        backVoice();
     }
 
     @OnClick(R.id.quiz_roll_finish)
@@ -76,6 +111,7 @@ public class QuizCallFragment extends Fragment {
             mSynthesizer.stopSpeaking();
             getActivity().finish();
         }
+        backVoice();
     }
 
     @OnClick(R.id.quiz_roll_truancy)
@@ -83,11 +119,13 @@ public class QuizCallFragment extends Fragment {
         if (!isFlying) {
             handler.removeCallbacks(mRunnable);
             mSynthesizer.stopSpeaking();
-            DbHelper.getInstance().insertOrReplaceAbsenceRecord(DbHelper.getInstance().createAbsenceRecordModel(absenceType.VACATE, rolls.get(position), id), rolls.get(position));
+            DbHelper.getInstance().insertOrReplaceAbsenceRecord(
+                    DbHelper.getInstance().createAbsenceRecordModel(absenceType.VACATE,
+                            rolls.get(position), id), rolls.get(position));
             dataHandler();
         }
+        backVoice();
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -101,7 +139,6 @@ public class QuizCallFragment extends Fragment {
         id = this.getArguments().getLong("id");
 
     }
-
 
     @Override
     public void onStart() {
@@ -132,8 +169,7 @@ public class QuizCallFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_quiz_call, container, false);
         ButterKnife.inject(this, view);
         return view;
@@ -147,8 +183,10 @@ public class QuizCallFragment extends Fragment {
         int vacate = 0;
         int absence = 0;
         for (Record record : records) {
-            if (record.getAbsenceType().equals(absenceType.VACATE.toInteger())) vacate++;
-            if (record.getAbsenceType().equals(absenceType.ABSENCE.toInteger())) absence++;
+            if (record.getAbsenceType().equals(absenceType.VACATE.toInteger()))
+                vacate++;
+            if (record.getAbsenceType().equals(absenceType.ABSENCE.toInteger()))
+                absence++;
         }
         mList.add("已缺勤次数：" + vacate);
         mList.add("已请假次数：" + absence);
@@ -183,8 +221,10 @@ public class QuizCallFragment extends Fragment {
             x = infoLayout.getX();
         position++;
         number.setText("第" + (position + 1));
-        final ObjectAnimator fade = BaseUtils.moveAnim(500, infoLayout, x, x - 1000, BaseUtils.FADE_ANIM, "x");
-        final ObjectAnimator appear = BaseUtils.moveAnim(500, infoLayout, x + 1000, x, BaseUtils.APPEAR_ANIM, "x");
+        final ObjectAnimator fade = BaseUtils.moveAnim(500, infoLayout, x, x - 1000,
+                BaseUtils.FADE_ANIM, "x");
+        final ObjectAnimator appear = BaseUtils.moveAnim(500, infoLayout, x + 1000, x,
+                BaseUtils.APPEAR_ANIM, "x");
         appear.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
@@ -236,7 +276,6 @@ public class QuizCallFragment extends Fragment {
 
     }
 
-
     private SynthesizerListener mListener = new SynthesizerListener() {
         @Override
         public void onSpeakBegin() {
@@ -273,6 +312,11 @@ public class QuizCallFragment extends Fragment {
 
         }
     };
+
+    public void backVoice() {
+        isVoice = false ;
+        voiceView.setBackgroundResource(R.mipmap.quiz_voice);
+    }
     private Runnable mRunnable = new Runnable() {
         @Override
         public void run() {

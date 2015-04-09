@@ -8,8 +8,16 @@
         android:layout_margin="@dimen/window_default_padding"
         android:id="@+id/quiz_roll_number"
         android:textSize="20sp"
+        android:text="enen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/quiz_voice"
+        android:layout_width="@dimen/roll_button_diameter"
+        android:layout_height="@dimen/roll_button_diameter"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="@mipmap/quiz_voice"/>
 
     <RelativeLayout
         android:layout_below="@id/quiz_roll_number"
