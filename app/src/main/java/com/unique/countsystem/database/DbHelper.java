@@ -289,7 +289,10 @@ public class DbHelper {
 
     public static boolean checkStudentId(String studentId) {
         Pattern pattern = Pattern.compile("^(U|u)(2|3)0[0-9]{7}$");
-        return pattern.matcher(studentId).matches();
+
+        //if want to add some special require,use it.
+        //return pattern.matcher(studentId).matches();
+        return true ;
     }
 
 
