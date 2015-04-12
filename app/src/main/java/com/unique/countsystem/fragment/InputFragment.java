@@ -43,6 +43,7 @@ public class InputFragment extends Fragment {
         Intent start = new Intent(getActivity(), ExDialog.class);
         start.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath())), "*/xls");
         startActivityForResult(start, 0);
+        getActivity().overridePendingTransition(R.anim.move_right_in, R.anim.move_left_out);
     }
 
     @OnClick(R.id.excel_delete)
