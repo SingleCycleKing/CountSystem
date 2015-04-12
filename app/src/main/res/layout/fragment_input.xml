@@ -6,16 +6,20 @@
     tools:context="com.unique.countsystem.fragment.InputFragment">
 
 
-    <TextView
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/excel_add"
-        android:background="@mipmap/add"
-        android:layout_width="75dp"
-        android:layout_height="75dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:padding="@dimen/window_default_padding"
+
+        android:divider="@android:color/transparent"
+        android:dividerHeight="5dp"
+        android:scrollbars="none"
+        android:id="@+id/text_classes"
+        android:layout_width="match_parent"
+        android:layout_height="300dp" />
 
     <RelativeLayout
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
         android:id="@+id/input_layout"
         android:layout_margin="20dp"
         android:layout_width="match_parent"
@@ -24,14 +28,44 @@
         <TextView
             android:id="@+id/excel_output"
             android:background="@drawable/output_background"
-            android:layout_width="60dp"
-            android:layout_height="60dp" />
+            android:layout_width="@dimen/text_measure"
+            android:layout_height="@dimen/text_measure" />
 
         <TextView
             android:layout_alignParentRight="true"
             android:id="@+id/excel_delete"
             android:background="@drawable/delete_background"
-            android:layout_width="60dp"
-            android:layout_height="60dp" />
+            android:layout_width="@dimen/text_measure"
+            android:layout_height="@dimen/text_measure" />
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:id="@+id/excel_add"
+            android:background="@drawable/add_background"
+            android:layout_width="@dimen/text_measure"
+            android:layout_height="@dimen/text_measure" />
+        <TextView
+            android:id="@+id/text_output"
+            android:gravity="center"
+            android:layout_below="@id/excel_delete"
+            android:layout_width="@dimen/text_measure"
+            android:layout_height="wrap_content"
+            android:text="@string/text_output"/>
+        <TextView
+            android:id="@+id/text_input"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/excel_delete"
+            android:layout_width="@dimen/text_measure"
+            android:layout_height="wrap_content"
+            android:text="@string/text_input"/>
+        <TextView
+            android:id="@+id/text_delete"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/excel_add"
+            android:layout_alignParentRight="true"
+            android:layout_width="@dimen/text_measure"
+            android:layout_height="wrap_content"
+            android:text="@string/text_delete"/>
     </RelativeLayout>
 </RelativeLayout>

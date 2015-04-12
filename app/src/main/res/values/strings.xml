@@ -51,4 +51,8 @@
     <string name="design_info">Design：yuqinhuang@hustunique.com</string>
     <string name="android_info">Android：chenzhao@hustunique.com</string>
     <string name="title_activity_quiz">提问</string>
+    <string name="title_activity_welcome">WelcomeActivity</string>
+    <string name="text_output">导出</string>
+    <string name="text_input">导入</string>
+    <string name="text_delete">删除</string>
 </resources>

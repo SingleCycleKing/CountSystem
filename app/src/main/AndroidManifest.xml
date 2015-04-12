@@ -52,6 +52,10 @@
             android:name=".QuizActivity"
             android:label="@string/title_activity_quiz" >
         </activity>
+        <activity
+            android:name=".WelcomeActivity"
+            android:label="@string/title_activity_welcome" >
+        </activity>
     </application>
 
 </manifest>

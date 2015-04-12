@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,8 @@ import android.widget.Toast;
 import com.unique.countsystem.ExDialog;
 import com.unique.countsystem.MainActivity;
 import com.unique.countsystem.R;
+import com.unique.countsystem.adapter.InputAdapter;
+import com.unique.countsystem.adapter.QuizAdapter;
 import com.unique.countsystem.database.ExcelHandler;
 import com.unique.countsystem.utils.DebugLog;
 
@@ -22,12 +26,17 @@ import java.io.File;
 import java.io.IOException;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 import butterknife.OnClick;
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
 
 
 public class InputFragment extends Fragment {
+
+    private InputAdapter mAdapter ;
+    @InjectView(R.id.text_classes)
+    RecyclerView mListView ;
 
     @OnClick(R.id.excel_add)
     void add() {
@@ -68,6 +77,10 @@ public class InputFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
+        mAdapter = new InputAdapter(getActivity());
+        mListView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mListView.setAdapter(mAdapter);
 
     }
 
