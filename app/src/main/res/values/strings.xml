@@ -55,4 +55,5 @@
     <string name="text_output">导出</string>
     <string name="text_input">导入</string>
     <string name="text_delete">删除</string>
+    <string name="title_activity_introduce">IntroduceActivity</string>
 </resources>

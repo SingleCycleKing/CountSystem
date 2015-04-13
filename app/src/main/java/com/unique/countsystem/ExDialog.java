@@ -38,7 +38,6 @@ public class ExDialog extends ListActivity {
         Intent intent = this.getIntent();
         Uri uri = intent.getData();
         mDir = uri.getPath();
-
         mData = getData();
         MyAdapter adapter = new MyAdapter(this);
         setListAdapter(adapter);
@@ -147,5 +146,11 @@ public class ExDialog extends ListActivity {
                 "vnd.android.cursor.dir/lysesoft.andexplorer.file");
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.move_left_in, R.anim.move_right_out);
     }
 }

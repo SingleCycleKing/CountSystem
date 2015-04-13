@@ -86,10 +86,11 @@ public class QuizCallFragment extends Fragment {
             isVoice = true;
 
             voiceView.setBackgroundResource(R.mipmap.quiz_stop_voice);
-        }else {
-            backVoice();
-            mSynthesizer.resumeSpeaking();
         }
+//        else {
+//            backVoice();
+//            mSynthesizer.resumeSpeaking();
+//        }
     }
 
     @OnClick(R.id.quiz_roll_next)

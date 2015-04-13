@@ -56,6 +56,10 @@
             android:name=".WelcomeActivity"
             android:label="@string/title_activity_welcome" >
         </activity>
+        <activity
+            android:name=".IntroduceActivity"
+            android:label="@string/title_activity_introduce" >
+        </activity>
     </application>
 
 </manifest>
