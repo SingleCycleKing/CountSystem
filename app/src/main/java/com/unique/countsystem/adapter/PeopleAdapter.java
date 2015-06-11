@@ -10,13 +10,10 @@ import android.widget.TextView;
 
 import com.unique.countsystem.R;
 import com.unique.countsystem.Record;
-import com.unique.countsystem.RecordTime;
 import com.unique.countsystem.Student;
 import com.unique.countsystem.database.DbHelper;
 import com.unique.countsystem.database.model.absenceType;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.ButterKnife;

@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.unique.countsystem.R;
 import com.unique.countsystem.database.DbHelper;
-import com.unique.countsystem.utils.DebugLog;
 
 import java.util.ArrayList;
 import java.util.List;

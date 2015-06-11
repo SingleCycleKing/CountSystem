@@ -7,10 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.unique.countsystem.fragment.LineChartFragment;
 import com.unique.countsystem.fragment.PieChartFrag;
 
-/**
- * Created by chen on 15-3-13.
- * adapter
- */
+
 public class ChartAdapter extends FragmentPagerAdapter {
 
     public ChartAdapter(FragmentManager fm) {

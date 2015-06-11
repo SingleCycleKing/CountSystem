@@ -1,8 +1,6 @@
 package com.unique.countsystem.fragment;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -18,9 +16,7 @@ import com.unique.countsystem.ExDialog;
 import com.unique.countsystem.MainActivity;
 import com.unique.countsystem.R;
 import com.unique.countsystem.adapter.InputAdapter;
-import com.unique.countsystem.adapter.QuizAdapter;
 import com.unique.countsystem.database.ExcelHandler;
-import com.unique.countsystem.utils.DebugLog;
 
 import java.io.File;
 import java.io.IOException;

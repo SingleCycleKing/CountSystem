@@ -17,11 +17,9 @@ import com.unique.countsystem.R;
 import com.unique.countsystem.Record;
 import com.unique.countsystem.database.DbHelper;
 import com.unique.countsystem.database.model.absenceType;
-import com.unique.countsystem.utils.DebugLog;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class PieChartFrag extends SimpleFragment {
 
